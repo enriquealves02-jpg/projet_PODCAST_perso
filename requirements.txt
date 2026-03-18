@@ -1,0 +1,7 @@
+feedparser>=6.0
+beautifulsoup4>=4.12
+requests>=2.31
+groq>=0.9
+jinja2>=3.1
+pyyaml>=6.0
+python-dotenv>=1.0

@@ -1,0 +1,776 @@
+\documentclass[11pt, a4paper]{article}
+
+% === PACKAGES ===
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, calc}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tocloft}
+
+\geometry{margin=2.5cm}
+
+% === STYLE ===
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=blue!60!black,
+    citecolor=green!50!black
+}
+
+\definecolor{codebg}{HTML}{F5F5F5}
+\definecolor{codeframe}{HTML}{DDDDDD}
+\definecolor{keyword}{HTML}{0F3460}
+\definecolor{string}{HTML}{2E7D32}
+\definecolor{comment}{HTML}{9E9E9E}
+
+\lstset{
+    backgroundcolor=\color{codebg},
+    frame=single,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{keyword}\bfseries,
+    stringstyle=\color{string},
+    commentstyle=\color{comment}\itshape,
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=4,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    numbersep=8pt,
+}
+
+\tcbuselibrary{skins, breakable}
+\newtcolorbox{infobox}[1][]{
+    colback=blue!5!white,
+    colframe=blue!50!black,
+    fonttitle=\bfseries,
+    title=#1,
+    breakable
+}
+\newtcolorbox{warnbox}[1][]{
+    colback=orange!5!white,
+    colframe=orange!70!black,
+    fonttitle=\bfseries,
+    title=#1,
+    breakable
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textit{Daily Digest --- Documentation technique}}
+\fancyhead[R]{\thepage}
+\fancyfoot[C]{\small Projet personnel --- \the\year}
+
+% === DOCUMENT ===
+\begin{document}
+
+% ============================================================
+% PAGE DE TITRE
+% ============================================================
+\begin{titlepage}
+    \centering
+    \vspace*{3cm}
+    {\Huge\bfseries Daily Digest\par}
+    \vspace{0.5cm}
+    {\Large Pipeline automatisée de newsletter\\personnalisée par intelligence artificielle\par}
+    \vspace{2cm}
+    {\large Documentation technique complète\par}
+    \vspace{1cm}
+    \rule{0.6\textwidth}{0.4pt}\par
+    \vspace{1cm}
+    {\large
+    \textbf{Stack technique :} Python, Groq API, Llama 3.3, GitHub Actions\par
+    \vspace{0.5cm}
+    \textbf{Auteur :} Enrique Alves\par
+    \vspace{0.5cm}
+    \textbf{Date :} \today\par
+    }
+    \vfill
+    {\small Projet personnel --- Curation automatisée de contenu}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% ============================================================
+% 1. INTRODUCTION
+% ============================================================
+\section{Introduction}
+
+\subsection{Motivation}
+
+La quantité d'informations disponibles quotidiennement sur Internet est considérable. Entre les flux RSS, les blogs spécialisés et les portails d'actualité, il est devenu impossible de tout lire. Ce projet vise à construire une \textbf{pipeline automatisée} qui, chaque matin :
+
+\begin{enumerate}
+    \item Collecte les articles publiés dans les dernières 24 heures sur des sources présélectionnées,
+    \item Filtre et classe ces articles par pertinence grâce à un LLM (Large Language Model),
+    \item Génère des résumés personnalisés en français,
+    \item Envoie le tout par email sous forme de newsletter HTML stylisée.
+\end{enumerate}
+
+L'objectif est d'obtenir un \textbf{digest matinal personnel}, lisible sur mobile pendant les transports, avec un lien vers chaque article original pour approfondir si besoin.
+
+\subsection{Profil utilisateur cible}
+
+Le système est calibré pour un lecteur avec le profil suivant :
+\begin{itemize}[leftmargin=2cm]
+    \item[\textbf{Maths}] Titulaire d'un M2 en Mathématiques (algèbre, géométrie algébrique, topologie, analyse). Capable de lire des articles techniques de niveau recherche.
+    \item[\textbf{Tech/IA}] Suit activement les avancées en deep learning, LLM, et informatique théorique.
+    \item[\textbf{Cinéma}] Orienté cinéma d'auteur, films indépendants, analyses et portraits d'artistes.
+    \item[\textbf{Mode}] Mode homme, marques accessibles, tendances streetwear/casual (pas de luxe).
+    \item[\textbf{Musique}] Goûts underground : électronique, indie, expérimental. Exclusion explicite de la pop mainstream.
+    \item[\textbf{Actualité}] Préférence pour les analyses de fond plutôt que les breaking news.
+\end{itemize}
+
+\subsection{Vue d'ensemble de l'architecture}
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=1.4cm,
+    block/.style={rectangle, draw, rounded corners, fill=blue!8, minimum width=4.5cm, minimum height=1cm, align=center, font=\small},
+    data/.style={rectangle, draw, dashed, fill=yellow!10, minimum width=3.5cm, minimum height=0.7cm, align=center, font=\small\itshape},
+    arrow/.style={-{Stealth[length=3mm]}, thick, blue!60!black}
+]
+    \node[block] (cron) {GitHub Actions\\Cron 5h UTC};
+    \node[block, below=of cron] (scraper) {1. RSS Scraper\\(\texttt{scraper.py})};
+    \node[data, right=2cm of scraper] (csv) {articles\_raw.csv};
+    \node[block, below=of scraper] (filter) {2. LLM Filter\\(\texttt{filter.py})};
+    \node[data, right=2cm of filter] (json) {articles\_selected.json};
+    \node[block, below=of filter] (summarizer) {3. LLM Summarizer\\(\texttt{summarizer.py})};
+    \node[block, below=of summarizer] (builder) {4. HTML Builder\\(\texttt{email\_builder.py})};
+    \node[data, right=2cm of builder] (html) {digest.html};
+    \node[block, below=of builder] (sender) {5. Email Sender\\(\texttt{sender.py})};
+
+    \draw[arrow] (cron) -- (scraper);
+    \draw[arrow] (scraper) -- (filter);
+    \draw[arrow] (scraper) -- (csv);
+    \draw[arrow] (filter) -- (summarizer);
+    \draw[arrow] (filter) -- (json);
+    \draw[arrow] (summarizer) -- (builder);
+    \draw[arrow] (builder) -- (html);
+    \draw[arrow] (builder) -- (sender);
+\end{tikzpicture}
+\end{center}
+
+% ============================================================
+% 2. ARCHITECTURE DETAILLEE
+% ============================================================
+\section{Architecture détaillée}
+
+\subsection{Structure du projet}
+
+\begin{lstlisting}[language={}, caption={Arborescence du projet}]
+projet_PODCAST_perso/
+|-- config/
+|   |-- feeds.yaml          # Flux RSS par categorie
+|   |-- prompts.yaml        # System prompts LLM
+|-- src/
+|   |-- scraper.py          # Scraping RSS -> CSV
+|   |-- filter.py           # Filtrage LLM (scoring)
+|   |-- summarizer.py       # Resume LLM personnalise
+|   |-- email_builder.py    # Generation HTML Jinja2
+|   |-- sender.py           # Envoi SMTP
+|-- templates/
+|   |-- digest.html         # Template email responsive
+|-- data/                   # Donnees generees (gitignored)
+|-- main.py                 # Orchestrateur pipeline
+|-- requirements.txt
+|-- .env.example
+|-- .github/workflows/
+    |-- daily_digest.yml    # GitHub Actions cron
+\end{lstlisting}
+
+\subsection{Dépendances}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Package} & \textbf{Version} & \textbf{Rôle} \\
+\midrule
+\texttt{feedparser} & $\geq 6.0$ & Parsing des flux RSS/Atom \\
+\texttt{beautifulsoup4} & $\geq 4.12$ & Extraction de contenu HTML \\
+\texttt{requests} & $\geq 2.31$ & Requêtes HTTP pour scraping complet \\
+\texttt{groq} & $\geq 0.9$ & SDK Python pour l'API Groq \\
+\texttt{jinja2} & $\geq 3.1$ & Moteur de templates HTML \\
+\texttt{pyyaml} & $\geq 6.0$ & Parsing des fichiers de configuration \\
+\texttt{python-dotenv} & $\geq 1.0$ & Chargement des variables d'environnement \\
+\bottomrule
+\end{tabular}
+\caption{Dépendances Python du projet}
+\end{table}
+
+% ============================================================
+% 3. ETAPE 1 - SCRAPING RSS
+% ============================================================
+\section{Étape 1 --- Scraping RSS}
+
+\subsection{Principe}
+
+Le module \texttt{scraper.py} parcourt l'ensemble des flux RSS définis dans \texttt{config/feeds.yaml}, extrait les articles publiés dans les dernières 24 heures, et les sauvegarde dans un fichier CSV structuré.
+
+\subsection{Sources configurées}
+
+Les sources sont organisées en 6 catégories :
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{p{3.5cm}p{9cm}}
+\toprule
+\textbf{Catégorie} & \textbf{Sources} \\
+\midrule
+Science \& Maths & Quanta Magazine, arXiv (math, math.AG, cs.AI), Nature, Science Daily \\
+Tech \& IA & Hacker News, The Verge, Ars Technica, MIT Tech Review, TechCrunch AI \\
+Cinéma & IndieWire, Première, Les Inrockuptibles, The Playlist, Screen Daily \\
+Actualité & Le Monde, Courrier International, Reuters, France 24 \\
+Mode Homme & Highsnobiety, Hypebeast, FashionBeans, D'Marge \\
+Musique Underground & Pitchfork Reviews, Resident Advisor, The Quietus, Bandcamp Daily, Stereogum \\
+\bottomrule
+\end{tabular}
+\caption{Sources RSS par catégorie}
+\end{table}
+
+\subsection{Algorithme de scraping}
+
+\begin{algorithm}[H]
+\caption{Scraping RSS}
+\begin{algorithmic}[1]
+\State $\text{cutoff} \gets \text{now()} - 24\text{h}$
+\State $\text{articles} \gets []$
+\ForAll{catégorie $c$ dans config}
+    \ForAll{flux $f$ dans $c.\text{feeds}$}
+        \State $\text{feed} \gets \textsc{FeedParser.parse}(f.\text{url})$
+        \ForAll{entrée $e$ dans feed.entries}
+            \If{$e.\text{date} \geq \text{cutoff}$}
+                \State $\text{content} \gets \textsc{ExtractContent}(e)$
+                \If{$|\text{content}| < 100$}
+                    \State $\text{content} \gets \textsc{FetchFullContent}(e.\text{url})$
+                \EndIf
+                \State $\text{articles.append}(\{e.\text{title}, e.\text{date}, \text{content}, e.\text{url}, c\})$
+            \EndIf
+        \EndFor
+    \EndFor
+\EndFor
+\State \textsc{SaveCSV}(articles)
+\Return articles
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Extraction de contenu}
+
+Le scraper utilise une stratégie en deux niveaux :
+\begin{enumerate}
+    \item \textbf{Contenu RSS} : extraction depuis les champs \texttt{content} ou \texttt{summary} du flux, nettoyé via BeautifulSoup (suppression des balises HTML).
+    \item \textbf{Scraping complet} : si le contenu RSS est trop court ($< 100$ caractères), le scraper va chercher le contenu complet de l'article via une requête HTTP, en ciblant les balises \texttt{<article>}, \texttt{<main>} ou \texttt{<body>}, avec suppression des éléments de navigation.
+\end{enumerate}
+
+Le contenu est tronqué à 5000 caractères par article pour limiter la taille des données envoyées au LLM.
+
+\subsection{Format de sortie}
+
+Le CSV généré contient les colonnes suivantes :
+
+\begin{center}
+\texttt{title, date, content, url, category, category\_name, source}
+\end{center}
+
+% ============================================================
+% 4. ETAPE 2 - FILTRAGE LLM
+% ============================================================
+\section{Étape 2 --- Filtrage et scoring par LLM}
+
+\subsection{API et modèle}
+
+Le filtrage utilise l'\textbf{API Groq} avec le modèle \texttt{llama-3.3-70b-versatile}. Groq offre un tier gratuit avec des limites généreuses pour ce cas d'usage (environ 14 400 requêtes/jour, 6000 tokens/minute pour le modèle 70B).
+
+\begin{infobox}[Pourquoi Groq et pas OpenAI/Anthropic ?]
+Groq propose une inférence gratuite sur des modèles open-source (Llama 3.3 70B) avec une vitesse d'inférence exceptionnelle grâce à leurs puces LPU. Pour un pipeline quotidien traitant 50--100 articles, le tier gratuit est largement suffisant.
+\end{infobox}
+
+\subsection{Prompt de filtrage}
+
+Le system prompt intègre le profil utilisateur complet et définit une grille de scoring :
+
+\begin{table}[h]
+\centering
+\begin{tabular}{cl}
+\toprule
+\textbf{Score} & \textbf{Signification} \\
+\midrule
+9--10 & Parfaitement aligné, contenu de haute qualité \\
+7--8 & Très intéressant, correspond bien au profil \\
+5--6 & Intéressant mais pas prioritaire \\
+3--4 & Marginalement pertinent \\
+1--2 & Hors sujet ou faible qualité \\
+\bottomrule
+\end{tabular}
+\caption{Grille de scoring LLM}
+\end{table}
+
+\subsection{Traitement par batch}
+
+Les articles sont envoyés par lots de 15 au LLM pour optimiser le nombre d'appels API. Le LLM retourne un JSON structuré avec l'ID, le score et la justification pour chaque article.
+
+\begin{lstlisting}[language=Python, caption={Format de réponse attendu du LLM}]
+{
+    "articles": [
+        {"id": 0, "score": 9, "reason": "Article arXiv en geometrie algebrique..."},
+        {"id": 1, "score": 3, "reason": "News pop mainstream, hors profil"},
+        ...
+    ]
+}
+\end{lstlisting}
+
+Seuls les articles avec un score $\geq 6$ sont retenus, avec un maximum de 15 articles par digest.
+
+% ============================================================
+% 5. ETAPE 3 - RESUME LLM
+% ============================================================
+\section{Étape 3 --- Résumé personnalisé par LLM}
+
+\subsection{Objectif}
+
+Pour chaque article sélectionné, le LLM génère :
+\begin{enumerate}
+    \item Un \textbf{résumé} de 3 à 5 phrases en français, capturant l'essentiel.
+    \item Une phrase \textbf{<<~Pourquoi c'est intéressant~>>} expliquant la pertinence spécifique pour le lecteur.
+    \item Un \textbf{tag} parmi : \textit{Découverte, Analyse, Tendance, Recherche, Sortie, Portrait}.
+\end{enumerate}
+
+\subsection{Traitement par batch}
+
+Les articles sont traités par lots de 5 (plus petits que pour le filtrage car les résumés sont plus longs). Le LLM retourne un JSON :
+
+\begin{lstlisting}[language=Python, caption={Format de résumé}]
+{
+    "summaries": [
+        {
+            "id": 0,
+            "summary": "Des chercheurs ont demontre un nouveau theoreme...",
+            "why_interesting": "Lien direct avec la geometrie algebrique.",
+            "tag": "Recherche"
+        },
+        ...
+    ]
+}
+\end{lstlisting}
+
+\subsection{Paramètres d'inférence}
+
+\begin{itemize}
+    \item \textbf{Température} : $0.5$ (plus créatif que le filtrage pour des résumés engageants)
+    \item \textbf{Max tokens} : 3000 par batch
+    \item \textbf{Format} : JSON forcé via \texttt{response\_format}
+\end{itemize}
+
+% ============================================================
+% 6. ETAPE 4 - GENERATION HTML
+% ============================================================
+\section{Étape 4 --- Génération du digest HTML}
+
+\subsection{Template Jinja2}
+
+Le digest est généré via un template Jinja2 (\texttt{templates/digest.html}) avec les caractéristiques suivantes :
+
+\begin{itemize}
+    \item \textbf{Responsive} : design mobile-first, optimisé pour lecture sur smartphone.
+    \item \textbf{Sections par catégorie} : chaque catégorie a son icône et son en-tête.
+    \item \textbf{Articles} : titre cliquable (lien vers l'original), source, date, résumé, tag de pertinence, score, et phrase <<~pourquoi c'est intéressant~>>.
+    \item \textbf{Header} : date du jour et nombre total d'articles.
+    \item \textbf{Style} : palette sobre (bleu marine/blanc), typographie système, bordure gauche colorée par article.
+\end{itemize}
+
+\subsection{Regroupement}
+
+Les articles sont regroupés par catégorie dans l'ordre défini dans \texttt{feeds.yaml}, ce qui assure une lecture structurée : Maths/Science $\to$ Tech/IA $\to$ Cinéma $\to$ Actualité $\to$ Mode $\to$ Musique.
+
+% ============================================================
+% 7. ETAPE 5 - ENVOI EMAIL
+% ============================================================
+\section{Étape 5 --- Envoi par email}
+
+\subsection{Configuration SMTP}
+
+L'envoi utilise \texttt{smtplib} avec connexion TLS sur le port 587 (Gmail par défaut). La configuration se fait via variables d'environnement :
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Variable} & \textbf{Description} \\
+\midrule
+\texttt{SMTP\_HOST} & Serveur SMTP (défaut : \texttt{smtp.gmail.com}) \\
+\texttt{SMTP\_PORT} & Port (défaut : 587) \\
+\texttt{EMAIL\_USER} & Adresse email d'envoi \\
+\texttt{EMAIL\_PASSWORD} & App Password Gmail \\
+\texttt{EMAIL\_TO} & Adresse(s) de réception (séparées par des virgules) \\
+\bottomrule
+\end{tabular}
+\caption{Variables d'environnement email}
+\end{table}
+
+\begin{warnbox}[App Password Gmail]
+Gmail nécessite un \textit{App Password} (mot de passe d'application) et non le mot de passe principal. Il se génère dans les paramètres de sécurité du compte Google, après activation de la vérification en deux étapes.
+\end{warnbox}
+
+\subsection{Format du message}
+
+Le message est envoyé en MIME multipart (\texttt{alternative}) :
+\begin{itemize}
+    \item \textbf{Part 1} : texte brut (fallback pour les clients mail ne supportant pas le HTML).
+    \item \textbf{Part 2} : HTML complet du digest.
+\end{itemize}
+
+% ============================================================
+% 8. ORCHESTRATION
+% ============================================================
+\section{Orchestration et automatisation}
+
+\subsection{Orchestrateur principal}
+
+Le fichier \texttt{main.py} enchaîne les 5 étapes séquentiellement avec logging détaillé. Il supporte un mode \texttt{--dry-run} qui exécute toute la pipeline sauf l'envoi email, permettant de prévisualiser le résultat localement.
+
+\subsection{GitHub Actions}
+
+Le workflow \texttt{.github/workflows/daily\_digest.yml} configure un \textbf{cron job} qui s'exécute à 5h UTC chaque jour (soit 6h en heure de Paris en hiver, 7h en été).
+
+\begin{lstlisting}[language=yaml, caption={Extrait du workflow GitHub Actions}]
+on:
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch:  # Lancement manuel possible
+
+jobs:
+  daily-digest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - run: python main.py
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          # ...
+\end{lstlisting}
+
+Les secrets (clés API, identifiants email) sont stockés dans les \textit{GitHub Secrets} du dépôt, jamais dans le code.
+
+% ============================================================
+% 9. FINE-TUNING ET AMELIORATIONS
+% ============================================================
+\section{Évolutions : fine-tuning et apprentissage personnalisé}
+
+\subsection{Limites de l'approche actuelle}
+
+L'approche par \textit{prompt engineering} (instructions textuelles au LLM) a des limites :
+
+\begin{itemize}
+    \item Le LLM n'a pas de \textbf{mémoire de vos préférences réelles} : il se fie uniquement au profil décrit dans le prompt.
+    \item Le scoring peut être \textbf{inconsistant} d'un jour à l'autre (variance du modèle).
+    \item Impossible de capturer les \textbf{préférences implicites} : articles que vous lisez réellement vs ceux que vous ignorez.
+\end{itemize}
+
+\subsection{Approche 1 : Classifieur BERT fine-tuné}
+
+\subsubsection{Pourquoi BERT et pas un LLM génératif ?}
+
+BERT (\textit{Bidirectional Encoder Representations from Transformers}, Devlin et al. 2018) est un modèle d'\textbf{encodage} optimisé pour la compréhension de texte. Il n'est pas conçu pour la génération (résumés), mais il excelle pour la \textbf{classification} et le \textbf{scoring}.
+
+\begin{infobox}[BERT vs GPT pour le scoring]
+Pour un scoring binaire (intéressant / pas intéressant) ou un scoring numérique, un classifieur BERT fine-tuné sera :
+\begin{itemize}
+    \item Plus \textbf{rapide} ($\sim$100x) qu'un appel LLM
+    \item Plus \textbf{consistant} (pas de variance stochastique)
+    \item \textbf{Gratuit} (inférence locale, pas d'API)
+    \item Plus \textbf{précis} après entraînement sur vos données personnelles
+\end{itemize}
+\end{infobox}
+
+\subsubsection{Architecture du classifieur}
+
+L'idée est d'ajouter des \textbf{têtes de classification} (couches de neurones) au-dessus des représentations BERT :
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=1.2cm,
+    block/.style={rectangle, draw, rounded corners, fill=blue!8, minimum width=5cm, minimum height=0.9cm, align=center, font=\small},
+    head/.style={rectangle, draw, rounded corners, fill=green!10, minimum width=3.5cm, minimum height=0.9cm, align=center, font=\small},
+    arrow/.style={-{Stealth[length=2.5mm]}, thick}
+]
+    \node[block] (input) {Texte de l'article (titre + contenu)};
+    \node[block, below=of input] (tokenizer) {Tokenizer BERT};
+    \node[block, below=of tokenizer] (bert) {BERT (frozen ou partiellement)\\768 dimensions};
+    \node[block, below=of bert] (pool) {Pooling [CLS] token};
+    \node[head, below left=1.2cm and -0.5cm of pool] (head1) {Tête 1 : Score\\(régression, 1--10)};
+    \node[head, below right=1.2cm and -0.5cm of pool] (head2) {Tête 2 : Catégorie\\(classification)};
+
+    \draw[arrow] (input) -- (tokenizer);
+    \draw[arrow] (tokenizer) -- (bert);
+    \draw[arrow] (bert) -- (pool);
+    \draw[arrow] (pool) -- (head1);
+    \draw[arrow] (pool) -- (head2);
+\end{tikzpicture}
+\end{center}
+
+Formellement, soit $\mathbf{h} \in \mathbb{R}^{768}$ la représentation du token \texttt{[CLS]} en sortie de BERT. On définit :
+
+\begin{align}
+    \text{score}(x) &= \sigma\left(\mathbf{w}_s^\top \cdot \text{ReLU}(\mathbf{W}_1 \mathbf{h} + \mathbf{b}_1) + b_s\right) \times 10 \label{eq:score} \\
+    P(\text{catégorie} = k \mid x) &= \text{softmax}\left(\mathbf{W}_c \cdot \text{ReLU}(\mathbf{W}_2 \mathbf{h} + \mathbf{b}_2)\right)_k \label{eq:cat}
+\end{align}
+
+où $\mathbf{W}_1 \in \mathbb{R}^{256 \times 768}$, $\mathbf{W}_c \in \mathbb{R}^{K \times 256}$ ($K$ = nombre de catégories), et $\sigma$ est la sigmoïde.
+
+La loss combinée est :
+
+\begin{equation}
+    \mathcal{L} = \lambda_1 \cdot \text{MSE}(\hat{s}, s) + \lambda_2 \cdot \text{CrossEntropy}(\hat{y}, y)
+\end{equation}
+
+avec $\lambda_1 = 1.0$ et $\lambda_2 = 0.5$ typiquement.
+
+\subsubsection{Données d'entraînement}
+
+C'est le point critique. Il faut constituer un dataset labellisé à partir de vos interactions :
+
+\begin{enumerate}
+    \item \textbf{Collecte passive} : ajouter dans le digest un mécanisme de feedback (lien <<~J'ai lu~>> / <<~Pas intéressant~>> qui enregistre le clic).
+    \item \textbf{Volume minimum} : environ \textbf{500 à 1000 articles labellisés} pour un fine-tuning efficace. À raison de 15 articles/jour, cela représente environ 1 à 2 mois de collecte.
+    \item \textbf{Format} : CSV avec colonnes \texttt{title, content, category, label} (1 = lu/intéressant, 0 = ignoré).
+\end{enumerate}
+
+\subsubsection{Procédure de fine-tuning}
+
+\begin{algorithm}[H]
+\caption{Fine-tuning du classifieur BERT}
+\begin{algorithmic}[1]
+\State Charger le modèle pré-entraîné : \texttt{camembert-base} (BERT français) ou \texttt{bert-base-multilingual}
+\State Geler les $N-2$ premières couches de BERT (transfer learning)
+\State Ajouter les têtes de classification (équations \ref{eq:score} et \ref{eq:cat})
+\State Séparer le dataset : 80\% train, 10\% validation, 10\% test
+\For{epoch $= 1$ à $10$}
+    \For{batch dans train\_loader}
+        \State Forward pass : $\hat{s}, \hat{y} = \text{model}(x)$
+        \State Calculer $\mathcal{L} = \lambda_1 \cdot \text{MSE} + \lambda_2 \cdot \text{CE}$
+        \State Backward pass + optimizer step (AdamW, $\text{lr} = 2 \times 10^{-5}$)
+    \EndFor
+    \State Évaluer sur validation set
+    \State Early stopping si pas d'amélioration depuis 3 epochs
+\EndFor
+\State Sauvegarder le meilleur modèle
+\end{algorithmic}
+\end{algorithm}
+
+\begin{lstlisting}[language=Python, caption={Code de fine-tuning (PyTorch + HuggingFace)}]
+from transformers import CamembertModel, CamembertTokenizer
+import torch
+import torch.nn as nn
+
+class DigestClassifier(nn.Module):
+    def __init__(self, num_categories=6):
+        super().__init__()
+        self.bert = CamembertModel.from_pretrained("camembert-base")
+
+        # Geler les premieres couches
+        for param in list(self.bert.parameters())[:-30]:
+            param.requires_grad = False
+
+        # Tete de scoring (regression)
+        self.score_head = nn.Sequential(
+            nn.Linear(768, 256),
+            nn.ReLU(),
+            nn.Dropout(0.3),
+            nn.Linear(256, 1),
+            nn.Sigmoid()
+        )
+
+        # Tete de categorie (classification)
+        self.category_head = nn.Sequential(
+            nn.Linear(768, 256),
+            nn.ReLU(),
+            nn.Dropout(0.3),
+            nn.Linear(256, num_categories)
+        )
+
+    def forward(self, input_ids, attention_mask):
+        outputs = self.bert(input_ids=input_ids,
+                           attention_mask=attention_mask)
+        cls_output = outputs.last_hidden_state[:, 0, :]
+        score = self.score_head(cls_output) * 10
+        category = self.category_head(cls_output)
+        return score.squeeze(-1), category
+\end{lstlisting}
+
+\subsection{Approche 2 : Fine-tuning d'un petit LLM génératif (LoRA)}
+
+Pour aller plus loin et remplacer aussi l'étape de résumé par un modèle local, on peut fine-tuner un petit LLM génératif (ex. Mistral 7B, Llama 3 8B) avec \textbf{LoRA} (\textit{Low-Rank Adaptation}).
+
+\subsubsection{Principe de LoRA}
+
+Au lieu de modifier tous les poids du modèle ($\sim$7 milliards de paramètres), LoRA décompose la mise à jour en matrices de rang faible :
+
+\begin{equation}
+    \mathbf{W}' = \mathbf{W} + \mathbf{B}\mathbf{A}, \quad \mathbf{B} \in \mathbb{R}^{d \times r}, \; \mathbf{A} \in \mathbb{R}^{r \times k}, \; r \ll \min(d, k)
+\end{equation}
+
+Avec $r = 16$ typiquement, on n'entraîne que $\sim$0.1\% des paramètres, ce qui permet un fine-tuning sur un GPU grand public (8--16 Go VRAM).
+
+\subsubsection{Pipeline de fine-tuning LoRA}
+
+\begin{lstlisting}[language=Python, caption={Fine-tuning LoRA avec PEFT}]
+from peft import LoraConfig, get_peft_model
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from trl import SFTTrainer
+
+model = AutoModelForCausalLM.from_pretrained(
+    "mistralai/Mistral-7B-Instruct-v0.3",
+    load_in_4bit=True  # Quantization pour GPU 8Go
+)
+
+lora_config = LoraConfig(
+    r=16,
+    lora_alpha=32,
+    target_modules=["q_proj", "v_proj"],
+    lora_dropout=0.05,
+    task_type="CAUSAL_LM"
+)
+
+model = get_peft_model(model, lora_config)
+# ~4.2M parametres entrainables sur ~7B total
+
+trainer = SFTTrainer(
+    model=model,
+    train_dataset=dataset,  # Vos articles + resumes valides
+    max_seq_length=2048,
+    num_train_epochs=3,
+)
+trainer.train()
+model.save_pretrained("./digest-lora-adapter")
+\end{lstlisting}
+
+\subsubsection{Données nécessaires}
+
+Pour le fine-tuning LoRA du summarizer, il faut constituer un dataset de paires (article, résumé souhaité). Deux options :
+
+\begin{enumerate}
+    \item \textbf{Distillation} : utiliser les résumés générés par Groq/Llama 3.3 70B (le <<~gros~>> modèle) comme ground truth pour entraîner un modèle plus petit. Il suffit de sauvegarder les paires article/résumé pendant quelques semaines.
+    \item \textbf{Curation manuelle} : corriger/améliorer les résumés qui ne vous conviennent pas et les utiliser comme données d'entraînement (plus qualitatif, mais plus long).
+\end{enumerate}
+
+Volume recommandé : \textbf{200--500 paires} pour un fine-tuning LoRA efficace.
+
+\subsection{Approche 3 : Pipeline hybride (recommandée)}
+
+La stratégie optimale combine les deux approches :
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    block/.style={rectangle, draw, rounded corners, fill=blue!8, minimum width=5cm, minimum height=1cm, align=center, font=\small},
+    local/.style={rectangle, draw, rounded corners, fill=green!10, minimum width=5cm, minimum height=1cm, align=center, font=\small},
+    cloud/.style={rectangle, draw, rounded corners, fill=orange!10, minimum width=5cm, minimum height=1cm, align=center, font=\small},
+    arrow/.style={-{Stealth[length=2.5mm]}, thick}
+]
+    \node[block] (scraper) {RSS Scraper};
+    \node[local, below=of scraper] (bert) {BERT Classifier (local)\\Scoring rapide, gratuit};
+    \node[cloud, below=of bert] (llm) {Groq / Llama 3.3 70B (cloud)\\Résumé personnalisé};
+    \node[block, below=of llm] (email) {HTML + Email};
+
+    \draw[arrow] (scraper) -- node[right, font=\small] {100 articles} (bert);
+    \draw[arrow] (bert) -- node[right, font=\small] {Top 15} (llm);
+    \draw[arrow] (llm) -- (email);
+\end{tikzpicture}
+\end{center}
+
+\begin{itemize}
+    \item \textbf{Phase 1} (maintenant) : tout via Groq API --- coût 0, qualité correcte.
+    \item \textbf{Phase 2} (après 1--2 mois) : ajouter un classifieur BERT local pour le filtrage, entraîné sur vos données de feedback. Groq reste pour les résumés.
+    \item \textbf{Phase 3} (optionnel) : fine-tuner un petit LLM local via LoRA pour les résumés, éliminant toute dépendance cloud.
+\end{itemize}
+
+\subsection{Infrastructure pour le fine-tuning}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Approche} & \textbf{GPU minimum} & \textbf{Temps d'entraînement} \\
+\midrule
+BERT classifier & Pas de GPU nécessaire (CPU OK) & $\sim$30 min \\
+LoRA Mistral 7B (4-bit) & 8 Go VRAM (RTX 3060+) & $\sim$2--4h \\
+LoRA Llama 3 8B (4-bit) & 10 Go VRAM (RTX 3080+) & $\sim$2--4h \\
+Full fine-tune 7B & 40+ Go VRAM (A100) & $\sim$8--12h \\
+\bottomrule
+\end{tabular}
+\caption{Ressources nécessaires pour le fine-tuning}
+\end{table}
+
+\begin{warnbox}[Alternative sans GPU]
+Si vous n'avez pas de GPU, vous pouvez utiliser Google Colab (gratuit, GPU T4 16 Go) pour le fine-tuning BERT et même pour LoRA sur un modèle 7B en quantization 4-bit. Le notebook d'entraînement peut être exécuté en une seule session.
+\end{warnbox}
+
+% ============================================================
+% 10. METRIQUES ET EVALUATION
+% ============================================================
+\section{Métriques et évaluation}
+
+\subsection{Métriques de qualité du filtrage}
+
+Pour évaluer la pertinence du filtrage (LLM ou BERT fine-tuné) :
+
+\begin{itemize}
+    \item \textbf{Precision@k} : parmi les $k$ articles sélectionnés, combien avez-vous effectivement lus ?
+    \begin{equation}
+        \text{Precision@}k = \frac{|\{\text{articles lus}\} \cap \{\text{top } k \text{ sélectionnés}\}|}{k}
+    \end{equation}
+
+    \item \textbf{Recall@k} : parmi tous les articles que vous auriez voulu lire, combien sont dans le top $k$ ?
+    \begin{equation}
+        \text{Recall@}k = \frac{|\{\text{articles lus}\} \cap \{\text{top } k\}|}{|\{\text{articles lus}\}|}
+    \end{equation}
+
+    \item \textbf{NDCG} (\textit{Normalized Discounted Cumulative Gain}) : mesure la qualité du classement en pénalisant les articles intéressants classés trop bas.
+\end{itemize}
+
+\subsection{Métriques de qualité des résumés}
+
+\begin{itemize}
+    \item \textbf{ROUGE-L} : mesure le chevauchement entre le résumé généré et un résumé de référence.
+    \item \textbf{Évaluation humaine} : la métrique la plus fiable reste votre propre satisfaction --- le résumé capture-t-il l'essentiel ? Est-il engageant ?
+\end{itemize}
+
+% ============================================================
+% 11. CONCLUSION
+% ============================================================
+\section{Conclusion}
+
+Ce projet implémente une pipeline complète de curation automatisée de contenu, de la collecte RSS à l'envoi par email, en passant par un filtrage et un résumé intelligents via LLM. L'architecture modulaire permet une évolution progressive :
+
+\begin{enumerate}
+    \item \textbf{Court terme} : pipeline fonctionnelle via Groq API (gratuit, zéro infrastructure).
+    \item \textbf{Moyen terme} : classifieur BERT fine-tuné sur les données de feedback pour un filtrage plus précis et personnalisé.
+    \item \textbf{Long terme} : modèle local complet (filtrage + résumé) via LoRA, éliminant toute dépendance à des API externes.
+\end{enumerate}
+
+Le coût total de la solution en phase 1 est de \textbf{0\euro{}} (Groq gratuit, GitHub Actions gratuit, Gmail gratuit), ce qui en fait un projet accessible et immédiatement déployable.
+
+\end{document}
