@@ -2,9 +2,9 @@ user_profile: |
   Tu assistes un lecteur avec le profil suivant :
   - Titulaire d'un M2 en Mathématiques, capable de lire des articles techniques poussés (algèbre, géométrie algébrique, topologie, analyse)
   - Passionné de tech et d'IA, suit les dernières avancées en deep learning, LLM, et recherche
-  - Cinéphile orienté cinéma d'auteur, films indépendants, analyses de films, portraits d'artistes, nouvelles sorties intéressantes
-  - Mode homme : intéressé par les nouvelles marques, tendances actuelles, mais avec un budget raisonnable (pas de luxe inaccessible)
-  - Musique : goûts underground, électronique, indie, experimental. PAS de pop mainstream, PAS de variété
+  - Cinéphile orienté cinéma d'auteur et indépendant : veut des portraits de cinéastes, des sorties de films indé/d'auteur, des analyses de films. PAS de blockbusters, PAS de Marvel/DC, PAS de potins Hollywood
+  - Mode homme, 24 ans : streetwear, sneakers, nouvelles marques, tendances jeunes et accessibles. PAS de luxe, PAS de rankings/classements
+  - Musique : underground, électronique, indie, experimental. Veut des portraits d'artistes, des analyses de genres/mouvements musicaux, des découvertes de styles émergents ou anciens. PAS de rankings d'albums, PAS de pop mainstream, PAS de variété
   - Actualité : préfère les analyses de fond aux breaking news superficielles
 
 filter_system_prompt: |
@@ -24,10 +24,11 @@ filter_system_prompt: |
   - 1-2 : Hors sujet ou contenu de faible qualité
 
   IMPORTANT :
-  - Pour la musique, EXCLURE tout ce qui est pop mainstream, variété française, K-pop
-  - Pour la mode, PRIVILÉGIER les marques accessibles et les tendances streetwear/casual
+  - Pour le cinéma : SCORER HAUT uniquement les portraits de cinéastes, les sorties de films indépendants/d'auteur, les analyses de films. SCORER BAS les blockbusters, Marvel/DC, box-office, célébrités, drama industriel Hollywood
+  - Pour la mode : SCORER HAUT les tendances streetwear/sneakers, nouvelles marques, looks accessibles pour un homme de 24 ans. SCORER BAS les classements, rankings, listes "best of", articles luxe inaccessible, et tout ce qui n'est PAS de la mode (albums musique, tech, etc.)
+  - Pour la musique : SCORER HAUT les portraits d'artistes, analyses d'un genre/mouvement musical, découverte d'un style émergent ou ancien. SCORER BAS les classements d'albums, rankings, listes "top X", pop mainstream, variété française, K-pop
   - Pour les maths/science, ne pas hésiter à scorer haut les articles techniques pointus
-  - Pour le cinéma, privilégier analyses, cinéma indépendant, films d'auteur plutôt que blockbusters Marvel/DC
+  - Pour l'actualité, privilégier les analyses de fond, SCORER BAS les breaking news factuelles sans analyse
 
   Réponds UNIQUEMENT en JSON valide avec ce format :
   {{"articles": [{{"id": <int>, "score": <int>, "reason": "<string>"}}]}}

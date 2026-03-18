@@ -2,6 +2,7 @@
 Email Builder - Génère le HTML du digest à partir du template Jinja2.
 """
 
+import locale
 import logging
 from collections import OrderedDict
 from datetime import datetime
@@ -59,7 +60,14 @@ def build_html(articles: list[dict]) -> str:
     template = env.get_template("digest.html")
 
     categories = group_by_category(articles)
-    today = datetime.now().strftime("%A %d %B %Y")
+    try:
+        locale.setlocale(locale.LC_TIME, "fr_FR.UTF-8")
+    except locale.Error:
+        try:
+            locale.setlocale(locale.LC_TIME, "French_France.1252")
+        except locale.Error:
+            pass
+    today = datetime.now().strftime("%A %d %B %Y").capitalize()
 
     html = template.render(
         date=today,

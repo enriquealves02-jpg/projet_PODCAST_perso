@@ -26,11 +26,11 @@ def send_email(html_content: str) -> bool:
         )
 
     today = datetime.now().strftime("%d/%m/%Y")
-    subject = f"Daily Digest - {today}"
+    subject = f"Journal personnalisé d'Enrique - {today}"
 
     msg = MIMEMultipart("alternative")
     msg["Subject"] = subject
-    msg["From"] = f"Daily Digest <{email_user}>"
+    msg["From"] = f"Journal d'Enrique <{email_user}>"
     msg["To"] = email_to
 
     text_fallback = (

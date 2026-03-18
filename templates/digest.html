@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Digest - {{ date }}</title>
+    <title>Journal personnalisé d'Enrique - {{ date }}</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -179,8 +179,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Daily Digest</h1>
-            <div class="subtitle">Ta sélection personnalisée du {{ date }}</div>
+            <h1>Journal personnalisé d'Enrique</h1>
+            <div class="subtitle">{{ date }}</div>
             <div class="stats">
                 <span>{{ total_articles }} articles</span>
                 <span>{{ categories | length }} catégories</span>
