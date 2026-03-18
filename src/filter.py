@@ -27,10 +27,11 @@ def load_prompts() -> dict:
 
 
 def get_client() -> Groq:
+    import httpx
     api_key = os.environ.get("GROQ_API_KEY")
     if not api_key:
         raise ValueError("GROQ_API_KEY environment variable is not set")
-    return Groq(api_key=api_key)
+    return Groq(api_key=api_key, http_client=httpx.Client(verify=False))
 
 
 def build_filter_prompt(prompts: dict) -> str:

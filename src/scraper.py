@@ -50,7 +50,7 @@ def extract_content(entry) -> str:
 
 def fetch_full_content(url: str, max_length: int = 3000) -> str:
     try:
-        resp = requests.get(url, headers=HEADERS, timeout=10)
+        resp = requests.get(url, headers=HEADERS, timeout=10, verify=False)
         resp.raise_for_status()
         soup = BeautifulSoup(resp.text, "html.parser")
 
@@ -135,7 +135,12 @@ def save_to_csv(articles: list[dict]) -> Path:
 
 
 def run() -> list[dict]:
+    from src.scrapers_custom import run_all_custom_scrapers
+
     articles = scrape_feeds()
+    custom_articles = run_all_custom_scrapers()
+    articles.extend(custom_articles)
+    logger.info(f"Total with custom scrapers: {len(articles)} articles")
     save_to_csv(articles)
     return articles
 

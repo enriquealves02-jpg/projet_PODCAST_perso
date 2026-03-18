@@ -5,12 +5,6 @@ categories:
     feeds:
       - url: "https://api.quantamagazine.org/feed/"
         name: "Quanta Magazine"
-      - url: "https://rss.arxiv.org/rss/math"
-        name: "arXiv - Mathematics"
-      - url: "https://rss.arxiv.org/rss/cs.AI"
-        name: "arXiv - AI"
-      - url: "https://rss.arxiv.org/rss/math.AG"
-        name: "arXiv - Algebraic Geometry"
       - url: "https://www.nature.com/nature.rss"
         name: "Nature"
       - url: "https://www.sciencedaily.com/rss/all.xml"
@@ -30,6 +24,8 @@ categories:
         name: "MIT Technology Review"
       - url: "https://techcrunch.com/category/artificial-intelligence/feed/"
         name: "TechCrunch AI"
+      - url: "https://tldr.tech/api/rss/ai"
+        name: "TLDR AI"
 
   cinema:
     name: "Cinéma"

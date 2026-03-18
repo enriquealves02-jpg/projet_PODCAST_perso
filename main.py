@@ -5,12 +5,21 @@ Pipeline : RSS Scraping → LLM Filtering → LLM Summarizing → HTML Build →
 """
 
 import logging
+import os
+import ssl
 import sys
 from pathlib import Path
+
+import httpx
 
 from dotenv import load_dotenv
 
 load_dotenv()
+
+# Fix SSL pour les réseaux d'entreprise avec proxy interceptant
+os.environ["PYTHONHTTPSVERIFY"] = "0"
+ssl._create_default_https_context = ssl._create_unverified_context
+os.environ["GROQ_SSL_VERIFY"] = "false"
 
 logging.basicConfig(
     level=logging.INFO,

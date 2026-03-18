@@ -25,10 +25,11 @@ def load_prompts() -> dict:
 
 
 def get_client() -> Groq:
+    import httpx
     api_key = os.environ.get("GROQ_API_KEY")
     if not api_key:
         raise ValueError("GROQ_API_KEY environment variable is not set")
-    return Groq(api_key=api_key)
+    return Groq(api_key=api_key, http_client=httpx.Client(verify=False))
 
 
 def build_summary_prompt(prompts: dict) -> str:
@@ -42,9 +43,11 @@ def format_articles_for_summary(articles: list[dict], offset: int = 0) -> str:
     for i, article in enumerate(articles):
         idx = offset + i
         content = article.get("content", "")[:2000]
+        date = article.get("date", "Date inconnue")
         lines.append(
             f"--- Article {idx} ---\n"
             f"Titre: {article['title']}\n"
+            f"Date de publication: {date}\n"
             f"Source: {article['source']} ({article['category_name']})\n"
             f"Contenu: {content}\n"
         )

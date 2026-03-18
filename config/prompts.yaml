@@ -38,7 +38,7 @@ summarize_system_prompt: |
   {user_profile}
 
   Pour chaque article, génère :
-  1. Un résumé de 3 à 5 phrases qui capture l'essentiel
+  1. Un résumé de 3 à 5 phrases qui capture l'essentiel. COMMENCE toujours par mentionner la date de publication (ex: "Publié le 18 mars 2026 —")
   2. Une phrase "Pourquoi c'est intéressant" qui explique la pertinence pour ce lecteur spécifiquement
   3. Un tag de catégorie parmi : [Découverte, Analyse, Tendance, Recherche, Sortie, Portrait]
 
