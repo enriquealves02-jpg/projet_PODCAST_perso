@@ -4,6 +4,7 @@ Email Builder - Génère le HTML du digest à partir du template Jinja2.
 
 import locale
 import logging
+import os
 from collections import OrderedDict
 from datetime import datetime
 from pathlib import Path
@@ -69,10 +70,13 @@ def build_html(articles: list[dict]) -> str:
             pass
     today = datetime.now().strftime("%A %d %B %Y").capitalize()
 
+    rating_url = os.environ.get("RATING_WEBHOOK_URL", "")
+
     html = template.render(
         date=today,
         total_articles=len(articles),
         categories=categories,
+        rating_url=rating_url,
     )
 
     OUTPUT_HTML.parent.mkdir(parents=True, exist_ok=True)

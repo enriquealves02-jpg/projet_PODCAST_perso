@@ -168,6 +168,38 @@
             text-decoration: underline;
         }
 
+        .rating-bar {
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px solid #e8e8e8;
+        }
+
+        .rating-label {
+            font-size: 11px;
+            color: #888;
+            margin-right: 6px;
+        }
+
+        .rating-btn {
+            display: inline-block;
+            width: 26px;
+            height: 26px;
+            line-height: 26px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #0f3460;
+            background: #e8f0fe;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-right: 3px;
+        }
+
+        .rating-btn:hover {
+            background: #0f3460;
+            color: white;
+        }
+
         @media (max-width: 480px) {
             .header { padding: 24px 16px; }
             .header h1 { font-size: 24px; }
@@ -208,6 +240,14 @@
                 <div class="article-why">→ {{ article.why_interesting }}</div>
                 {% endif %}
                 <a class="read-more" href="{{ article.url }}" target="_blank">Lire l'article complet →</a>
+                {% if rating_url %}
+                <div class="rating-bar">
+                    <span class="rating-label">Ta note :</span>
+                    {% for n in range(1, 11) %}
+                    <a class="rating-btn" href="{{ rating_url }}?title={{ article.title | urlencode }}&source={{ article.source | urlencode }}&category={{ article.category_name | urlencode }}&url={{ article.url | urlencode }}&date={{ article.date | urlencode }}&score={{ n }}" target="_blank">{{ n }}</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
             </div>
             {% endfor %}
         </div>
