@@ -1,0 +1,74 @@
+categories:
+  science_math:
+    name: "Science & Mathématiques"
+    icon: "🔬"
+    feeds:
+      - url: "https://api.quantamagazine.org/feed/"
+        name: "Quanta Magazine"
+      - url: "https://www.sciencedaily.com/rss/all.xml"
+        name: "Science Daily"
+      - url: "https://plus.maths.org/content/podcast/rss"
+        name: "Plus Magazine"
+
+  tech_ia:
+    name: "Tech & Intelligence Artificielle"
+    icon: "💻"
+    feeds:
+      - url: "https://hnrss.org/frontpage"
+        name: "Hacker News"
+      - url: "https://feeds.arstechnica.com/arstechnica/index"
+        name: "Ars Technica"
+      - url: "https://www.technologyreview.com/feed/"
+        name: "MIT Technology Review"
+      - url: "https://tldr.tech/api/rss/ai"
+        name: "TLDR AI"
+
+  cinema:
+    name: "Cinéma"
+    icon: "🎬"
+    feeds:
+      - url: "https://www.indiewire.com/feed/"
+        name: "IndieWire"
+      - url: "https://www.lesinrocks.com/cinema/feed/"
+        name: "Les Inrockuptibles - Cinéma"
+
+  actualite:
+    name: "Actualité"
+    icon: "📰"
+    feeds:
+      - url: "https://www.lemonde.fr/rss/une.xml"
+        name: "Le Monde"
+      - url: "https://www.courrierinternational.com/feed/all/rss.xml"
+        name: "Courrier International"
+      - url: "https://feeds.reuters.com/reuters/topNews"
+        name: "Reuters"
+      - url: "https://www.france24.com/fr/rss"
+        name: "France 24"
+
+  mode_homme:
+    name: "Mode Homme"
+    icon: "👔"
+    feeds:
+      - url: "https://www.highsnobiety.com/feed/"
+        name: "Highsnobiety"
+      - url: "https://hypebeast.com/feed"
+        name: "Hypebeast"
+      - url: "https://www.gq.com/feed/rss"
+        name: "GQ"
+      - url: "https://www.complex.com/style/feed"
+        name: "Complex Style"
+
+  musique:
+    name: "Musique Underground"
+    icon: "🎵"
+    feeds:
+      - url: "https://pitchfork.com/feed/feed-album-reviews/rss"
+        name: "Pitchfork Reviews"
+      - url: "https://ra.co/xml/news.xml"
+        name: "Resident Advisor"
+      - url: "https://thequietus.com/feed"
+        name: "The Quietus"
+      - url: "https://daily.bandcamp.com/feed"
+        name: "Bandcamp Daily"
+      - url: "https://www.stereogum.com/feed/"
+        name: "Stereogum"

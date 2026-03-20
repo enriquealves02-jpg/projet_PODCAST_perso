@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal personnalisé d'Enrique - Friday 20 march 2026</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #0d1117;
+            color: #e6edf3;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 48px 24px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #21262d;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #f0f6fc;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .header .subtitle {
+            font-size: 16px;
+            color: #8b949e;
+            font-weight: 400;
+        }
+
+        .header .stats {
+            margin-top: 16px;
+            font-size: 13px;
+            color: #484f58;
+        }
+
+        .header .stats span {
+            margin: 0 8px;
+        }
+
+        .category-section {
+            margin-bottom: 48px;
+        }
+
+        .category-header {
+            font-size: 22px;
+            font-weight: 700;
+            color: #f0f6fc;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #30363d;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+        }
+
+        .category-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #30363d, transparent);
+            margin: 48px 0;
+        }
+
+        .article {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #161b22;
+            border-radius: 8px;
+            border: 1px solid #21262d;
+            transition: border-color 0.2s;
+        }
+
+        .article:hover {
+            border-color: #388bfd;
+        }
+
+        .article-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .article-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            background: #1f6feb22;
+            color: #58a6ff;
+        }
+
+        .article-score {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 12px;
+            background: #238636;
+            color: #ffffff;
+        }
+
+        .article-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .article-title a {
+            color: #f0f6fc;
+            text-decoration: none;
+        }
+
+        .article-title a:hover {
+            color: #58a6ff;
+        }
+
+        .article-meta {
+            font-size: 12px;
+            color: #484f58;
+            margin-bottom: 12px;
+        }
+
+        .article-summary {
+            font-size: 14px;
+            color: #8b949e;
+            line-height: 1.7;
+            margin-bottom: 14px;
+        }
+
+        .read-more {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #58a6ff;
+            text-decoration: none;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        .rating-bar {
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid #21262d;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .rating-label {
+            font-size: 12px;
+            color: #484f58;
+            margin-right: 8px;
+        }
+
+        .rating-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #8b949e;
+            background: #21262d;
+            border: 2px solid transparent;
+            border-radius: 6px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .rating-btn:hover {
+            background: #30363d;
+            color: #f0f6fc;
+            border-color: #58a6ff;
+        }
+
+        .rating-btn.selected {
+            background: #1f6feb;
+            color: #ffffff;
+            border-color: #58a6ff;
+            font-weight: 800;
+        }
+
+        .footer {
+            margin-top: 48px;
+            padding: 24px;
+            text-align: center;
+            font-size: 12px;
+            color: #484f58;
+            border-top: 1px solid #21262d;
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 12px; }
+            .header { padding: 32px 16px; }
+            .header h1 { font-size: 26px; }
+            .article { padding: 14px; }
+            .rating-btn { width: 28px; height: 28px; font-size: 11px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Journal personnalisé d'Enrique</h1>
+            <div class="subtitle">Friday 20 march 2026</div>
+            <div class="stats">
+                <span>20 articles</span>
+                <span>&middot;</span>
+                <span>6 catégories</span>
+            </div>
+        </div>
+
+        
+        
+        
+        <div class="category-section">
+            <div class="category-header">Science & Mathématiques</div>
+
+            
+            <div class="article">
+                <div class="article-top">
+                    <span class="article-tag">Recherche</span>
+                    <span class="article-score">9/10</span>
+                </div>
+                <h3 class="article-title">
+                    <a href="https://www.sciencedaily.com/releases/2026/03/260319044714.htm" target="_blank">Scientists solve 12,800-year-old climate mystery hidden in Greenland ice</a>
+                </h3>
+                <div class="article-meta">Science Daily &middot; 20/03 à 10h01</div>
+                <div class="article-summary">Publié le 20 mars 2026 — Des scientifiques ont résolu un mystère climatique vieux de 12 800 ans caché dans la glace du Groenland. Une pointe de platine enfouie profondément dans la glace avait alimenté des théories sur une collision catastrophique de comète ou d'astéroïde, mais de nouvelles recherches pointent vers des éruptions volcaniques comme coupable. Les scientifiques ont constaté que le signal de platine ne correspond pas aux débris spatiaux et est apparu des décennies après le début du refroidissement, excluant ainsi une collision comme déclencheur. Cette découverte remet en question les théories précédentes sur le Dryas récent.</div>
+                <a class="read-more" href="https://www.sciencedaily.com/releases/2026/03/260319044714.htm" target="_blank">Lire l'article &rarr;</a>
+                
+                <div class="rating-bar">
+                    <span class="rating-label">Ta note :</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Scientists%20solve%2012%2C800-year-old%20climate%20mystery%20hidden%20in%20Greenland%20ice&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044714.htm&date=2026-03-20T10%3A01%3A12%2B00%3A00&score=1')">1</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Scientists%20solve%2012%2C800-year-old%20climate%20mystery%20hidden%20in%20Greenland%20ice&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044714.htm&date=2026-03-20T10%3A01%3A12%2B00%3A00&score=2')">2</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Scientists%20solve%2012%2C800-year-old%20climate%20mystery%20hidden%20in%20Greenland%20ice&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044714.htm&date=2026-03-20T10%3A01%3A12%2B00%3A00&score=3')">3</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Scientists%20solve%2012%2C800-year-old%20climate%20mystery%20hidden%20in%20Greenland%20ice&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044714.htm&date=2026-03-20T10%3A01%3A12%2B00%3A00&score=4')">4</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Scientists%20solve%2012%2C800-year-old%20climate%20mystery%20hidden%20in%20Greenland%20ice&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044714.htm&date=2026-03-20T10%3A01%3A12%2B00%3A00&score=5')">5</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Scientists%20solve%2012%2C800-year-old%20climate%20mystery%20hidden%20in%20Greenland%20ice&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044714.htm&date=2026-03-20T10%3A01%3A12%2B00%3A00&score=6')">6</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Scientists%20solve%2012%2C800-year-old%20climate%20mystery%20hidden%20in%20Greenland%20ice&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044714.htm&date=2026-03-20T10%3A01%3A12%2B00%3A00&score=7')">7</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Scientists%20solve%2012%2C800-year-old%20climate%20mystery%20hidden%20in%20Greenland%20ice&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044714.htm&date=2026-03-20T10%3A01%3A12%2B00%3A00&score=8')">8</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Scientists%20solve%2012%2C800-year-old%20climate%20mystery%20hidden%20in%20Greenland%20ice&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044714.htm&date=2026-03-20T10%3A01%3A12%2B00%3A00&score=9')">9</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Scientists%20solve%2012%2C800-year-old%20climate%20mystery%20hidden%20in%20Greenland%20ice&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044714.htm&date=2026-03-20T10%3A01%3A12%2B00%3A00&score=10')">10</span>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="article">
+                <div class="article-top">
+                    <span class="article-tag">Recherche</span>
+                    <span class="article-score">9/10</span>
+                </div>
+                <h3 class="article-title">
+                    <a href="https://www.sciencedaily.com/releases/2026/03/260319044708.htm" target="_blank">This virus therapy supercharges the immune system against brain cancer</a>
+                </h3>
+                <div class="article-meta">Science Daily &middot; 20/03 à 11h59</div>
+                <div class="article-summary">Publié le 20 mars 2026 — Des scientifiques ont trouvé un moyen de rendre l'un des tumeurs cérébrales les plus agressives vulnérable au système immunitaire. Une injection unique d'un virus modifié peut envahir le glioblastome, tuer les cellules cancéreuses et convoquer des combattants immunitaires profondément dans la tumeur. Ces cellules immunitaires persistent et attaquent, ce qui est lié à une survie plus longue chez les patients. Cette avancée offre de nouveaux espoirs pour le traitement de ce type de cancer.</div>
+                <a class="read-more" href="https://www.sciencedaily.com/releases/2026/03/260319044708.htm" target="_blank">Lire l'article &rarr;</a>
+                
+                <div class="rating-bar">
+                    <span class="rating-label">Ta note :</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=This%20virus%20therapy%20supercharges%20the%20immune%20system%20against%20brain%20cancer&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044708.htm&date=2026-03-20T11%3A59%3A34%2B00%3A00&score=1')">1</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=This%20virus%20therapy%20supercharges%20the%20immune%20system%20against%20brain%20cancer&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044708.htm&date=2026-03-20T11%3A59%3A34%2B00%3A00&score=2')">2</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=This%20virus%20therapy%20supercharges%20the%20immune%20system%20against%20brain%20cancer&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044708.htm&date=2026-03-20T11%3A59%3A34%2B00%3A00&score=3')">3</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=This%20virus%20therapy%20supercharges%20the%20immune%20system%20against%20brain%20cancer&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044708.htm&date=2026-03-20T11%3A59%3A34%2B00%3A00&score=4')">4</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=This%20virus%20therapy%20supercharges%20the%20immune%20system%20against%20brain%20cancer&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044708.htm&date=2026-03-20T11%3A59%3A34%2B00%3A00&score=5')">5</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=This%20virus%20therapy%20supercharges%20the%20immune%20system%20against%20brain%20cancer&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044708.htm&date=2026-03-20T11%3A59%3A34%2B00%3A00&score=6')">6</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=This%20virus%20therapy%20supercharges%20the%20immune%20system%20against%20brain%20cancer&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044708.htm&date=2026-03-20T11%3A59%3A34%2B00%3A00&score=7')">7</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=This%20virus%20therapy%20supercharges%20the%20immune%20system%20against%20brain%20cancer&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044708.htm&date=2026-03-20T11%3A59%3A34%2B00%3A00&score=8')">8</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=This%20virus%20therapy%20supercharges%20the%20immune%20system%20against%20brain%20cancer&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044708.htm&date=2026-03-20T11%3A59%3A34%2B00%3A00&score=9')">9</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=This%20virus%20therapy%20supercharges%20the%20immune%20system%20against%20brain%20cancer&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044708.htm&date=2026-03-20T11%3A59%3A34%2B00%3A00&score=10')">10</span>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="article">
+                <div class="article-top">
+                    <span class="article-tag">Recherche</span>
+                    <span class="article-score">9/10</span>
+                </div>
+                <h3 class="article-title">
+                    <a href="https://www.sciencedaily.com/releases/2026/03/260319044703.htm" target="_blank">Scientists turn CO2 into fuel using breakthrough single-atom catalyst</a>
+                </h3>
+                <div class="article-meta">Science Daily &middot; 20/03 à 08h31</div>
+                <div class="article-summary">Publié le 20 mars 2026 — Des chercheurs ont créé un catalyseur révolutionnaire qui transforme le CO2 en méthanol de manière plus efficace que jamais auparavant. Au lieu d'utiliser des agrégats d'atomes de métal, ils ont conçu un système où chaque atome d'indium agit individuellement pour conduire la réaction. Cela réduit considérablement les besoins énergétiques tout en facilitant l'étude et l'optimisation du processus. Le résultat pourrait accélérer le passage vers des carburants plus propres et une production chimique durable.</div>
+                <a class="read-more" href="https://www.sciencedaily.com/releases/2026/03/260319044703.htm" target="_blank">Lire l'article &rarr;</a>
+                
+                <div class="rating-bar">
+                    <span class="rating-label">Ta note :</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Scientists%20turn%20CO2%20into%20fuel%20using%20breakthrough%20single-atom%20catalyst&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044703.htm&date=2026-03-20T08%3A31%3A08%2B00%3A00&score=1')">1</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Scientists%20turn%20CO2%20into%20fuel%20using%20breakthrough%20single-atom%20catalyst&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044703.htm&date=2026-03-20T08%3A31%3A08%2B00%3A00&score=2')">2</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Scientists%20turn%20CO2%20into%20fuel%20using%20breakthrough%20single-atom%20catalyst&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044703.htm&date=2026-03-20T08%3A31%3A08%2B00%3A00&score=3')">3</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Scientists%20turn%20CO2%20into%20fuel%20using%20breakthrough%20single-atom%20catalyst&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044703.htm&date=2026-03-20T08%3A31%3A08%2B00%3A00&score=4')">4</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Scientists%20turn%20CO2%20into%20fuel%20using%20breakthrough%20single-atom%20catalyst&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044703.htm&date=2026-03-20T08%3A31%3A08%2B00%3A00&score=5')">5</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Scientists%20turn%20CO2%20into%20fuel%20using%20breakthrough%20single-atom%20catalyst&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044703.htm&date=2026-03-20T08%3A31%3A08%2B00%3A00&score=6')">6</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Scientists%20turn%20CO2%20into%20fuel%20using%20breakthrough%20single-atom%20catalyst&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044703.htm&date=2026-03-20T08%3A31%3A08%2B00%3A00&score=7')">7</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Scientists%20turn%20CO2%20into%20fuel%20using%20breakthrough%20single-atom%20catalyst&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044703.htm&date=2026-03-20T08%3A31%3A08%2B00%3A00&score=8')">8</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Scientists%20turn%20CO2%20into%20fuel%20using%20breakthrough%20single-atom%20catalyst&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044703.htm&date=2026-03-20T08%3A31%3A08%2B00%3A00&score=9')">9</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Scientists%20turn%20CO2%20into%20fuel%20using%20breakthrough%20single-atom%20catalyst&source=Science%20Daily&category=Science%20%26%20Math%C3%A9matiques&url=https%3A//www.sciencedaily.com/releases/2026/03/260319044703.htm&date=2026-03-20T08%3A31%3A08%2B00%3A00&score=10')">10</span>
+                    
+                </div>
+                
+            </div>
+            
+        </div>
+        
+        
+        
+        
+        <div class="category-divider"></div>
+        
+        <div class="category-section">
+            <div class="category-header">Tech & Intelligence Artificielle</div>
+
+            
+            <div class="article">
+                <div class="article-top">
+                    <span class="article-tag">Découverte</span>
+                    <span class="article-score">9/10</span>
+                </div>
+                <h3 class="article-title">
+                    <a href="https://opencode.ai/" target="_blank">OpenCode – The open source AI coding agent</a>
+                </h3>
+                <div class="article-meta">Hacker News &middot; 20/03 à 21h03</div>
+                <div class="article-summary">Publié le 20 mars 2026 — L'article présente OpenCode, un agent de codage open source basé sur l'intelligence artificielle. Cet outil est conçu pour aider les développeurs dans leur travail. Vous pouvez en savoir plus sur le fonctionnement et les avantages d'OpenCode en visitant les liens fournis. Cet outil pourrait être particulièrement utile pour les développeurs souhaitant améliorer leur productivité.</div>
+                <a class="read-more" href="https://opencode.ai/" target="_blank">Lire l'article &rarr;</a>
+                
+                <div class="rating-bar">
+                    <span class="rating-label">Ta note :</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=OpenCode%20%E2%80%93%20The%20open%20source%20AI%20coding%20agent&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//opencode.ai/&date=2026-03-20T21%3A03%3A52%2B00%3A00&score=1')">1</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=OpenCode%20%E2%80%93%20The%20open%20source%20AI%20coding%20agent&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//opencode.ai/&date=2026-03-20T21%3A03%3A52%2B00%3A00&score=2')">2</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=OpenCode%20%E2%80%93%20The%20open%20source%20AI%20coding%20agent&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//opencode.ai/&date=2026-03-20T21%3A03%3A52%2B00%3A00&score=3')">3</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=OpenCode%20%E2%80%93%20The%20open%20source%20AI%20coding%20agent&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//opencode.ai/&date=2026-03-20T21%3A03%3A52%2B00%3A00&score=4')">4</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=OpenCode%20%E2%80%93%20The%20open%20source%20AI%20coding%20agent&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//opencode.ai/&date=2026-03-20T21%3A03%3A52%2B00%3A00&score=5')">5</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=OpenCode%20%E2%80%93%20The%20open%20source%20AI%20coding%20agent&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//opencode.ai/&date=2026-03-20T21%3A03%3A52%2B00%3A00&score=6')">6</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=OpenCode%20%E2%80%93%20The%20open%20source%20AI%20coding%20agent&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//opencode.ai/&date=2026-03-20T21%3A03%3A52%2B00%3A00&score=7')">7</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=OpenCode%20%E2%80%93%20The%20open%20source%20AI%20coding%20agent&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//opencode.ai/&date=2026-03-20T21%3A03%3A52%2B00%3A00&score=8')">8</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=OpenCode%20%E2%80%93%20The%20open%20source%20AI%20coding%20agent&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//opencode.ai/&date=2026-03-20T21%3A03%3A52%2B00%3A00&score=9')">9</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=OpenCode%20%E2%80%93%20The%20open%20source%20AI%20coding%20agent&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//opencode.ai/&date=2026-03-20T21%3A03%3A52%2B00%3A00&score=10')">10</span>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="article">
+                <div class="article-top">
+                    <span class="article-tag">Recherche</span>
+                    <span class="article-score">9/10</span>
+                </div>
+                <h3 class="article-title">
+                    <a href="https://github.com/MoonshotAI/Attention-Residuals" target="_blank">Attention Residuals</a>
+                </h3>
+                <div class="article-meta">Hacker News &middot; 20/03 à 18h23</div>
+                <div class="article-summary">Publié le 20 mars 2026 — L'article discute d'Attention Residuals, un projet GitHub qui explore de nouvelles approches pour améliorer les performances des modèles d'apprentissage automatique. Les commentaires sur Hacker News offrent des insights supplémentaires sur les applications potentielles de cette technologie. Les développeurs d'IA pourraient trouver cet article intéressant pour comprendre les dernières avancées dans le domaine.</div>
+                <a class="read-more" href="https://github.com/MoonshotAI/Attention-Residuals" target="_blank">Lire l'article &rarr;</a>
+                
+                <div class="rating-bar">
+                    <span class="rating-label">Ta note :</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Attention%20Residuals&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//github.com/MoonshotAI/Attention-Residuals&date=2026-03-20T18%3A23%3A41%2B00%3A00&score=1')">1</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Attention%20Residuals&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//github.com/MoonshotAI/Attention-Residuals&date=2026-03-20T18%3A23%3A41%2B00%3A00&score=2')">2</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Attention%20Residuals&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//github.com/MoonshotAI/Attention-Residuals&date=2026-03-20T18%3A23%3A41%2B00%3A00&score=3')">3</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Attention%20Residuals&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//github.com/MoonshotAI/Attention-Residuals&date=2026-03-20T18%3A23%3A41%2B00%3A00&score=4')">4</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Attention%20Residuals&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//github.com/MoonshotAI/Attention-Residuals&date=2026-03-20T18%3A23%3A41%2B00%3A00&score=5')">5</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Attention%20Residuals&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//github.com/MoonshotAI/Attention-Residuals&date=2026-03-20T18%3A23%3A41%2B00%3A00&score=6')">6</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Attention%20Residuals&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//github.com/MoonshotAI/Attention-Residuals&date=2026-03-20T18%3A23%3A41%2B00%3A00&score=7')">7</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Attention%20Residuals&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//github.com/MoonshotAI/Attention-Residuals&date=2026-03-20T18%3A23%3A41%2B00%3A00&score=8')">8</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Attention%20Residuals&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//github.com/MoonshotAI/Attention-Residuals&date=2026-03-20T18%3A23%3A41%2B00%3A00&score=9')">9</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Attention%20Residuals&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//github.com/MoonshotAI/Attention-Residuals&date=2026-03-20T18%3A23%3A41%2B00%3A00&score=10')">10</span>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="article">
+                <div class="article-top">
+                    <span class="article-tag">Analyse</span>
+                    <span class="article-score">9/10</span>
+                </div>
+                <h3 class="article-title">
+                    <a href="https://jvogel.me/posts/2026/java-is-fast-your-code-might-not-be/" target="_blank">Java is fast, code might not be</a>
+                </h3>
+                <div class="article-meta">Hacker News &middot; 20/03 à 13h43</div>
+                <div class="article-summary">Publié le 20 mars 2026 — Cet article examine les performances de Java en comparaison avec d'autres langages de programmation. L'auteur souligne que même si Java est rapide, la vitesse réelle dépend souvent de la qualité du code écrit. Les discussions sur Hacker News offrent une perspective plus approfondie sur les défis liés à l'optimisation des performances en Java. Les développeurs Java devraient trouver cet article utile pour améliorer leur travail.</div>
+                <a class="read-more" href="https://jvogel.me/posts/2026/java-is-fast-your-code-might-not-be/" target="_blank">Lire l'article &rarr;</a>
+                
+                <div class="rating-bar">
+                    <span class="rating-label">Ta note :</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Java%20is%20fast%2C%20code%20might%20not%20be&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//jvogel.me/posts/2026/java-is-fast-your-code-might-not-be/&date=2026-03-20T13%3A43%3A23%2B00%3A00&score=1')">1</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Java%20is%20fast%2C%20code%20might%20not%20be&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//jvogel.me/posts/2026/java-is-fast-your-code-might-not-be/&date=2026-03-20T13%3A43%3A23%2B00%3A00&score=2')">2</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Java%20is%20fast%2C%20code%20might%20not%20be&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//jvogel.me/posts/2026/java-is-fast-your-code-might-not-be/&date=2026-03-20T13%3A43%3A23%2B00%3A00&score=3')">3</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Java%20is%20fast%2C%20code%20might%20not%20be&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//jvogel.me/posts/2026/java-is-fast-your-code-might-not-be/&date=2026-03-20T13%3A43%3A23%2B00%3A00&score=4')">4</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Java%20is%20fast%2C%20code%20might%20not%20be&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//jvogel.me/posts/2026/java-is-fast-your-code-might-not-be/&date=2026-03-20T13%3A43%3A23%2B00%3A00&score=5')">5</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Java%20is%20fast%2C%20code%20might%20not%20be&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//jvogel.me/posts/2026/java-is-fast-your-code-might-not-be/&date=2026-03-20T13%3A43%3A23%2B00%3A00&score=6')">6</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Java%20is%20fast%2C%20code%20might%20not%20be&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//jvogel.me/posts/2026/java-is-fast-your-code-might-not-be/&date=2026-03-20T13%3A43%3A23%2B00%3A00&score=7')">7</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Java%20is%20fast%2C%20code%20might%20not%20be&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//jvogel.me/posts/2026/java-is-fast-your-code-might-not-be/&date=2026-03-20T13%3A43%3A23%2B00%3A00&score=8')">8</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Java%20is%20fast%2C%20code%20might%20not%20be&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//jvogel.me/posts/2026/java-is-fast-your-code-might-not-be/&date=2026-03-20T13%3A43%3A23%2B00%3A00&score=9')">9</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Java%20is%20fast%2C%20code%20might%20not%20be&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//jvogel.me/posts/2026/java-is-fast-your-code-might-not-be/&date=2026-03-20T13%3A43%3A23%2B00%3A00&score=10')">10</span>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="article">
+                <div class="article-top">
+                    <span class="article-tag">Recherche</span>
+                    <span class="article-score">9/10</span>
+                </div>
+                <h3 class="article-title">
+                    <a href="https://www.entsoe.eu/publications/blackout/28-april-2025-iberian-blackout/" target="_blank">Entso-E final report on Iberian 2025 blackout</a>
+                </h3>
+                <div class="article-meta">Hacker News &middot; 20/03 à 11h03</div>
+                <div class="article-summary">Publié le 20 mars 2026 — Le rapport final d'Entso-E sur la panne de courant ibérique en 2025 est maintenant disponible. Ce rapport fournit une analyse détaillée des causes et des conséquences de cette panne, offrant des leçons pour améliorer la résilience des réseaux électriques. Les professionnels de l'énergie et les spécialistes de la sécurité des infrastructures pourraient trouver ce rapport très informatif.</div>
+                <a class="read-more" href="https://www.entsoe.eu/publications/blackout/28-april-2025-iberian-blackout/" target="_blank">Lire l'article &rarr;</a>
+                
+                <div class="rating-bar">
+                    <span class="rating-label">Ta note :</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Entso-E%20final%20report%20on%20Iberian%202025%20blackout&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//www.entsoe.eu/publications/blackout/28-april-2025-iberian-blackout/&date=2026-03-20T11%3A03%3A27%2B00%3A00&score=1')">1</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Entso-E%20final%20report%20on%20Iberian%202025%20blackout&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//www.entsoe.eu/publications/blackout/28-april-2025-iberian-blackout/&date=2026-03-20T11%3A03%3A27%2B00%3A00&score=2')">2</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Entso-E%20final%20report%20on%20Iberian%202025%20blackout&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//www.entsoe.eu/publications/blackout/28-april-2025-iberian-blackout/&date=2026-03-20T11%3A03%3A27%2B00%3A00&score=3')">3</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Entso-E%20final%20report%20on%20Iberian%202025%20blackout&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//www.entsoe.eu/publications/blackout/28-april-2025-iberian-blackout/&date=2026-03-20T11%3A03%3A27%2B00%3A00&score=4')">4</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Entso-E%20final%20report%20on%20Iberian%202025%20blackout&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//www.entsoe.eu/publications/blackout/28-april-2025-iberian-blackout/&date=2026-03-20T11%3A03%3A27%2B00%3A00&score=5')">5</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Entso-E%20final%20report%20on%20Iberian%202025%20blackout&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//www.entsoe.eu/publications/blackout/28-april-2025-iberian-blackout/&date=2026-03-20T11%3A03%3A27%2B00%3A00&score=6')">6</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Entso-E%20final%20report%20on%20Iberian%202025%20blackout&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//www.entsoe.eu/publications/blackout/28-april-2025-iberian-blackout/&date=2026-03-20T11%3A03%3A27%2B00%3A00&score=7')">7</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Entso-E%20final%20report%20on%20Iberian%202025%20blackout&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//www.entsoe.eu/publications/blackout/28-april-2025-iberian-blackout/&date=2026-03-20T11%3A03%3A27%2B00%3A00&score=8')">8</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Entso-E%20final%20report%20on%20Iberian%202025%20blackout&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//www.entsoe.eu/publications/blackout/28-april-2025-iberian-blackout/&date=2026-03-20T11%3A03%3A27%2B00%3A00&score=9')">9</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Entso-E%20final%20report%20on%20Iberian%202025%20blackout&source=Hacker%20News&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//www.entsoe.eu/publications/blackout/28-april-2025-iberian-blackout/&date=2026-03-20T11%3A03%3A27%2B00%3A00&score=10')">10</span>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="article">
+                <div class="article-top">
+                    <span class="article-tag">Tendance</span>
+                    <span class="article-score">5/10</span>
+                </div>
+                <h3 class="article-title">
+                    <a href="https://tldr.tech/ai/2026-03-20" target="_blank">Cursor’s frontier model 👨‍💻, OpenAI buys Astral ⚡, Perplexity Health 🏥</a>
+                </h3>
+                <div class="article-meta">TLDR AI &middot; 20/03 à 00h00</div>
+                <div class="article-summary">Publié le 20 mars 2026 — L'article présente les dernières actualités dans le domaine de l'intelligence artificielle, notamment le modèle de frontière de Cursor et l'acquisition d'Astral par OpenAI. Il aborde également l'utilisation de l'OpenSearch pour la recherche d'entreprise, soulignant son potentiel pour améliorer les capacités de recherche avec des embeddings vectoriels et des flux de travail agents. Les professionnels de l'IA et les développeurs d'entreprise pourraient trouver ces informations très utiles.</div>
+                <a class="read-more" href="https://tldr.tech/ai/2026-03-20" target="_blank">Lire l'article &rarr;</a>
+                
+                <div class="rating-bar">
+                    <span class="rating-label">Ta note :</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Cursor%E2%80%99s%20frontier%20model%20%F0%9F%91%A8%E2%80%8D%F0%9F%92%BB%2C%20OpenAI%20buys%20Astral%20%E2%9A%A1%2C%20Perplexity%20Health%20%F0%9F%8F%A5&source=TLDR%20AI&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//tldr.tech/ai/2026-03-20&date=2026-03-20T00%3A00%3A00%2B00%3A00&score=1')">1</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Cursor%E2%80%99s%20frontier%20model%20%F0%9F%91%A8%E2%80%8D%F0%9F%92%BB%2C%20OpenAI%20buys%20Astral%20%E2%9A%A1%2C%20Perplexity%20Health%20%F0%9F%8F%A5&source=TLDR%20AI&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//tldr.tech/ai/2026-03-20&date=2026-03-20T00%3A00%3A00%2B00%3A00&score=2')">2</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Cursor%E2%80%99s%20frontier%20model%20%F0%9F%91%A8%E2%80%8D%F0%9F%92%BB%2C%20OpenAI%20buys%20Astral%20%E2%9A%A1%2C%20Perplexity%20Health%20%F0%9F%8F%A5&source=TLDR%20AI&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//tldr.tech/ai/2026-03-20&date=2026-03-20T00%3A00%3A00%2B00%3A00&score=3')">3</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Cursor%E2%80%99s%20frontier%20model%20%F0%9F%91%A8%E2%80%8D%F0%9F%92%BB%2C%20OpenAI%20buys%20Astral%20%E2%9A%A1%2C%20Perplexity%20Health%20%F0%9F%8F%A5&source=TLDR%20AI&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//tldr.tech/ai/2026-03-20&date=2026-03-20T00%3A00%3A00%2B00%3A00&score=4')">4</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Cursor%E2%80%99s%20frontier%20model%20%F0%9F%91%A8%E2%80%8D%F0%9F%92%BB%2C%20OpenAI%20buys%20Astral%20%E2%9A%A1%2C%20Perplexity%20Health%20%F0%9F%8F%A5&source=TLDR%20AI&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//tldr.tech/ai/2026-03-20&date=2026-03-20T00%3A00%3A00%2B00%3A00&score=5')">5</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Cursor%E2%80%99s%20frontier%20model%20%F0%9F%91%A8%E2%80%8D%F0%9F%92%BB%2C%20OpenAI%20buys%20Astral%20%E2%9A%A1%2C%20Perplexity%20Health%20%F0%9F%8F%A5&source=TLDR%20AI&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//tldr.tech/ai/2026-03-20&date=2026-03-20T00%3A00%3A00%2B00%3A00&score=6')">6</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Cursor%E2%80%99s%20frontier%20model%20%F0%9F%91%A8%E2%80%8D%F0%9F%92%BB%2C%20OpenAI%20buys%20Astral%20%E2%9A%A1%2C%20Perplexity%20Health%20%F0%9F%8F%A5&source=TLDR%20AI&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//tldr.tech/ai/2026-03-20&date=2026-03-20T00%3A00%3A00%2B00%3A00&score=7')">7</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Cursor%E2%80%99s%20frontier%20model%20%F0%9F%91%A8%E2%80%8D%F0%9F%92%BB%2C%20OpenAI%20buys%20Astral%20%E2%9A%A1%2C%20Perplexity%20Health%20%F0%9F%8F%A5&source=TLDR%20AI&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//tldr.tech/ai/2026-03-20&date=2026-03-20T00%3A00%3A00%2B00%3A00&score=8')">8</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Cursor%E2%80%99s%20frontier%20model%20%F0%9F%91%A8%E2%80%8D%F0%9F%92%BB%2C%20OpenAI%20buys%20Astral%20%E2%9A%A1%2C%20Perplexity%20Health%20%F0%9F%8F%A5&source=TLDR%20AI&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//tldr.tech/ai/2026-03-20&date=2026-03-20T00%3A00%3A00%2B00%3A00&score=9')">9</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Cursor%E2%80%99s%20frontier%20model%20%F0%9F%91%A8%E2%80%8D%F0%9F%92%BB%2C%20OpenAI%20buys%20Astral%20%E2%9A%A1%2C%20Perplexity%20Health%20%F0%9F%8F%A5&source=TLDR%20AI&category=Tech%20%26%20Intelligence%20Artificielle&url=https%3A//tldr.tech/ai/2026-03-20&date=2026-03-20T00%3A00%3A00%2B00%3A00&score=10')">10</span>
+                    
+                </div>
+                
+            </div>
+            
+        </div>
+        
+        
+        
+        
+        <div class="category-divider"></div>
+        
+        <div class="category-section">
+            <div class="category-header">Cinéma</div>
+
+            
+            <div class="article">
+                <div class="article-top">
+                    <span class="article-tag">Analyse</span>
+                    <span class="article-score">9/10</span>
+                </div>
+                <h3 class="article-title">
+                    <a href="https://www.indiewire.com/criticism/movies/mirrors-no-3-review-christian-petzold-1235121824/" target="_blank">‘Miroirs No. 3’ Review: Christian Petzold’s Minor Key Is a Major One for His Beautifully Concussed Protagonist, Played by Paula Beer</a>
+                </h3>
+                <div class="article-meta">IndieWire &middot; 20/03 à 18h40</div>
+                <div class="article-summary">Publié le 20 mars 2026 — La critique du film « Miroirs No. 3 » de Christian Petzold met en avant la performance de Paula Beer dans un rôle qui explore les profondeurs de la condition humaine. Bien que le film puisse manquer du punch psychologique pervers qui a rendu les films comme « Phoenix » et « Barbara » si profonds, il offre une nouvelle vitrine pour la beauté et la profondeur de l'actrice. Le film explore les thèmes de l'identité et de la mémoire à travers une narration poétique et visuellement saisissante.</div>
+                <a class="read-more" href="https://www.indiewire.com/criticism/movies/mirrors-no-3-review-christian-petzold-1235121824/" target="_blank">Lire l'article &rarr;</a>
+                
+                <div class="rating-bar">
+                    <span class="rating-label">Ta note :</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%E2%80%98Miroirs%20No.%203%E2%80%99%20Review%3A%20Christian%20Petzold%E2%80%99s%20Minor%20Key%20Is%20a%20Major%20One%20for%20His%20Beautifully%20Concussed%20Protagonist%2C%20Played%20by%20Paula%20Beer&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/criticism/movies/mirrors-no-3-review-christian-petzold-1235121824/&date=2026-03-20T18%3A40%3A00%2B00%3A00&score=1')">1</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%E2%80%98Miroirs%20No.%203%E2%80%99%20Review%3A%20Christian%20Petzold%E2%80%99s%20Minor%20Key%20Is%20a%20Major%20One%20for%20His%20Beautifully%20Concussed%20Protagonist%2C%20Played%20by%20Paula%20Beer&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/criticism/movies/mirrors-no-3-review-christian-petzold-1235121824/&date=2026-03-20T18%3A40%3A00%2B00%3A00&score=2')">2</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%E2%80%98Miroirs%20No.%203%E2%80%99%20Review%3A%20Christian%20Petzold%E2%80%99s%20Minor%20Key%20Is%20a%20Major%20One%20for%20His%20Beautifully%20Concussed%20Protagonist%2C%20Played%20by%20Paula%20Beer&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/criticism/movies/mirrors-no-3-review-christian-petzold-1235121824/&date=2026-03-20T18%3A40%3A00%2B00%3A00&score=3')">3</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%E2%80%98Miroirs%20No.%203%E2%80%99%20Review%3A%20Christian%20Petzold%E2%80%99s%20Minor%20Key%20Is%20a%20Major%20One%20for%20His%20Beautifully%20Concussed%20Protagonist%2C%20Played%20by%20Paula%20Beer&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/criticism/movies/mirrors-no-3-review-christian-petzold-1235121824/&date=2026-03-20T18%3A40%3A00%2B00%3A00&score=4')">4</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%E2%80%98Miroirs%20No.%203%E2%80%99%20Review%3A%20Christian%20Petzold%E2%80%99s%20Minor%20Key%20Is%20a%20Major%20One%20for%20His%20Beautifully%20Concussed%20Protagonist%2C%20Played%20by%20Paula%20Beer&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/criticism/movies/mirrors-no-3-review-christian-petzold-1235121824/&date=2026-03-20T18%3A40%3A00%2B00%3A00&score=5')">5</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%E2%80%98Miroirs%20No.%203%E2%80%99%20Review%3A%20Christian%20Petzold%E2%80%99s%20Minor%20Key%20Is%20a%20Major%20One%20for%20His%20Beautifully%20Concussed%20Protagonist%2C%20Played%20by%20Paula%20Beer&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/criticism/movies/mirrors-no-3-review-christian-petzold-1235121824/&date=2026-03-20T18%3A40%3A00%2B00%3A00&score=6')">6</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%E2%80%98Miroirs%20No.%203%E2%80%99%20Review%3A%20Christian%20Petzold%E2%80%99s%20Minor%20Key%20Is%20a%20Major%20One%20for%20His%20Beautifully%20Concussed%20Protagonist%2C%20Played%20by%20Paula%20Beer&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/criticism/movies/mirrors-no-3-review-christian-petzold-1235121824/&date=2026-03-20T18%3A40%3A00%2B00%3A00&score=7')">7</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%E2%80%98Miroirs%20No.%203%E2%80%99%20Review%3A%20Christian%20Petzold%E2%80%99s%20Minor%20Key%20Is%20a%20Major%20One%20for%20His%20Beautifully%20Concussed%20Protagonist%2C%20Played%20by%20Paula%20Beer&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/criticism/movies/mirrors-no-3-review-christian-petzold-1235121824/&date=2026-03-20T18%3A40%3A00%2B00%3A00&score=8')">8</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%E2%80%98Miroirs%20No.%203%E2%80%99%20Review%3A%20Christian%20Petzold%E2%80%99s%20Minor%20Key%20Is%20a%20Major%20One%20for%20His%20Beautifully%20Concussed%20Protagonist%2C%20Played%20by%20Paula%20Beer&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/criticism/movies/mirrors-no-3-review-christian-petzold-1235121824/&date=2026-03-20T18%3A40%3A00%2B00%3A00&score=9')">9</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%E2%80%98Miroirs%20No.%203%E2%80%99%20Review%3A%20Christian%20Petzold%E2%80%99s%20Minor%20Key%20Is%20a%20Major%20One%20for%20His%20Beautifully%20Concussed%20Protagonist%2C%20Played%20by%20Paula%20Beer&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/criticism/movies/mirrors-no-3-review-christian-petzold-1235121824/&date=2026-03-20T18%3A40%3A00%2B00%3A00&score=10')">10</span>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="article">
+                <div class="article-top">
+                    <span class="article-tag">Portrait</span>
+                    <span class="article-score">9/10</span>
+                </div>
+                <h3 class="article-title">
+                    <a href="https://www.indiewire.com/features/interviews/thierry-fremaux-lumiere-brothers-doc-cannes-interview-1235185437/" target="_blank">Thierry Frémaux on Why ‘Today, We Can Never Trust Images We See’ — but We Can Trust the Lumière Brothers and ‘Apocalypse Now’</a>
+                </h3>
+                <div class="article-meta">IndieWire &middot; 20/03 à 18h30</div>
+                <div class="article-summary">Publié le 20 mars 2026 — Thierry Frémaux, directeur du festival de Cannes et de l'Institut Lumière, partage ses réflexions sur l'évolution de l'image et de la confiance dans les médias. Il souligne l'importance de l'héritage des frères Lumière et de leur invention de la première caméra de cinéma, tout en discutant de la restauration de leurs films et de leur pertinence dans le paysage cinématographique actuel. Frémaux réfléchit sur la confiance que l'on peut avoir dans les images et sur la manière dont les frères Lumière ont contribué à façonner notre compréhension du monde à travers le cinéma.</div>
+                <a class="read-more" href="https://www.indiewire.com/features/interviews/thierry-fremaux-lumiere-brothers-doc-cannes-interview-1235185437/" target="_blank">Lire l'article &rarr;</a>
+                
+                <div class="rating-bar">
+                    <span class="rating-label">Ta note :</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Thierry%20Fr%C3%A9maux%20on%20Why%20%E2%80%98Today%2C%20We%20Can%20Never%20Trust%20Images%20We%20See%E2%80%99%20%E2%80%94%20but%20We%20Can%20Trust%20the%20Lumi%C3%A8re%20Brothers%20and%20%E2%80%98Apocalypse%20Now%E2%80%99&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/features/interviews/thierry-fremaux-lumiere-brothers-doc-cannes-interview-1235185437/&date=2026-03-20T18%3A30%3A00%2B00%3A00&score=1')">1</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Thierry%20Fr%C3%A9maux%20on%20Why%20%E2%80%98Today%2C%20We%20Can%20Never%20Trust%20Images%20We%20See%E2%80%99%20%E2%80%94%20but%20We%20Can%20Trust%20the%20Lumi%C3%A8re%20Brothers%20and%20%E2%80%98Apocalypse%20Now%E2%80%99&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/features/interviews/thierry-fremaux-lumiere-brothers-doc-cannes-interview-1235185437/&date=2026-03-20T18%3A30%3A00%2B00%3A00&score=2')">2</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Thierry%20Fr%C3%A9maux%20on%20Why%20%E2%80%98Today%2C%20We%20Can%20Never%20Trust%20Images%20We%20See%E2%80%99%20%E2%80%94%20but%20We%20Can%20Trust%20the%20Lumi%C3%A8re%20Brothers%20and%20%E2%80%98Apocalypse%20Now%E2%80%99&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/features/interviews/thierry-fremaux-lumiere-brothers-doc-cannes-interview-1235185437/&date=2026-03-20T18%3A30%3A00%2B00%3A00&score=3')">3</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Thierry%20Fr%C3%A9maux%20on%20Why%20%E2%80%98Today%2C%20We%20Can%20Never%20Trust%20Images%20We%20See%E2%80%99%20%E2%80%94%20but%20We%20Can%20Trust%20the%20Lumi%C3%A8re%20Brothers%20and%20%E2%80%98Apocalypse%20Now%E2%80%99&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/features/interviews/thierry-fremaux-lumiere-brothers-doc-cannes-interview-1235185437/&date=2026-03-20T18%3A30%3A00%2B00%3A00&score=4')">4</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Thierry%20Fr%C3%A9maux%20on%20Why%20%E2%80%98Today%2C%20We%20Can%20Never%20Trust%20Images%20We%20See%E2%80%99%20%E2%80%94%20but%20We%20Can%20Trust%20the%20Lumi%C3%A8re%20Brothers%20and%20%E2%80%98Apocalypse%20Now%E2%80%99&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/features/interviews/thierry-fremaux-lumiere-brothers-doc-cannes-interview-1235185437/&date=2026-03-20T18%3A30%3A00%2B00%3A00&score=5')">5</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Thierry%20Fr%C3%A9maux%20on%20Why%20%E2%80%98Today%2C%20We%20Can%20Never%20Trust%20Images%20We%20See%E2%80%99%20%E2%80%94%20but%20We%20Can%20Trust%20the%20Lumi%C3%A8re%20Brothers%20and%20%E2%80%98Apocalypse%20Now%E2%80%99&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/features/interviews/thierry-fremaux-lumiere-brothers-doc-cannes-interview-1235185437/&date=2026-03-20T18%3A30%3A00%2B00%3A00&score=6')">6</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Thierry%20Fr%C3%A9maux%20on%20Why%20%E2%80%98Today%2C%20We%20Can%20Never%20Trust%20Images%20We%20See%E2%80%99%20%E2%80%94%20but%20We%20Can%20Trust%20the%20Lumi%C3%A8re%20Brothers%20and%20%E2%80%98Apocalypse%20Now%E2%80%99&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/features/interviews/thierry-fremaux-lumiere-brothers-doc-cannes-interview-1235185437/&date=2026-03-20T18%3A30%3A00%2B00%3A00&score=7')">7</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Thierry%20Fr%C3%A9maux%20on%20Why%20%E2%80%98Today%2C%20We%20Can%20Never%20Trust%20Images%20We%20See%E2%80%99%20%E2%80%94%20but%20We%20Can%20Trust%20the%20Lumi%C3%A8re%20Brothers%20and%20%E2%80%98Apocalypse%20Now%E2%80%99&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/features/interviews/thierry-fremaux-lumiere-brothers-doc-cannes-interview-1235185437/&date=2026-03-20T18%3A30%3A00%2B00%3A00&score=8')">8</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Thierry%20Fr%C3%A9maux%20on%20Why%20%E2%80%98Today%2C%20We%20Can%20Never%20Trust%20Images%20We%20See%E2%80%99%20%E2%80%94%20but%20We%20Can%20Trust%20the%20Lumi%C3%A8re%20Brothers%20and%20%E2%80%98Apocalypse%20Now%E2%80%99&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/features/interviews/thierry-fremaux-lumiere-brothers-doc-cannes-interview-1235185437/&date=2026-03-20T18%3A30%3A00%2B00%3A00&score=9')">9</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Thierry%20Fr%C3%A9maux%20on%20Why%20%E2%80%98Today%2C%20We%20Can%20Never%20Trust%20Images%20We%20See%E2%80%99%20%E2%80%94%20but%20We%20Can%20Trust%20the%20Lumi%C3%A8re%20Brothers%20and%20%E2%80%98Apocalypse%20Now%E2%80%99&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/features/interviews/thierry-fremaux-lumiere-brothers-doc-cannes-interview-1235185437/&date=2026-03-20T18%3A30%3A00%2B00%3A00&score=10')">10</span>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="article">
+                <div class="article-top">
+                    <span class="article-tag">Portrait</span>
+                    <span class="article-score">9/10</span>
+                </div>
+                <h3 class="article-title">
+                    <a href="https://www.indiewire.com/criticism/movies/esta-isla-review-1235185330/" target="_blank">‘Esta Isla’ Review: Richly Textured Drama Wrestles with Puerto Rico’s Troubles and Attributes from a Humanistic, On-the-Ground Perspective</a>
+                </h3>
+                <div class="article-meta">IndieWire &middot; 20/03 à 14h00</div>
+                <div class="article-summary">Publié le 20 mars 2026 — Le film 'Esta Isla' offre un regard humaniste et nuancé sur les défis rencontrés par les Porto-Ricains dans leur vie quotidienne. Réalisé par Cristian Carretero et Lorraine Jones, ce drame a remporté le prix John Cassavetes. 'Esta Isla' se distingue par sa capacité à capturer les textures et les complexités de la vie à Porto Rico, offrant une perspective unique et déficiente. Le film explore les thèmes de l'identité, de la communauté et de la résilience face à l'adversité.</div>
+                <a class="read-more" href="https://www.indiewire.com/criticism/movies/esta-isla-review-1235185330/" target="_blank">Lire l'article &rarr;</a>
+                
+                <div class="rating-bar">
+                    <span class="rating-label">Ta note :</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%E2%80%98Esta%20Isla%E2%80%99%20Review%3A%20Richly%20Textured%20Drama%20Wrestles%20with%20Puerto%20Rico%E2%80%99s%20Troubles%20and%20Attributes%20from%20a%20Humanistic%2C%20On-the-Ground%20Perspective&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/criticism/movies/esta-isla-review-1235185330/&date=2026-03-20T14%3A00%3A00%2B00%3A00&score=1')">1</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%E2%80%98Esta%20Isla%E2%80%99%20Review%3A%20Richly%20Textured%20Drama%20Wrestles%20with%20Puerto%20Rico%E2%80%99s%20Troubles%20and%20Attributes%20from%20a%20Humanistic%2C%20On-the-Ground%20Perspective&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/criticism/movies/esta-isla-review-1235185330/&date=2026-03-20T14%3A00%3A00%2B00%3A00&score=2')">2</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%E2%80%98Esta%20Isla%E2%80%99%20Review%3A%20Richly%20Textured%20Drama%20Wrestles%20with%20Puerto%20Rico%E2%80%99s%20Troubles%20and%20Attributes%20from%20a%20Humanistic%2C%20On-the-Ground%20Perspective&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/criticism/movies/esta-isla-review-1235185330/&date=2026-03-20T14%3A00%3A00%2B00%3A00&score=3')">3</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%E2%80%98Esta%20Isla%E2%80%99%20Review%3A%20Richly%20Textured%20Drama%20Wrestles%20with%20Puerto%20Rico%E2%80%99s%20Troubles%20and%20Attributes%20from%20a%20Humanistic%2C%20On-the-Ground%20Perspective&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/criticism/movies/esta-isla-review-1235185330/&date=2026-03-20T14%3A00%3A00%2B00%3A00&score=4')">4</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%E2%80%98Esta%20Isla%E2%80%99%20Review%3A%20Richly%20Textured%20Drama%20Wrestles%20with%20Puerto%20Rico%E2%80%99s%20Troubles%20and%20Attributes%20from%20a%20Humanistic%2C%20On-the-Ground%20Perspective&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/criticism/movies/esta-isla-review-1235185330/&date=2026-03-20T14%3A00%3A00%2B00%3A00&score=5')">5</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%E2%80%98Esta%20Isla%E2%80%99%20Review%3A%20Richly%20Textured%20Drama%20Wrestles%20with%20Puerto%20Rico%E2%80%99s%20Troubles%20and%20Attributes%20from%20a%20Humanistic%2C%20On-the-Ground%20Perspective&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/criticism/movies/esta-isla-review-1235185330/&date=2026-03-20T14%3A00%3A00%2B00%3A00&score=6')">6</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%E2%80%98Esta%20Isla%E2%80%99%20Review%3A%20Richly%20Textured%20Drama%20Wrestles%20with%20Puerto%20Rico%E2%80%99s%20Troubles%20and%20Attributes%20from%20a%20Humanistic%2C%20On-the-Ground%20Perspective&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/criticism/movies/esta-isla-review-1235185330/&date=2026-03-20T14%3A00%3A00%2B00%3A00&score=7')">7</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%E2%80%98Esta%20Isla%E2%80%99%20Review%3A%20Richly%20Textured%20Drama%20Wrestles%20with%20Puerto%20Rico%E2%80%99s%20Troubles%20and%20Attributes%20from%20a%20Humanistic%2C%20On-the-Ground%20Perspective&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/criticism/movies/esta-isla-review-1235185330/&date=2026-03-20T14%3A00%3A00%2B00%3A00&score=8')">8</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%E2%80%98Esta%20Isla%E2%80%99%20Review%3A%20Richly%20Textured%20Drama%20Wrestles%20with%20Puerto%20Rico%E2%80%99s%20Troubles%20and%20Attributes%20from%20a%20Humanistic%2C%20On-the-Ground%20Perspective&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/criticism/movies/esta-isla-review-1235185330/&date=2026-03-20T14%3A00%3A00%2B00%3A00&score=9')">9</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%E2%80%98Esta%20Isla%E2%80%99%20Review%3A%20Richly%20Textured%20Drama%20Wrestles%20with%20Puerto%20Rico%E2%80%99s%20Troubles%20and%20Attributes%20from%20a%20Humanistic%2C%20On-the-Ground%20Perspective&source=IndieWire&category=Cin%C3%A9ma&url=https%3A//www.indiewire.com/criticism/movies/esta-isla-review-1235185330/&date=2026-03-20T14%3A00%3A00%2B00%3A00&score=10')">10</span>
+                    
+                </div>
+                
+            </div>
+            
+        </div>
+        
+        
+        
+        
+        <div class="category-divider"></div>
+        
+        <div class="category-section">
+            <div class="category-header">Actualité</div>
+
+            
+            <div class="article">
+                <div class="article-top">
+                    <span class="article-tag">Recherche</span>
+                    <span class="article-score">8/10</span>
+                </div>
+                <h3 class="article-title">
+                    <a href="https://www.lemonde.fr/campus/article/2026/03/20/aujourd-hui-l-ia-c-est-le-nouvel-anglais-plongee-au-c-ur-du-wagon-fabrique-acceleree-de-talents-de-la-data_6672779_4401467.html" target="_blank">« L’IA, c’est le nouvel anglais » : le Wagon, une fabrique accélérée de talents de la data</a>
+                </h3>
+                <div class="article-meta">Le Monde &middot; 20/03 à 19h00</div>
+                <div class="article-summary">Publié le 20 mars 2026 — Le Wagon, une école de formation en data science, se positionne comme un acteur clé dans la formation de talents en intelligence artificielle. En offrant des formations pratiques et des exercices d'application, Le Wagon vise à accélérer la carrière de ses étudiants dans le domaine de la data science. Cette approche pédagogique innovante répond à la demande croissante de compétences en IA et en data science sur le marché du travail.</div>
+                <a class="read-more" href="https://www.lemonde.fr/campus/article/2026/03/20/aujourd-hui-l-ia-c-est-le-nouvel-anglais-plongee-au-c-ur-du-wagon-fabrique-acceleree-de-talents-de-la-data_6672779_4401467.html" target="_blank">Lire l'article &rarr;</a>
+                
+                <div class="rating-bar">
+                    <span class="rating-label">Ta note :</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%C2%AB%C2%A0L%E2%80%99IA%2C%20c%E2%80%99est%20le%20nouvel%20anglais%C2%A0%C2%BB%C2%A0%3A%20le%20Wagon%2C%20une%20fabrique%20acc%C3%A9l%C3%A9r%C3%A9e%20de%20talents%20de%20la%20data&source=Le%20Monde&category=Actualit%C3%A9&url=https%3A//www.lemonde.fr/campus/article/2026/03/20/aujourd-hui-l-ia-c-est-le-nouvel-anglais-plongee-au-c-ur-du-wagon-fabrique-acceleree-de-talents-de-la-data_6672779_4401467.html&date=2026-03-20T19%3A00%3A09%2B00%3A00&score=1')">1</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%C2%AB%C2%A0L%E2%80%99IA%2C%20c%E2%80%99est%20le%20nouvel%20anglais%C2%A0%C2%BB%C2%A0%3A%20le%20Wagon%2C%20une%20fabrique%20acc%C3%A9l%C3%A9r%C3%A9e%20de%20talents%20de%20la%20data&source=Le%20Monde&category=Actualit%C3%A9&url=https%3A//www.lemonde.fr/campus/article/2026/03/20/aujourd-hui-l-ia-c-est-le-nouvel-anglais-plongee-au-c-ur-du-wagon-fabrique-acceleree-de-talents-de-la-data_6672779_4401467.html&date=2026-03-20T19%3A00%3A09%2B00%3A00&score=2')">2</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%C2%AB%C2%A0L%E2%80%99IA%2C%20c%E2%80%99est%20le%20nouvel%20anglais%C2%A0%C2%BB%C2%A0%3A%20le%20Wagon%2C%20une%20fabrique%20acc%C3%A9l%C3%A9r%C3%A9e%20de%20talents%20de%20la%20data&source=Le%20Monde&category=Actualit%C3%A9&url=https%3A//www.lemonde.fr/campus/article/2026/03/20/aujourd-hui-l-ia-c-est-le-nouvel-anglais-plongee-au-c-ur-du-wagon-fabrique-acceleree-de-talents-de-la-data_6672779_4401467.html&date=2026-03-20T19%3A00%3A09%2B00%3A00&score=3')">3</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%C2%AB%C2%A0L%E2%80%99IA%2C%20c%E2%80%99est%20le%20nouvel%20anglais%C2%A0%C2%BB%C2%A0%3A%20le%20Wagon%2C%20une%20fabrique%20acc%C3%A9l%C3%A9r%C3%A9e%20de%20talents%20de%20la%20data&source=Le%20Monde&category=Actualit%C3%A9&url=https%3A//www.lemonde.fr/campus/article/2026/03/20/aujourd-hui-l-ia-c-est-le-nouvel-anglais-plongee-au-c-ur-du-wagon-fabrique-acceleree-de-talents-de-la-data_6672779_4401467.html&date=2026-03-20T19%3A00%3A09%2B00%3A00&score=4')">4</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%C2%AB%C2%A0L%E2%80%99IA%2C%20c%E2%80%99est%20le%20nouvel%20anglais%C2%A0%C2%BB%C2%A0%3A%20le%20Wagon%2C%20une%20fabrique%20acc%C3%A9l%C3%A9r%C3%A9e%20de%20talents%20de%20la%20data&source=Le%20Monde&category=Actualit%C3%A9&url=https%3A//www.lemonde.fr/campus/article/2026/03/20/aujourd-hui-l-ia-c-est-le-nouvel-anglais-plongee-au-c-ur-du-wagon-fabrique-acceleree-de-talents-de-la-data_6672779_4401467.html&date=2026-03-20T19%3A00%3A09%2B00%3A00&score=5')">5</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%C2%AB%C2%A0L%E2%80%99IA%2C%20c%E2%80%99est%20le%20nouvel%20anglais%C2%A0%C2%BB%C2%A0%3A%20le%20Wagon%2C%20une%20fabrique%20acc%C3%A9l%C3%A9r%C3%A9e%20de%20talents%20de%20la%20data&source=Le%20Monde&category=Actualit%C3%A9&url=https%3A//www.lemonde.fr/campus/article/2026/03/20/aujourd-hui-l-ia-c-est-le-nouvel-anglais-plongee-au-c-ur-du-wagon-fabrique-acceleree-de-talents-de-la-data_6672779_4401467.html&date=2026-03-20T19%3A00%3A09%2B00%3A00&score=6')">6</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%C2%AB%C2%A0L%E2%80%99IA%2C%20c%E2%80%99est%20le%20nouvel%20anglais%C2%A0%C2%BB%C2%A0%3A%20le%20Wagon%2C%20une%20fabrique%20acc%C3%A9l%C3%A9r%C3%A9e%20de%20talents%20de%20la%20data&source=Le%20Monde&category=Actualit%C3%A9&url=https%3A//www.lemonde.fr/campus/article/2026/03/20/aujourd-hui-l-ia-c-est-le-nouvel-anglais-plongee-au-c-ur-du-wagon-fabrique-acceleree-de-talents-de-la-data_6672779_4401467.html&date=2026-03-20T19%3A00%3A09%2B00%3A00&score=7')">7</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%C2%AB%C2%A0L%E2%80%99IA%2C%20c%E2%80%99est%20le%20nouvel%20anglais%C2%A0%C2%BB%C2%A0%3A%20le%20Wagon%2C%20une%20fabrique%20acc%C3%A9l%C3%A9r%C3%A9e%20de%20talents%20de%20la%20data&source=Le%20Monde&category=Actualit%C3%A9&url=https%3A//www.lemonde.fr/campus/article/2026/03/20/aujourd-hui-l-ia-c-est-le-nouvel-anglais-plongee-au-c-ur-du-wagon-fabrique-acceleree-de-talents-de-la-data_6672779_4401467.html&date=2026-03-20T19%3A00%3A09%2B00%3A00&score=8')">8</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%C2%AB%C2%A0L%E2%80%99IA%2C%20c%E2%80%99est%20le%20nouvel%20anglais%C2%A0%C2%BB%C2%A0%3A%20le%20Wagon%2C%20une%20fabrique%20acc%C3%A9l%C3%A9r%C3%A9e%20de%20talents%20de%20la%20data&source=Le%20Monde&category=Actualit%C3%A9&url=https%3A//www.lemonde.fr/campus/article/2026/03/20/aujourd-hui-l-ia-c-est-le-nouvel-anglais-plongee-au-c-ur-du-wagon-fabrique-acceleree-de-talents-de-la-data_6672779_4401467.html&date=2026-03-20T19%3A00%3A09%2B00%3A00&score=9')">9</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=%C2%AB%C2%A0L%E2%80%99IA%2C%20c%E2%80%99est%20le%20nouvel%20anglais%C2%A0%C2%BB%C2%A0%3A%20le%20Wagon%2C%20une%20fabrique%20acc%C3%A9l%C3%A9r%C3%A9e%20de%20talents%20de%20la%20data&source=Le%20Monde&category=Actualit%C3%A9&url=https%3A//www.lemonde.fr/campus/article/2026/03/20/aujourd-hui-l-ia-c-est-le-nouvel-anglais-plongee-au-c-ur-du-wagon-fabrique-acceleree-de-talents-de-la-data_6672779_4401467.html&date=2026-03-20T19%3A00%3A09%2B00%3A00&score=10')">10</span>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="article">
+                <div class="article-top">
+                    <span class="article-tag">Actualité</span>
+                    <span class="article-score">8/10</span>
+                </div>
+                <h3 class="article-title">
+                    <a href="https://www.lemonde.fr/planete/article/2026/03/20/l-himalaya-troisieme-pole-de-la-terre-perd-ses-glaces-de-plus-en-plus-vite_6672774_3244.html" target="_blank">L’Himalaya, « troisième pôle de la terre », perd ses glaces de plus en plus vite</a>
+                </h3>
+                <div class="article-meta">Le Monde &middot; 20/03 à 18h00</div>
+                <div class="article-summary">Publié le 20 mars 2026 — L'Himalaya, souvent considéré comme le 'troisième pôle' de la Terre, connaît une perte accélérée de ses glaciers. Cette tendance alarmante est liée au changement climatique et aux activités humaines. Les conséquences de cette fonte des glaciers sont multiples et impactent non seulement l'environnement local mais également les écosystèmes mondiaux. Il est essentiel de prendre des mesures pour atténuer ces effets et préserver la biodiversité de la région.</div>
+                <a class="read-more" href="https://www.lemonde.fr/planete/article/2026/03/20/l-himalaya-troisieme-pole-de-la-terre-perd-ses-glaces-de-plus-en-plus-vite_6672774_3244.html" target="_blank">Lire l'article &rarr;</a>
+                
+                <div class="rating-bar">
+                    <span class="rating-label">Ta note :</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=L%E2%80%99Himalaya%2C%20%C2%AB%C2%A0troisi%C3%A8me%20p%C3%B4le%20de%20la%20terre%C2%A0%C2%BB%2C%20perd%20ses%20glaces%20de%20plus%20en%20plus%20vite&source=Le%20Monde&category=Actualit%C3%A9&url=https%3A//www.lemonde.fr/planete/article/2026/03/20/l-himalaya-troisieme-pole-de-la-terre-perd-ses-glaces-de-plus-en-plus-vite_6672774_3244.html&date=2026-03-20T18%3A00%3A14%2B00%3A00&score=1')">1</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=L%E2%80%99Himalaya%2C%20%C2%AB%C2%A0troisi%C3%A8me%20p%C3%B4le%20de%20la%20terre%C2%A0%C2%BB%2C%20perd%20ses%20glaces%20de%20plus%20en%20plus%20vite&source=Le%20Monde&category=Actualit%C3%A9&url=https%3A//www.lemonde.fr/planete/article/2026/03/20/l-himalaya-troisieme-pole-de-la-terre-perd-ses-glaces-de-plus-en-plus-vite_6672774_3244.html&date=2026-03-20T18%3A00%3A14%2B00%3A00&score=2')">2</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=L%E2%80%99Himalaya%2C%20%C2%AB%C2%A0troisi%C3%A8me%20p%C3%B4le%20de%20la%20terre%C2%A0%C2%BB%2C%20perd%20ses%20glaces%20de%20plus%20en%20plus%20vite&source=Le%20Monde&category=Actualit%C3%A9&url=https%3A//www.lemonde.fr/planete/article/2026/03/20/l-himalaya-troisieme-pole-de-la-terre-perd-ses-glaces-de-plus-en-plus-vite_6672774_3244.html&date=2026-03-20T18%3A00%3A14%2B00%3A00&score=3')">3</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=L%E2%80%99Himalaya%2C%20%C2%AB%C2%A0troisi%C3%A8me%20p%C3%B4le%20de%20la%20terre%C2%A0%C2%BB%2C%20perd%20ses%20glaces%20de%20plus%20en%20plus%20vite&source=Le%20Monde&category=Actualit%C3%A9&url=https%3A//www.lemonde.fr/planete/article/2026/03/20/l-himalaya-troisieme-pole-de-la-terre-perd-ses-glaces-de-plus-en-plus-vite_6672774_3244.html&date=2026-03-20T18%3A00%3A14%2B00%3A00&score=4')">4</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=L%E2%80%99Himalaya%2C%20%C2%AB%C2%A0troisi%C3%A8me%20p%C3%B4le%20de%20la%20terre%C2%A0%C2%BB%2C%20perd%20ses%20glaces%20de%20plus%20en%20plus%20vite&source=Le%20Monde&category=Actualit%C3%A9&url=https%3A//www.lemonde.fr/planete/article/2026/03/20/l-himalaya-troisieme-pole-de-la-terre-perd-ses-glaces-de-plus-en-plus-vite_6672774_3244.html&date=2026-03-20T18%3A00%3A14%2B00%3A00&score=5')">5</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=L%E2%80%99Himalaya%2C%20%C2%AB%C2%A0troisi%C3%A8me%20p%C3%B4le%20de%20la%20terre%C2%A0%C2%BB%2C%20perd%20ses%20glaces%20de%20plus%20en%20plus%20vite&source=Le%20Monde&category=Actualit%C3%A9&url=https%3A//www.lemonde.fr/planete/article/2026/03/20/l-himalaya-troisieme-pole-de-la-terre-perd-ses-glaces-de-plus-en-plus-vite_6672774_3244.html&date=2026-03-20T18%3A00%3A14%2B00%3A00&score=6')">6</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=L%E2%80%99Himalaya%2C%20%C2%AB%C2%A0troisi%C3%A8me%20p%C3%B4le%20de%20la%20terre%C2%A0%C2%BB%2C%20perd%20ses%20glaces%20de%20plus%20en%20plus%20vite&source=Le%20Monde&category=Actualit%C3%A9&url=https%3A//www.lemonde.fr/planete/article/2026/03/20/l-himalaya-troisieme-pole-de-la-terre-perd-ses-glaces-de-plus-en-plus-vite_6672774_3244.html&date=2026-03-20T18%3A00%3A14%2B00%3A00&score=7')">7</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=L%E2%80%99Himalaya%2C%20%C2%AB%C2%A0troisi%C3%A8me%20p%C3%B4le%20de%20la%20terre%C2%A0%C2%BB%2C%20perd%20ses%20glaces%20de%20plus%20en%20plus%20vite&source=Le%20Monde&category=Actualit%C3%A9&url=https%3A//www.lemonde.fr/planete/article/2026/03/20/l-himalaya-troisieme-pole-de-la-terre-perd-ses-glaces-de-plus-en-plus-vite_6672774_3244.html&date=2026-03-20T18%3A00%3A14%2B00%3A00&score=8')">8</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=L%E2%80%99Himalaya%2C%20%C2%AB%C2%A0troisi%C3%A8me%20p%C3%B4le%20de%20la%20terre%C2%A0%C2%BB%2C%20perd%20ses%20glaces%20de%20plus%20en%20plus%20vite&source=Le%20Monde&category=Actualit%C3%A9&url=https%3A//www.lemonde.fr/planete/article/2026/03/20/l-himalaya-troisieme-pole-de-la-terre-perd-ses-glaces-de-plus-en-plus-vite_6672774_3244.html&date=2026-03-20T18%3A00%3A14%2B00%3A00&score=9')">9</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=L%E2%80%99Himalaya%2C%20%C2%AB%C2%A0troisi%C3%A8me%20p%C3%B4le%20de%20la%20terre%C2%A0%C2%BB%2C%20perd%20ses%20glaces%20de%20plus%20en%20plus%20vite&source=Le%20Monde&category=Actualit%C3%A9&url=https%3A//www.lemonde.fr/planete/article/2026/03/20/l-himalaya-troisieme-pole-de-la-terre-perd-ses-glaces-de-plus-en-plus-vite_6672774_3244.html&date=2026-03-20T18%3A00%3A14%2B00%3A00&score=10')">10</span>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="article">
+                <div class="article-top">
+                    <span class="article-tag">Tendance</span>
+                    <span class="article-score">7/10</span>
+                </div>
+                <h3 class="article-title">
+                    <a href="https://www.courrierinternational.com/article/le-chiffre-du-jour-uber-pourrait-investir-plus-d-un-milliard-de-dollars-dans-les-robots-taxis-de-rivian_242019" target="_blank">Uber pourrait investir plus d’un milliard de dollars dans les robots-taxis de Rivian</a>
+                </h3>
+                <div class="article-meta">Courrier International &middot; 20/03 à 15h49</div>
+                <div class="article-summary">Publié le 20 mars 2026 — Uber envisage d'investir plus d'un milliard de dollars dans les robots-taxis de Rivian, un constructeur américain de véhicules électriques. Cette collaboration vise à développer des taxis autonomes qui pourraient commencer à circuler dans plusieurs villes aux États-Unis, au Canada et en Europe d'ici 2031. L'investissement initial de 300 millions de dollars pourrait être porté à 1,25 milliard de dollars si Rivian atteint les objectifs de développement technologique fixés.</div>
+                <a class="read-more" href="https://www.courrierinternational.com/article/le-chiffre-du-jour-uber-pourrait-investir-plus-d-un-milliard-de-dollars-dans-les-robots-taxis-de-rivian_242019" target="_blank">Lire l'article &rarr;</a>
+                
+                <div class="rating-bar">
+                    <span class="rating-label">Ta note :</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Uber%20pourrait%20investir%20plus%20d%E2%80%99un%20milliard%20de%20dollars%20dans%20les%20robots-taxis%20de%20Rivian&source=Courrier%20International&category=Actualit%C3%A9&url=https%3A//www.courrierinternational.com/article/le-chiffre-du-jour-uber-pourrait-investir-plus-d-un-milliard-de-dollars-dans-les-robots-taxis-de-rivian_242019&date=2026-03-20T15%3A49%3A52%2B00%3A00&score=1')">1</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Uber%20pourrait%20investir%20plus%20d%E2%80%99un%20milliard%20de%20dollars%20dans%20les%20robots-taxis%20de%20Rivian&source=Courrier%20International&category=Actualit%C3%A9&url=https%3A//www.courrierinternational.com/article/le-chiffre-du-jour-uber-pourrait-investir-plus-d-un-milliard-de-dollars-dans-les-robots-taxis-de-rivian_242019&date=2026-03-20T15%3A49%3A52%2B00%3A00&score=2')">2</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Uber%20pourrait%20investir%20plus%20d%E2%80%99un%20milliard%20de%20dollars%20dans%20les%20robots-taxis%20de%20Rivian&source=Courrier%20International&category=Actualit%C3%A9&url=https%3A//www.courrierinternational.com/article/le-chiffre-du-jour-uber-pourrait-investir-plus-d-un-milliard-de-dollars-dans-les-robots-taxis-de-rivian_242019&date=2026-03-20T15%3A49%3A52%2B00%3A00&score=3')">3</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Uber%20pourrait%20investir%20plus%20d%E2%80%99un%20milliard%20de%20dollars%20dans%20les%20robots-taxis%20de%20Rivian&source=Courrier%20International&category=Actualit%C3%A9&url=https%3A//www.courrierinternational.com/article/le-chiffre-du-jour-uber-pourrait-investir-plus-d-un-milliard-de-dollars-dans-les-robots-taxis-de-rivian_242019&date=2026-03-20T15%3A49%3A52%2B00%3A00&score=4')">4</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Uber%20pourrait%20investir%20plus%20d%E2%80%99un%20milliard%20de%20dollars%20dans%20les%20robots-taxis%20de%20Rivian&source=Courrier%20International&category=Actualit%C3%A9&url=https%3A//www.courrierinternational.com/article/le-chiffre-du-jour-uber-pourrait-investir-plus-d-un-milliard-de-dollars-dans-les-robots-taxis-de-rivian_242019&date=2026-03-20T15%3A49%3A52%2B00%3A00&score=5')">5</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Uber%20pourrait%20investir%20plus%20d%E2%80%99un%20milliard%20de%20dollars%20dans%20les%20robots-taxis%20de%20Rivian&source=Courrier%20International&category=Actualit%C3%A9&url=https%3A//www.courrierinternational.com/article/le-chiffre-du-jour-uber-pourrait-investir-plus-d-un-milliard-de-dollars-dans-les-robots-taxis-de-rivian_242019&date=2026-03-20T15%3A49%3A52%2B00%3A00&score=6')">6</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Uber%20pourrait%20investir%20plus%20d%E2%80%99un%20milliard%20de%20dollars%20dans%20les%20robots-taxis%20de%20Rivian&source=Courrier%20International&category=Actualit%C3%A9&url=https%3A//www.courrierinternational.com/article/le-chiffre-du-jour-uber-pourrait-investir-plus-d-un-milliard-de-dollars-dans-les-robots-taxis-de-rivian_242019&date=2026-03-20T15%3A49%3A52%2B00%3A00&score=7')">7</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Uber%20pourrait%20investir%20plus%20d%E2%80%99un%20milliard%20de%20dollars%20dans%20les%20robots-taxis%20de%20Rivian&source=Courrier%20International&category=Actualit%C3%A9&url=https%3A//www.courrierinternational.com/article/le-chiffre-du-jour-uber-pourrait-investir-plus-d-un-milliard-de-dollars-dans-les-robots-taxis-de-rivian_242019&date=2026-03-20T15%3A49%3A52%2B00%3A00&score=8')">8</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Uber%20pourrait%20investir%20plus%20d%E2%80%99un%20milliard%20de%20dollars%20dans%20les%20robots-taxis%20de%20Rivian&source=Courrier%20International&category=Actualit%C3%A9&url=https%3A//www.courrierinternational.com/article/le-chiffre-du-jour-uber-pourrait-investir-plus-d-un-milliard-de-dollars-dans-les-robots-taxis-de-rivian_242019&date=2026-03-20T15%3A49%3A52%2B00%3A00&score=9')">9</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Uber%20pourrait%20investir%20plus%20d%E2%80%99un%20milliard%20de%20dollars%20dans%20les%20robots-taxis%20de%20Rivian&source=Courrier%20International&category=Actualit%C3%A9&url=https%3A//www.courrierinternational.com/article/le-chiffre-du-jour-uber-pourrait-investir-plus-d-un-milliard-de-dollars-dans-les-robots-taxis-de-rivian_242019&date=2026-03-20T15%3A49%3A52%2B00%3A00&score=10')">10</span>
+                    
+                </div>
+                
+            </div>
+            
+        </div>
+        
+        
+        
+        
+        <div class="category-divider"></div>
+        
+        <div class="category-section">
+            <div class="category-header">Mode Homme</div>
+
+            
+            <div class="article">
+                <div class="article-top">
+                    <span class="article-tag">Portrait</span>
+                    <span class="article-score">9/10</span>
+                </div>
+                <h3 class="article-title">
+                    <a href="https://hypebeast.com/2026/3/through-the-lens-thibaut-grevet" target="_blank">Through the Lens: Thibaut Grevet</a>
+                </h3>
+                <div class="article-meta">Hypebeast &middot; 20/03 à 16h15</div>
+                <div class="article-summary">Publié le 20 mars 2026 — Thibaut Grevet, un photographe et réalisateur français, est connu pour ses images empreintes de poésie et de sensibilité. Son travail, qui explore les frontières entre la réalité et le sublime, a été salué pour sa capacité à capturer l'essence de ses sujets. De la mode à la danse, en passant par la musique, Grevet a travaillé avec une variété de clients et a développé un style unique qui reflète son approche artistique intuitive et spontanée.</div>
+                <a class="read-more" href="https://hypebeast.com/2026/3/through-the-lens-thibaut-grevet" target="_blank">Lire l'article &rarr;</a>
+                
+                <div class="rating-bar">
+                    <span class="rating-label">Ta note :</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Through%20the%20Lens%3A%20Thibaut%20Grevet&source=Hypebeast&category=Mode%20Homme&url=https%3A//hypebeast.com/2026/3/through-the-lens-thibaut-grevet&date=2026-03-20T16%3A15%3A06%2B00%3A00&score=1')">1</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Through%20the%20Lens%3A%20Thibaut%20Grevet&source=Hypebeast&category=Mode%20Homme&url=https%3A//hypebeast.com/2026/3/through-the-lens-thibaut-grevet&date=2026-03-20T16%3A15%3A06%2B00%3A00&score=2')">2</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Through%20the%20Lens%3A%20Thibaut%20Grevet&source=Hypebeast&category=Mode%20Homme&url=https%3A//hypebeast.com/2026/3/through-the-lens-thibaut-grevet&date=2026-03-20T16%3A15%3A06%2B00%3A00&score=3')">3</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Through%20the%20Lens%3A%20Thibaut%20Grevet&source=Hypebeast&category=Mode%20Homme&url=https%3A//hypebeast.com/2026/3/through-the-lens-thibaut-grevet&date=2026-03-20T16%3A15%3A06%2B00%3A00&score=4')">4</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Through%20the%20Lens%3A%20Thibaut%20Grevet&source=Hypebeast&category=Mode%20Homme&url=https%3A//hypebeast.com/2026/3/through-the-lens-thibaut-grevet&date=2026-03-20T16%3A15%3A06%2B00%3A00&score=5')">5</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Through%20the%20Lens%3A%20Thibaut%20Grevet&source=Hypebeast&category=Mode%20Homme&url=https%3A//hypebeast.com/2026/3/through-the-lens-thibaut-grevet&date=2026-03-20T16%3A15%3A06%2B00%3A00&score=6')">6</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Through%20the%20Lens%3A%20Thibaut%20Grevet&source=Hypebeast&category=Mode%20Homme&url=https%3A//hypebeast.com/2026/3/through-the-lens-thibaut-grevet&date=2026-03-20T16%3A15%3A06%2B00%3A00&score=7')">7</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Through%20the%20Lens%3A%20Thibaut%20Grevet&source=Hypebeast&category=Mode%20Homme&url=https%3A//hypebeast.com/2026/3/through-the-lens-thibaut-grevet&date=2026-03-20T16%3A15%3A06%2B00%3A00&score=8')">8</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Through%20the%20Lens%3A%20Thibaut%20Grevet&source=Hypebeast&category=Mode%20Homme&url=https%3A//hypebeast.com/2026/3/through-the-lens-thibaut-grevet&date=2026-03-20T16%3A15%3A06%2B00%3A00&score=9')">9</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Through%20the%20Lens%3A%20Thibaut%20Grevet&source=Hypebeast&category=Mode%20Homme&url=https%3A//hypebeast.com/2026/3/through-the-lens-thibaut-grevet&date=2026-03-20T16%3A15%3A06%2B00%3A00&score=10')">10</span>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="article">
+                <div class="article-top">
+                    <span class="article-tag">Sortie</span>
+                    <span class="article-score">9/10</span>
+                </div>
+                <h3 class="article-title">
+                    <a href="https://hypebeast.com/2026/3/note-nike-sb-dunk-low-brew-biscuits-io9508-200-release-info" target="_blank">An Official Look at the NOTE x Nike SB Dunk Low “Brew & Biscuits” Sneaker</a>
+                </h3>
+                <div class="article-meta">Hypebeast &middot; 20/03 à 09h08</div>
+                <div class="article-summary">Publié le 20 mars 2026 — NOTE et Nike SB présentent leur nouvelle collaboration, la Dunk Low « Brew & Biscuits », inspirée par la culture britannique du thé et des biscuits. Les chaussures disposent d'une palette de couleurs chaudes et de détails tels que des Swooshes interchangeables et des lacets texturés. Cette édition limitée sera disponible le 31 mars. La conception de ces sneakers reflète fidèlement l'esprit de la culture britannique du thé, avec des touches de créativité dans chaque détail.</div>
+                <a class="read-more" href="https://hypebeast.com/2026/3/note-nike-sb-dunk-low-brew-biscuits-io9508-200-release-info" target="_blank">Lire l'article &rarr;</a>
+                
+                <div class="rating-bar">
+                    <span class="rating-label">Ta note :</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=An%20Official%20Look%20at%20the%20NOTE%20x%20Nike%20SB%20Dunk%20Low%20%E2%80%9CBrew%20%26%20Biscuits%E2%80%9D%20Sneaker&source=Hypebeast&category=Mode%20Homme&url=https%3A//hypebeast.com/2026/3/note-nike-sb-dunk-low-brew-biscuits-io9508-200-release-info&date=2026-03-20T09%3A08%3A29%2B00%3A00&score=1')">1</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=An%20Official%20Look%20at%20the%20NOTE%20x%20Nike%20SB%20Dunk%20Low%20%E2%80%9CBrew%20%26%20Biscuits%E2%80%9D%20Sneaker&source=Hypebeast&category=Mode%20Homme&url=https%3A//hypebeast.com/2026/3/note-nike-sb-dunk-low-brew-biscuits-io9508-200-release-info&date=2026-03-20T09%3A08%3A29%2B00%3A00&score=2')">2</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=An%20Official%20Look%20at%20the%20NOTE%20x%20Nike%20SB%20Dunk%20Low%20%E2%80%9CBrew%20%26%20Biscuits%E2%80%9D%20Sneaker&source=Hypebeast&category=Mode%20Homme&url=https%3A//hypebeast.com/2026/3/note-nike-sb-dunk-low-brew-biscuits-io9508-200-release-info&date=2026-03-20T09%3A08%3A29%2B00%3A00&score=3')">3</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=An%20Official%20Look%20at%20the%20NOTE%20x%20Nike%20SB%20Dunk%20Low%20%E2%80%9CBrew%20%26%20Biscuits%E2%80%9D%20Sneaker&source=Hypebeast&category=Mode%20Homme&url=https%3A//hypebeast.com/2026/3/note-nike-sb-dunk-low-brew-biscuits-io9508-200-release-info&date=2026-03-20T09%3A08%3A29%2B00%3A00&score=4')">4</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=An%20Official%20Look%20at%20the%20NOTE%20x%20Nike%20SB%20Dunk%20Low%20%E2%80%9CBrew%20%26%20Biscuits%E2%80%9D%20Sneaker&source=Hypebeast&category=Mode%20Homme&url=https%3A//hypebeast.com/2026/3/note-nike-sb-dunk-low-brew-biscuits-io9508-200-release-info&date=2026-03-20T09%3A08%3A29%2B00%3A00&score=5')">5</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=An%20Official%20Look%20at%20the%20NOTE%20x%20Nike%20SB%20Dunk%20Low%20%E2%80%9CBrew%20%26%20Biscuits%E2%80%9D%20Sneaker&source=Hypebeast&category=Mode%20Homme&url=https%3A//hypebeast.com/2026/3/note-nike-sb-dunk-low-brew-biscuits-io9508-200-release-info&date=2026-03-20T09%3A08%3A29%2B00%3A00&score=6')">6</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=An%20Official%20Look%20at%20the%20NOTE%20x%20Nike%20SB%20Dunk%20Low%20%E2%80%9CBrew%20%26%20Biscuits%E2%80%9D%20Sneaker&source=Hypebeast&category=Mode%20Homme&url=https%3A//hypebeast.com/2026/3/note-nike-sb-dunk-low-brew-biscuits-io9508-200-release-info&date=2026-03-20T09%3A08%3A29%2B00%3A00&score=7')">7</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=An%20Official%20Look%20at%20the%20NOTE%20x%20Nike%20SB%20Dunk%20Low%20%E2%80%9CBrew%20%26%20Biscuits%E2%80%9D%20Sneaker&source=Hypebeast&category=Mode%20Homme&url=https%3A//hypebeast.com/2026/3/note-nike-sb-dunk-low-brew-biscuits-io9508-200-release-info&date=2026-03-20T09%3A08%3A29%2B00%3A00&score=8')">8</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=An%20Official%20Look%20at%20the%20NOTE%20x%20Nike%20SB%20Dunk%20Low%20%E2%80%9CBrew%20%26%20Biscuits%E2%80%9D%20Sneaker&source=Hypebeast&category=Mode%20Homme&url=https%3A//hypebeast.com/2026/3/note-nike-sb-dunk-low-brew-biscuits-io9508-200-release-info&date=2026-03-20T09%3A08%3A29%2B00%3A00&score=9')">9</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=An%20Official%20Look%20at%20the%20NOTE%20x%20Nike%20SB%20Dunk%20Low%20%E2%80%9CBrew%20%26%20Biscuits%E2%80%9D%20Sneaker&source=Hypebeast&category=Mode%20Homme&url=https%3A//hypebeast.com/2026/3/note-nike-sb-dunk-low-brew-biscuits-io9508-200-release-info&date=2026-03-20T09%3A08%3A29%2B00%3A00&score=10')">10</span>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="article">
+                <div class="article-top">
+                    <span class="article-tag">Tendance</span>
+                    <span class="article-score">9/10</span>
+                </div>
+                <h3 class="article-title">
+                    <a href="https://www.gq.com/gallery/uniqlo-u-spring-summer-2026-collecton" target="_blank">Uniqlo Dropped Another Batch of Runway-Grade Spring Menswear</a>
+                </h3>
+                <div class="article-meta">GQ &middot; 20/03 à 18h01</div>
+                <div class="article-summary">Publié le 20 mars 2026 — Uniqlo propose une nouvelle collection de vêtements pour hommes, conçue en collaboration avec Lemaire. Cette collection printanière comprend des jeans torsadés, des costumes ample et des vestes légères, offrant un style à la fois décontracté et élégant. Les pièces de cette collection reflètent les tendances actuelles de la mode masculine.</div>
+                <a class="read-more" href="https://www.gq.com/gallery/uniqlo-u-spring-summer-2026-collecton" target="_blank">Lire l'article &rarr;</a>
+                
+                <div class="rating-bar">
+                    <span class="rating-label">Ta note :</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Uniqlo%20Dropped%20Another%20Batch%20of%20Runway-Grade%20Spring%20Menswear&source=GQ&category=Mode%20Homme&url=https%3A//www.gq.com/gallery/uniqlo-u-spring-summer-2026-collecton&date=2026-03-20T18%3A01%3A08%2B00%3A00&score=1')">1</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Uniqlo%20Dropped%20Another%20Batch%20of%20Runway-Grade%20Spring%20Menswear&source=GQ&category=Mode%20Homme&url=https%3A//www.gq.com/gallery/uniqlo-u-spring-summer-2026-collecton&date=2026-03-20T18%3A01%3A08%2B00%3A00&score=2')">2</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Uniqlo%20Dropped%20Another%20Batch%20of%20Runway-Grade%20Spring%20Menswear&source=GQ&category=Mode%20Homme&url=https%3A//www.gq.com/gallery/uniqlo-u-spring-summer-2026-collecton&date=2026-03-20T18%3A01%3A08%2B00%3A00&score=3')">3</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Uniqlo%20Dropped%20Another%20Batch%20of%20Runway-Grade%20Spring%20Menswear&source=GQ&category=Mode%20Homme&url=https%3A//www.gq.com/gallery/uniqlo-u-spring-summer-2026-collecton&date=2026-03-20T18%3A01%3A08%2B00%3A00&score=4')">4</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Uniqlo%20Dropped%20Another%20Batch%20of%20Runway-Grade%20Spring%20Menswear&source=GQ&category=Mode%20Homme&url=https%3A//www.gq.com/gallery/uniqlo-u-spring-summer-2026-collecton&date=2026-03-20T18%3A01%3A08%2B00%3A00&score=5')">5</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Uniqlo%20Dropped%20Another%20Batch%20of%20Runway-Grade%20Spring%20Menswear&source=GQ&category=Mode%20Homme&url=https%3A//www.gq.com/gallery/uniqlo-u-spring-summer-2026-collecton&date=2026-03-20T18%3A01%3A08%2B00%3A00&score=6')">6</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Uniqlo%20Dropped%20Another%20Batch%20of%20Runway-Grade%20Spring%20Menswear&source=GQ&category=Mode%20Homme&url=https%3A//www.gq.com/gallery/uniqlo-u-spring-summer-2026-collecton&date=2026-03-20T18%3A01%3A08%2B00%3A00&score=7')">7</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Uniqlo%20Dropped%20Another%20Batch%20of%20Runway-Grade%20Spring%20Menswear&source=GQ&category=Mode%20Homme&url=https%3A//www.gq.com/gallery/uniqlo-u-spring-summer-2026-collecton&date=2026-03-20T18%3A01%3A08%2B00%3A00&score=8')">8</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Uniqlo%20Dropped%20Another%20Batch%20of%20Runway-Grade%20Spring%20Menswear&source=GQ&category=Mode%20Homme&url=https%3A//www.gq.com/gallery/uniqlo-u-spring-summer-2026-collecton&date=2026-03-20T18%3A01%3A08%2B00%3A00&score=9')">9</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Uniqlo%20Dropped%20Another%20Batch%20of%20Runway-Grade%20Spring%20Menswear&source=GQ&category=Mode%20Homme&url=https%3A//www.gq.com/gallery/uniqlo-u-spring-summer-2026-collecton&date=2026-03-20T18%3A01%3A08%2B00%3A00&score=10')">10</span>
+                    
+                </div>
+                
+            </div>
+            
+        </div>
+        
+        
+        
+        
+        <div class="category-divider"></div>
+        
+        <div class="category-section">
+            <div class="category-header">Musique Underground</div>
+
+            
+            <div class="article">
+                <div class="article-top">
+                    <span class="article-tag">Sortie</span>
+                    <span class="article-score">9/10</span>
+                </div>
+                <h3 class="article-title">
+                    <a href="https://pitchfork.com/reviews/albums/grace-ives-girlfriend/" target="_blank">Girlfriend</a>
+                </h3>
+                <div class="article-meta">Pitchfork Reviews &middot; 20/03 à 04h03</div>
+                <div class="article-summary">Publié le 20 mars 2026 — L'artiste indie pop présente son nouvel album intitulé « Girlfriend », caractérisé par des paroles introspectives et une production soignée. Cet album explore les thèmes de la dislocation et de la reprise, offrant une perspective personnelle et émouvante sur les expériences de vie.</div>
+                <a class="read-more" href="https://pitchfork.com/reviews/albums/grace-ives-girlfriend/" target="_blank">Lire l'article &rarr;</a>
+                
+                <div class="rating-bar">
+                    <span class="rating-label">Ta note :</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Girlfriend&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/grace-ives-girlfriend/&date=2026-03-20T04%3A03%3A00%2B00%3A00&score=1')">1</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Girlfriend&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/grace-ives-girlfriend/&date=2026-03-20T04%3A03%3A00%2B00%3A00&score=2')">2</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Girlfriend&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/grace-ives-girlfriend/&date=2026-03-20T04%3A03%3A00%2B00%3A00&score=3')">3</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Girlfriend&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/grace-ives-girlfriend/&date=2026-03-20T04%3A03%3A00%2B00%3A00&score=4')">4</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Girlfriend&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/grace-ives-girlfriend/&date=2026-03-20T04%3A03%3A00%2B00%3A00&score=5')">5</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Girlfriend&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/grace-ives-girlfriend/&date=2026-03-20T04%3A03%3A00%2B00%3A00&score=6')">6</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Girlfriend&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/grace-ives-girlfriend/&date=2026-03-20T04%3A03%3A00%2B00%3A00&score=7')">7</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Girlfriend&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/grace-ives-girlfriend/&date=2026-03-20T04%3A03%3A00%2B00%3A00&score=8')">8</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Girlfriend&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/grace-ives-girlfriend/&date=2026-03-20T04%3A03%3A00%2B00%3A00&score=9')">9</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=Girlfriend&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/grace-ives-girlfriend/&date=2026-03-20T04%3A03%3A00%2B00%3A00&score=10')">10</span>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="article">
+                <div class="article-top">
+                    <span class="article-tag">Sortie</span>
+                    <span class="article-score">9/10</span>
+                </div>
+                <h3 class="article-title">
+                    <a href="https://pitchfork.com/reviews/albums/gladie-no-need-to-be-lonely/" target="_blank">No Need to Be Lonely</a>
+                </h3>
+                <div class="article-meta">Pitchfork Reviews &middot; 20/03 à 04h01</div>
+                <div class="article-summary">Publié le 20 mars 2026 — Augusta Koch, ancienne chanteuse de Cayetana, revient avec un nouvel album produit par Jeff Rosenstock. Cet album revisite le style punky power-pop de son ancien groupe, avec des paroles percutantes qui abordent l'amélioration personnelle et l'élévation communautaire.</div>
+                <a class="read-more" href="https://pitchfork.com/reviews/albums/gladie-no-need-to-be-lonely/" target="_blank">Lire l'article &rarr;</a>
+                
+                <div class="rating-bar">
+                    <span class="rating-label">Ta note :</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=No%20Need%20to%20Be%20Lonely&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/gladie-no-need-to-be-lonely/&date=2026-03-20T04%3A01%3A00%2B00%3A00&score=1')">1</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=No%20Need%20to%20Be%20Lonely&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/gladie-no-need-to-be-lonely/&date=2026-03-20T04%3A01%3A00%2B00%3A00&score=2')">2</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=No%20Need%20to%20Be%20Lonely&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/gladie-no-need-to-be-lonely/&date=2026-03-20T04%3A01%3A00%2B00%3A00&score=3')">3</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=No%20Need%20to%20Be%20Lonely&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/gladie-no-need-to-be-lonely/&date=2026-03-20T04%3A01%3A00%2B00%3A00&score=4')">4</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=No%20Need%20to%20Be%20Lonely&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/gladie-no-need-to-be-lonely/&date=2026-03-20T04%3A01%3A00%2B00%3A00&score=5')">5</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=No%20Need%20to%20Be%20Lonely&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/gladie-no-need-to-be-lonely/&date=2026-03-20T04%3A01%3A00%2B00%3A00&score=6')">6</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=No%20Need%20to%20Be%20Lonely&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/gladie-no-need-to-be-lonely/&date=2026-03-20T04%3A01%3A00%2B00%3A00&score=7')">7</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=No%20Need%20to%20Be%20Lonely&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/gladie-no-need-to-be-lonely/&date=2026-03-20T04%3A01%3A00%2B00%3A00&score=8')">8</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=No%20Need%20to%20Be%20Lonely&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/gladie-no-need-to-be-lonely/&date=2026-03-20T04%3A01%3A00%2B00%3A00&score=9')">9</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=No%20Need%20to%20Be%20Lonely&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/gladie-no-need-to-be-lonely/&date=2026-03-20T04%3A01%3A00%2B00%3A00&score=10')">10</span>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="article">
+                <div class="article-top">
+                    <span class="article-tag">Sortie</span>
+                    <span class="article-score">9/10</span>
+                </div>
+                <h3 class="article-title">
+                    <a href="https://pitchfork.com/reviews/albums/anjimile-youre-free-to-go/" target="_blank">You’re Free to Go</a>
+                </h3>
+                <div class="article-meta">Pitchfork Reviews &middot; 20/03 à 04h00</div>
+                <div class="article-summary">Publié le 20 mars 2026 — Le chanteur-compositeur présente son troisième album, « You’re Free to Go », qui explore de vastes territoires émotionnels à travers des structures de chansons conventionnelles. Cet album marque un tournant créatif et émotionnel pour l'artiste, offrant une perspective renouvelée sur la musique.</div>
+                <a class="read-more" href="https://pitchfork.com/reviews/albums/anjimile-youre-free-to-go/" target="_blank">Lire l'article &rarr;</a>
+                
+                <div class="rating-bar">
+                    <span class="rating-label">Ta note :</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=You%E2%80%99re%20Free%20to%20Go&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/anjimile-youre-free-to-go/&date=2026-03-20T04%3A00%3A00%2B00%3A00&score=1')">1</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=You%E2%80%99re%20Free%20to%20Go&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/anjimile-youre-free-to-go/&date=2026-03-20T04%3A00%3A00%2B00%3A00&score=2')">2</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=You%E2%80%99re%20Free%20to%20Go&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/anjimile-youre-free-to-go/&date=2026-03-20T04%3A00%3A00%2B00%3A00&score=3')">3</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=You%E2%80%99re%20Free%20to%20Go&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/anjimile-youre-free-to-go/&date=2026-03-20T04%3A00%3A00%2B00%3A00&score=4')">4</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=You%E2%80%99re%20Free%20to%20Go&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/anjimile-youre-free-to-go/&date=2026-03-20T04%3A00%3A00%2B00%3A00&score=5')">5</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=You%E2%80%99re%20Free%20to%20Go&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/anjimile-youre-free-to-go/&date=2026-03-20T04%3A00%3A00%2B00%3A00&score=6')">6</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=You%E2%80%99re%20Free%20to%20Go&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/anjimile-youre-free-to-go/&date=2026-03-20T04%3A00%3A00%2B00%3A00&score=7')">7</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=You%E2%80%99re%20Free%20to%20Go&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/anjimile-youre-free-to-go/&date=2026-03-20T04%3A00%3A00%2B00%3A00&score=8')">8</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=You%E2%80%99re%20Free%20to%20Go&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/anjimile-youre-free-to-go/&date=2026-03-20T04%3A00%3A00%2B00%3A00&score=9')">9</span>
+                    
+                    <span class="rating-btn" onclick="rate(this, 'https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec?title=You%E2%80%99re%20Free%20to%20Go&source=Pitchfork%20Reviews&category=Musique%20Underground&url=https%3A//pitchfork.com/reviews/albums/anjimile-youre-free-to-go/&date=2026-03-20T04%3A00%3A00%2B00%3A00&score=10')">10</span>
+                    
+                </div>
+                
+            </div>
+            
+        </div>
+        
+        
+
+        <div class="footer">
+            <p>Journal personnalisé d'Enrique &middot; Généré automatiquement</p>
+        </div>
+    </div>
+
+    <script>
+    function rate(btn, url) {
+        fetch(url, {mode: 'no-cors'});
+        var siblings = btn.parentElement.querySelectorAll('.rating-btn');
+        for (var i = 0; i < siblings.length; i++) {
+            siblings[i].classList.remove('selected');
+        }
+        btn.classList.add('selected');
+    }
+    </script>
+</body>
+</html>
