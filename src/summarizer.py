@@ -103,7 +103,6 @@ def summarize_articles(articles: list[dict]) -> list[dict]:
     for i, article in enumerate(articles):
         summary_info = summary_map.get(i, {})
         article["summary"] = summary_info.get("summary", "Résumé non disponible.")
-        article["why_interesting"] = summary_info.get("why_interesting", "")
         article["tag"] = summary_info.get("tag", "Découverte")
         enriched.append(article)
 
@@ -127,4 +126,3 @@ if __name__ == "__main__":
     for a in enriched:
         print(f"\n[{a['tag']}] {a['title']}")
         print(f"  {a['summary']}")
-        print(f"  → {a['why_interesting']}")

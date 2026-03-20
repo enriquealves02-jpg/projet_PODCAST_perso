@@ -2,9 +2,12 @@ name: Daily Digest
 
 on:
   schedule:
-    # 5h UTC = 6h heure de Paris (hiver) / 7h (été)
     - cron: '0 5 * * *'
-  workflow_dispatch: # Permet le lancement manuel
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
 
 jobs:
   daily-digest:
@@ -33,6 +36,30 @@ jobs:
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
           RATING_WEBHOOK_URL: ${{ secrets.RATING_WEBHOOK_URL }}
         run: python main.py
+
+      - name: Deploy to GitHub Pages
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          DATE=$(date +%Y-%m-%d)
+
+          # Save digest before switching branch
+          cp data/digest.html /tmp/digest.html
+
+          # Fetch gh-pages if it exists, or create it
+          git fetch origin gh-pages:gh-pages 2>/dev/null && git checkout gh-pages || git checkout --orphan gh-pages
+
+          # Clean tracked files but keep archive/
+          git rm -rf --ignore-unmatch index.html 2>/dev/null || true
+
+          mkdir -p archive
+          cp /tmp/digest.html index.html
+          cp /tmp/digest.html "archive/${DATE}.html"
+
+          git add index.html archive/
+          git commit -m "Digest ${DATE}" || echo "No changes"
+          git push origin gh-pages
 
       - name: Upload digest artifact
         if: always()

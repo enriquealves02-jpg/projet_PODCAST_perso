@@ -9,76 +9,89 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f5f5f5;
-            color: #1a1a1a;
+            background-color: #0d1117;
+            color: #e6edf3;
             line-height: 1.6;
         }
 
         .container {
-            max-width: 640px;
+            max-width: 700px;
             margin: 0 auto;
-            background: #ffffff;
+            padding: 20px;
         }
 
         .header {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            color: white;
-            padding: 32px 24px;
             text-align: center;
+            padding: 48px 24px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #21262d;
         }
 
         .header h1 {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 700;
+            color: #f0f6fc;
             margin-bottom: 8px;
             letter-spacing: -0.5px;
         }
 
         .header .subtitle {
-            font-size: 14px;
-            opacity: 0.8;
-            font-weight: 300;
+            font-size: 16px;
+            color: #8b949e;
+            font-weight: 400;
         }
 
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
+        .header .stats {
             margin-top: 16px;
             font-size: 13px;
-            opacity: 0.7;
+            color: #484f58;
+        }
+
+        .header .stats span {
+            margin: 0 8px;
         }
 
         .category-section {
-            padding: 0 24px;
-            margin-top: 32px;
+            margin-bottom: 48px;
         }
 
         .category-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #e8e8e8;
-            margin-bottom: 20px;
-        }
-
-        .category-icon {
-            font-size: 24px;
-        }
-
-        .category-title {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 700;
-            color: #1a1a2e;
+            color: #f0f6fc;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #30363d;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+        }
+
+        .category-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #30363d, transparent);
+            margin: 48px 0;
         }
 
         .article {
-            margin-bottom: 24px;
-            padding: 16px;
-            background: #fafafa;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #161b22;
             border-radius: 8px;
-            border-left: 4px solid #0f3460;
+            border: 1px solid #21262d;
+            transition: border-color 0.2s;
+        }
+
+        .article:hover {
+            border-color: #388bfd;
+        }
+
+        .article-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
         }
 
         .article-tag {
@@ -87,80 +100,55 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            padding: 2px 8px;
-            border-radius: 4px;
-            background: #e8f0fe;
-            color: #0f3460;
-            margin-bottom: 8px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            background: #1f6feb22;
+            color: #58a6ff;
+        }
+
+        .article-score {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 12px;
+            background: #238636;
+            color: #ffffff;
         }
 
         .article-title {
-            font-size: 17px;
+            font-size: 18px;
             font-weight: 600;
             margin-bottom: 6px;
+            line-height: 1.3;
         }
 
         .article-title a {
-            color: #1a1a2e;
+            color: #f0f6fc;
             text-decoration: none;
         }
 
         .article-title a:hover {
-            text-decoration: underline;
-            color: #0f3460;
+            color: #58a6ff;
         }
 
         .article-meta {
             font-size: 12px;
-            color: #888;
-            margin-bottom: 10px;
+            color: #484f58;
+            margin-bottom: 12px;
         }
 
         .article-summary {
             font-size: 14px;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .article-why {
-            font-size: 13px;
-            color: #0f3460;
-            font-style: italic;
-            padding: 8px 12px;
-            background: #e8f0fe;
-            border-radius: 6px;
-        }
-
-        .article-score {
-            display: inline-block;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 2px 6px;
-            border-radius: 4px;
-            background: #0f3460;
-            color: white;
-            margin-left: 8px;
-        }
-
-        .footer {
-            margin-top: 40px;
-            padding: 24px;
-            background: #f0f0f0;
-            text-align: center;
-            font-size: 12px;
-            color: #888;
-        }
-
-        .footer a {
-            color: #0f3460;
+            color: #8b949e;
+            line-height: 1.7;
+            margin-bottom: 14px;
         }
 
         .read-more {
             display: inline-block;
-            margin-top: 10px;
             font-size: 13px;
             font-weight: 600;
-            color: #0f3460;
+            color: #58a6ff;
             text-decoration: none;
         }
 
@@ -169,42 +157,65 @@
         }
 
         .rating-bar {
-            margin-top: 10px;
-            padding-top: 8px;
-            border-top: 1px solid #e8e8e8;
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid #21262d;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .rating-label {
-            font-size: 11px;
-            color: #888;
-            margin-right: 6px;
+            font-size: 12px;
+            color: #484f58;
+            margin-right: 8px;
         }
 
         .rating-btn {
-            display: inline-block;
-            width: 26px;
-            height: 26px;
-            line-height: 26px;
-            text-align: center;
-            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            font-size: 13px;
             font-weight: 600;
-            color: #0f3460;
-            background: #e8f0fe;
-            border-radius: 4px;
+            color: #8b949e;
+            background: #21262d;
+            border: 2px solid transparent;
+            border-radius: 6px;
             text-decoration: none;
-            margin-right: 3px;
+            cursor: pointer;
+            transition: all 0.15s;
         }
 
         .rating-btn:hover {
-            background: #0f3460;
-            color: white;
+            background: #30363d;
+            color: #f0f6fc;
+            border-color: #58a6ff;
+        }
+
+        .rating-btn.selected {
+            background: #1f6feb;
+            color: #ffffff;
+            border-color: #58a6ff;
+            font-weight: 800;
+        }
+
+        .footer {
+            margin-top: 48px;
+            padding: 24px;
+            text-align: center;
+            font-size: 12px;
+            color: #484f58;
+            border-top: 1px solid #21262d;
         }
 
         @media (max-width: 480px) {
-            .header { padding: 24px 16px; }
-            .header h1 { font-size: 24px; }
-            .category-section { padding: 0 16px; }
-            .article { padding: 12px; }
+            .container { padding: 12px; }
+            .header { padding: 32px 16px; }
+            .header h1 { font-size: 26px; }
+            .article { padding: 14px; }
+            .rating-btn { width: 28px; height: 28px; font-size: 11px; }
         }
     </style>
 </head>
@@ -215,36 +226,36 @@
             <div class="subtitle">{{ date }}</div>
             <div class="stats">
                 <span>{{ total_articles }} articles</span>
+                <span>&middot;</span>
                 <span>{{ categories | length }} catégories</span>
             </div>
         </div>
 
         {% for cat_key, cat_data in categories.items() %}
         {% if cat_data.articles %}
+        {% if not loop.first %}
+        <div class="category-divider"></div>
+        {% endif %}
         <div class="category-section">
-            <div class="category-header">
-                <span class="category-icon">{{ cat_data.icon }}</span>
-                <span class="category-title">{{ cat_data.name }}</span>
-            </div>
+            <div class="category-header">{{ cat_data.name }}</div>
 
             {% for article in cat_data.articles %}
             <div class="article">
-                <span class="article-tag">{{ article.tag }}</span>
-                <span class="article-score">{{ article.score }}/10</span>
+                <div class="article-top">
+                    <span class="article-tag">{{ article.tag }}</span>
+                    <span class="article-score">{{ article.score }}/10</span>
+                </div>
                 <h3 class="article-title">
                     <a href="{{ article.url }}" target="_blank">{{ article.title }}</a>
                 </h3>
-                <div class="article-meta">{{ article.source }} · {{ article.date_formatted }}</div>
+                <div class="article-meta">{{ article.source }} &middot; {{ article.date_formatted }}</div>
                 <div class="article-summary">{{ article.summary }}</div>
-                {% if article.why_interesting %}
-                <div class="article-why">→ {{ article.why_interesting }}</div>
-                {% endif %}
-                <a class="read-more" href="{{ article.url }}" target="_blank">Lire l'article complet →</a>
+                <a class="read-more" href="{{ article.url }}" target="_blank">Lire l'article &rarr;</a>
                 {% if rating_url %}
                 <div class="rating-bar">
                     <span class="rating-label">Ta note :</span>
                     {% for n in range(1, 11) %}
-                    <a class="rating-btn" href="{{ rating_url }}?title={{ article.title | urlencode }}&source={{ article.source | urlencode }}&category={{ article.category_name | urlencode }}&url={{ article.url | urlencode }}&date={{ article.date | urlencode }}&score={{ n }}" target="_blank">{{ n }}</a>
+                    <span class="rating-btn" onclick="rate(this, '{{ rating_url }}?title={{ article.title | urlencode }}&source={{ article.source | urlencode }}&category={{ article.category_name | urlencode }}&url={{ article.url | urlencode }}&date={{ article.date | urlencode }}&score={{ n }}')">{{ n }}</span>
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -255,9 +266,19 @@
         {% endfor %}
 
         <div class="footer">
-            <p>Généré automatiquement par <strong>Daily Digest</strong></p>
-            <p>Pipeline : RSS → Groq/Llama 3.3 → Email</p>
+            <p>Journal personnalisé d'Enrique &middot; Généré automatiquement</p>
         </div>
     </div>
+
+    <script>
+    function rate(btn, url) {
+        fetch(url, {mode: 'no-cors'});
+        var siblings = btn.parentElement.querySelectorAll('.rating-btn');
+        for (var i = 0; i < siblings.length; i++) {
+            siblings[i].classList.remove('selected');
+        }
+        btn.classList.add('selected');
+    }
+    </script>
 </body>
 </html>

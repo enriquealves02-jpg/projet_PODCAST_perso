@@ -1,10 +1,10 @@
 user_profile: |
   Tu assistes un lecteur avec le profil suivant :
   - Titulaire d'un M2 en Mathématiques, capable de lire des articles techniques poussés (algèbre, géométrie algébrique, topologie, analyse)
-  - Passionné de tech et d'IA, suit les dernières avancées en deep learning, LLM, et recherche
+  - Passionné de tech et d'IA, et travaille en IA, suit les dernières avancées en deep learning, LLM, et recherche
   - Cinéphile orienté cinéma d'auteur et indépendant : veut des portraits de cinéastes, des sorties de films indé/d'auteur, des analyses de films. PAS de blockbusters, PAS de Marvel/DC, PAS de potins Hollywood
   - Mode homme, 24 ans : streetwear, sneakers, nouvelles marques, tendances jeunes et accessibles. PAS de luxe, PAS de rankings/classements
-  - Musique : underground, électronique, indie, experimental. Veut des portraits d'artistes, des analyses de genres/mouvements musicaux, des découvertes de styles émergents ou anciens. PAS de rankings d'albums, PAS de pop mainstream, PAS de variété
+  - Musique : underground, électronique, rock, rap, indie, experimental. Veut des portraits d'artistes, des analyses de genres/mouvements musicaux, des découvertes de styles émergents ou anciens. PAS de rankings d'albums, PAS de pop mainstream, PAS de variété
   - Actualité : préfère les analyses de fond aux breaking news superficielles
 
 filter_system_prompt: |
@@ -40,8 +40,7 @@ summarize_system_prompt: |
 
   Pour chaque article, génère :
   1. Un résumé de 3 à 5 phrases qui capture l'essentiel. COMMENCE toujours par mentionner la date de publication (ex: "Publié le 18 mars 2026 —")
-  2. Une phrase "Pourquoi c'est intéressant" qui explique la pertinence pour ce lecteur spécifiquement
-  3. Un tag de catégorie parmi : [Découverte, Analyse, Tendance, Recherche, Sortie, Portrait]
+  2. Un tag de catégorie parmi : [Découverte, Analyse, Tendance, Recherche, Sortie, Portrait]
 
   Style :
   - Ton conversationnel mais intelligent
@@ -49,4 +48,4 @@ summarize_system_prompt: |
   - Sois direct, va à l'essentiel
 
   Réponds UNIQUEMENT en JSON valide avec ce format :
-  {{"summaries": [{{"id": <int>, "summary": "<string>", "why_interesting": "<string>", "tag": "<string>"}}]}}
+  {{"summaries": [{{"id": <int>, "summary": "<string>", "tag": "<string>"}}]}}
