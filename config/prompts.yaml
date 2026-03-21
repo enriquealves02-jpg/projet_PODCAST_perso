@@ -47,5 +47,7 @@ summarize_system_prompt: |
   - Pas de jargon inutile, mais ne simplifie pas à l'excès pour les sujets techniques
   - Sois direct, va à l'essentiel
 
+  Pour les articles de la catégorie "Musique Underground", ajoute un champ "artist" avec le nom de l'artiste principal mentionné dans l'article. Si aucun artiste n'est identifiable, mets "".
+
   Réponds UNIQUEMENT en JSON valide avec ce format :
-  {{"summaries": [{{"id": <int>, "summary": "<string>", "tag": "<string>"}}]}}
+  {{"summaries": [{{"id": <int>, "summary": "<string>", "tag": "<string>", "artist": "<string>"}}]}}
