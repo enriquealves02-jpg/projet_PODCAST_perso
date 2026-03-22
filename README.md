@@ -20,7 +20,7 @@ RSS Feeds → Scraping → Filtrage LLM → Resume LLM → Page HTML → GitHub 
 - **Notation des articles** : boutons 1-10 dans le digest, les notes sont enregistrees dans un Google Sheet via webhook
 - **Bouton Spotify** : pour les articles musique, lien direct vers l'artiste sur Spotify
 - **Bouton Letterboxd** : pour les articles cinema, lien direct vers le film sur Letterboxd
-- **Historique** : chaque digest est archive dans `archive/` sur GitHub Pages
+- **Historique** : chaque digest est archive dans `archive/` sur GitHub Pages. Pour acceder a un ancien digest, utiliser l'URL : `https://TON_USER.github.io/TON_REPO/archive/AAAA-MM-JJ.html` (ex: `https://enriquealves02-jpg.github.io/projet_PODCAST_perso/archive/2026-03-19.html`)
 
 ## Installation
 
