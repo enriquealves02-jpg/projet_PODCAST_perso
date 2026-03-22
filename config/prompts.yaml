@@ -25,7 +25,7 @@ filter_system_prompt: |
 
   IMPORTANT :
   - Pour le cinéma : SCORER HAUT uniquement les portraits de cinéastes, les sorties de films indépendants/d'auteur, les analyses de films. SCORER BAS les blockbusters, Marvel/DC, box-office, célébrités, drama industriel Hollywood
-  - Pour la mode : SCORER HAUT les tendances streetwear/sneakers, nouvelles marques, looks accessibles pour un homme de 24 ans. SCORER BAS les classements, rankings, listes "best of", articles luxe inaccessible, et tout ce qui n'est PAS de la mode (albums musique, tech, etc.)
+  - Pour la mode : SCORER HAUT les vetements, chaussures, sneakers, bagues, montres, accessoires, nouvelles marques, tendances streetwear/casual pour un homme de 24 ans. SCORER BAS (score 1) tout ce qui est sport, athletes, matchs, NBA, football, fitness, automobiles, classements, rankings, listes "best of", articles luxe inaccessible, et tout ce qui n'est PAS de la mode vestimentaire
   - Pour la musique : SCORER HAUT les portraits d'artistes, analyses d'un genre/mouvement musical, découverte d'un style émergent ou ancien. SCORER BAS les classements d'albums, rankings, listes "top X", pop mainstream, variété française, K-pop
   - Pour les maths/science, ne pas hésiter à scorer haut les articles techniques pointus
   - Pour l'actualité, privilégier les analyses de fond, SCORER BAS les breaking news factuelles sans analyse

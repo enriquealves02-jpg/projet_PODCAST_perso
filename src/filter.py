@@ -17,7 +17,7 @@ PROJECT_ROOT = Path(__file__).parent.parent
 PROMPTS_PATH = PROJECT_ROOT / "config" / "prompts.yaml"
 MODEL = "llama-3.1-8b-instant"
 MAX_ARTICLES_PER_BATCH = 20
-MIN_SCORE = 5
+MIN_SCORE = 3
 MAX_SELECTED = 20
 
 # Quotas par catégorie (clé = category key dans feeds.yaml)
