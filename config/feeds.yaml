@@ -55,10 +55,10 @@ categories:
         name: "Highsnobiety"
       - url: "https://hypebeast.com/feed"
         name: "Hypebeast"
-      - url: "https://www.gq.com/feed/rss"
-        name: "GQ"
-      - url: "https://www.complex.com/style/feed"
-        name: "Complex Style"
+      - url: "https://www.gqmagazine.fr/feed/rss"
+        name: "GQ France"
+      - url: "https://www.fashionbeans.com/feed/"
+        name: "FashionBeans"
 
   musique:
     name: "Musique Underground"
