@@ -1,0 +1,45 @@
+SOURCES DU DAILY DIGEST - Journal personnalise d'Enrique
+=========================================================
+
+SCIENCE & MATHEMATIQUES (3 articles/jour)
+------------------------------------------
+- Quanta Magazine        https://www.quantamagazine.org
+- Science Daily          https://www.sciencedaily.com
+- Plus Magazine          https://plus.maths.org
+
+TECH & INTELLIGENCE ARTIFICIELLE (5 articles/jour)
+---------------------------------------------------
+- Hacker News            https://news.ycombinator.com
+- Ars Technica           https://arstechnica.com
+- MIT Technology Review  https://www.technologyreview.com
+- TLDR AI                https://tldr.tech/ai
+
+CINEMA (3 articles/jour)
+-------------------------
+- IndieWire              https://www.indiewire.com
+- Les Inrockuptibles     https://www.lesinrocks.com/cinema/
+- Filmmaker Magazine     https://filmmakermagazine.com
+
+ACTUALITE (3 articles/jour)
+----------------------------
+- Le Monde               https://www.lemonde.fr
+- Courrier International https://www.courrierinternational.com
+- Reuters                https://www.reuters.com
+- France 24              https://www.france24.com/fr
+
+MODE HOMME (3 articles/jour)
+------------------------------
+- Highsnobiety           https://www.highsnobiety.com
+- Hypebeast              https://hypebeast.com
+- GQ                     https://www.gq.com
+- Complex Style          https://www.complex.com/style
+
+MUSIQUE UNDERGROUND (3 articles/jour)
+--------------------------------------
+- Pitchfork Reviews      https://pitchfork.com
+- Resident Advisor       https://ra.co
+- The Quietus            https://thequietus.com
+- Bandcamp Daily         https://daily.bandcamp.com
+- Stereogum              https://www.stereogum.com
+- Fact Magazine          https://www.factmag.com
+- XLR8R                  https://www.xlr8r.com
