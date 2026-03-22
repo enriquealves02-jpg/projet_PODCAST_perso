@@ -105,6 +105,7 @@ def summarize_articles(articles: list[dict]) -> list[dict]:
         article["summary"] = summary_info.get("summary", "Résumé non disponible.")
         article["tag"] = summary_info.get("tag", "Découverte")
         article["artist"] = summary_info.get("artist", "")
+        article["film"] = summary_info.get("film", "")
         enriched.append(article)
 
     logger.info(f"Summarized {len(enriched)} articles")

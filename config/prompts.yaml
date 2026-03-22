@@ -48,6 +48,7 @@ summarize_system_prompt: |
   - Sois direct, va à l'essentiel
 
   Pour les articles de la catégorie "Musique Underground", ajoute un champ "artist" avec le nom de l'artiste principal mentionné dans l'article. Si aucun artiste n'est identifiable, mets "".
+  Pour les articles de la catégorie "Cinéma", ajoute un champ "film" avec le titre du film principal mentionné dans l'article. Si aucun film n'est identifiable, mets "".
 
   Réponds UNIQUEMENT en JSON valide avec ce format :
-  {{"summaries": [{{"id": <int>, "summary": "<string>", "tag": "<string>", "artist": "<string>"}}]}}
+  {{"summaries": [{{"id": <int>, "summary": "<string>", "tag": "<string>", "artist": "<string>", "film": "<string>"}}]}}
