@@ -31,6 +31,8 @@ categories:
         name: "IndieWire"
       - url: "https://www.lesinrocks.com/cinema/feed/"
         name: "Les Inrockuptibles - Cinéma"
+      - url: "https://filmmakermagazine.com/feed/"
+        name: "Filmmaker Magazine"
 
   actualite:
     name: "Actualité"
@@ -72,3 +74,7 @@ categories:
         name: "Bandcamp Daily"
       - url: "https://www.stereogum.com/feed/"
         name: "Stereogum"
+      - url: "https://www.factmag.com/feed/"
+        name: "Fact Magazine"
+      - url: "https://www.xlr8r.com/feed/"
+        name: "XLR8R"
