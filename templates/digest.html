@@ -287,10 +287,10 @@
                 <div style="display:flex;align-items:center;gap:12px;">
                     <a class="read-more" href="{{ article.url }}" target="_blank">Lire l'article &rarr;</a>
                     {% if article.artist and cat_key == 'musique' %}
-                    <a class="spotify-btn" href="https://open.spotify.com/search/{{ article.artist | urlencode }}" target="_blank">{{ article.artist }} sur Spotify</a>
+                    <a class="spotify-btn" href="https://open.spotify.com/search/artist%3A{{ article.artist | urlencode }}" target="_blank">{{ article.artist }} sur Spotify</a>
                     {% endif %}
                     {% if article.film and cat_key == 'cinema' %}
-                    <a class="letterboxd-btn" href="https://letterboxd.com/search/{{ article.film | urlencode }}/" target="_blank">{{ article.film }} sur Letterboxd</a>
+                    <a class="letterboxd-btn" href="https://letterboxd.com/search/films/{{ article.film | urlencode }}/" target="_blank">{{ article.film }} sur Letterboxd</a>
                     {% endif %}
                 </div>
                 {% if rating_url %}

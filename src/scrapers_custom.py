@@ -125,9 +125,70 @@ def _scrape_cahiers_article(url: str, cutoff: datetime) -> dict | None:
         return None
 
 
+def scrape_tldr_ai(hours_back: int = 24) -> list[dict]:
+    """Scrape la newsletter TLDR AI du jour — chaque sujet devient un article séparé."""
+    today = datetime.now(timezone.utc)
+    articles = []
+
+    # Tenter aujourd'hui et hier (le pipeline tourne tôt le matin)
+    dates_to_try = [
+        today.strftime("%Y-%m-%d"),
+        (today - timedelta(hours=hours_back)).strftime("%Y-%m-%d"),
+    ]
+
+    for date_str in dict.fromkeys(dates_to_try):  # deduplicate
+        url = f"https://tldr.tech/ai/{date_str}"
+        try:
+            resp = requests.get(url, headers=HEADERS, timeout=15, verify=False)
+            if resp.status_code == 404:
+                continue
+            resp.raise_for_status()
+            soup = BeautifulSoup(resp.text, "html.parser")
+
+            for article_tag in soup.find_all("article"):
+                link_tag = article_tag.find("a", href=True)
+                h3_tag = article_tag.find("h3")
+                content_div = article_tag.find("div", class_="newsletter-html")
+
+                if not h3_tag or not link_tag:
+                    continue
+
+                title = h3_tag.get_text(strip=True)
+
+                # Ignorer les sponsors
+                if "(Sponsor)" in title or "Sponsor" in title:
+                    continue
+
+                href = link_tag["href"]
+                content = content_div.get_text(separator=" ", strip=True) if content_div else ""
+
+                if not content or len(content) < 30:
+                    continue
+
+                articles.append({
+                    "title": title,
+                    "date": f"{date_str}T06:00:00+00:00",
+                    "content": content[:5000],
+                    "url": href,
+                    "category": "tech_ia",
+                    "category_name": "Tech & Intelligence Artificielle",
+                    "source": "TLDR AI",
+                })
+
+            if articles:
+                break  # On a trouvé des articles, pas besoin d'essayer l'autre date
+
+        except Exception as e:
+            logger.error(f"Error scraping TLDR AI for {date_str}: {e}")
+
+    logger.info(f"TLDR AI: {len(articles)} articles scraped")
+    return articles
+
+
 # Registre des scrapers custom : nom -> fonction
 CUSTOM_SCRAPERS = {
     "cahiers_du_cinema": scrape_cahiers_du_cinema,
+    "tldr_ai": scrape_tldr_ai,
 }
 
 

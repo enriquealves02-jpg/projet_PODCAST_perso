@@ -47,8 +47,23 @@ summarize_system_prompt: |
   - Pas de jargon inutile, mais ne simplifie pas à l'excès pour les sujets techniques
   - Sois direct, va à l'essentiel
 
-  Pour les articles de la catégorie "Musique Underground", ajoute un champ "artist" avec le nom de l'artiste principal mentionné dans l'article. Si aucun artiste n'est identifiable, mets "".
-  Pour les articles de la catégorie "Cinéma", ajoute un champ "film" avec le titre du film principal mentionné dans l'article. Si aucun film n'est identifiable, mets "".
+  EXTRACTION ARTISTE / FILM — règles strictes :
+
+  Champ "artist" (UNIQUEMENT pour la catégorie "Musique Underground") :
+  - Extrais le nom de l'ARTISTE ou du GROUPE principal mentionné dans l'article
+  - C'est le nom d'une PERSONNE ou d'un GROUPE, JAMAIS un titre d'album, de morceau ou de playlist
+  - Exemples corrects : "Aphex Twin", "Burial", "Kendrick Lamar", "Radiohead"
+  - Exemples INCORRECTS : "In Rainbows" (album), "Everything In Its Right Place" (morceau)
+  - Si l'article parle d'un genre musical sans artiste précis, mets ""
+  - Si la catégorie n'est PAS "Musique Underground", mets TOUJOURS ""
+
+  Champ "film" (UNIQUEMENT pour la catégorie "Cinéma") :
+  - Extrais le TITRE du film principal mentionné dans l'article
+  - C'est un titre de FILM, JAMAIS un nom de réalisateur, d'acteur ou de festival
+  - Exemples corrects : "Mulholland Drive", "La Haine", "Aftersun"
+  - Exemples INCORRECTS : "David Lynch" (réalisateur), "Cannes 2026" (festival)
+  - Si l'article est un portrait de cinéaste sans film précis, mets ""
+  - Si la catégorie n'est PAS "Cinéma", mets TOUJOURS ""
 
   Réponds UNIQUEMENT en JSON valide avec ce format :
   {{"summaries": [{{"id": <int>, "summary": "<string>", "tag": "<string>", "artist": "<string>", "film": "<string>"}}]}}

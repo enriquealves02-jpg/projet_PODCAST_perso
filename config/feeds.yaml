@@ -20,8 +20,7 @@ categories:
         name: "Ars Technica"
       - url: "https://www.technologyreview.com/feed/"
         name: "MIT Technology Review"
-      - url: "https://tldr.tech/api/rss/ai"
-        name: "TLDR AI"
+      # TLDR AI: géré par scraper custom (le flux RSS est vide)
 
   cinema:
     name: "Cinéma"
@@ -33,6 +32,8 @@ categories:
         name: "Les Inrockuptibles - Cinéma"
       - url: "https://filmmakermagazine.com/feed/"
         name: "Filmmaker Magazine"
+      - url: "https://mubi.com/notebook/posts.atom"
+        name: "MUBI Notebook"
 
   actualite:
     name: "Actualité"
