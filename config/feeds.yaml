@@ -20,7 +20,7 @@ categories:
         name: "Ars Technica"
       - url: "https://www.technologyreview.com/feed/"
         name: "MIT Technology Review"
-      # TLDR AI: géré par scraper custom (le flux RSS est vide)
+      # TLDR AI est gere via scraper custom (flux RSS vide)
 
   cinema:
     name: "Cinéma"
