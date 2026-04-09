@@ -5,6 +5,7 @@ LLM Summarizer - Génère des résumés personnalisés pour les articles sélect
 import json
 import logging
 import os
+import time
 from pathlib import Path
 
 import yaml
@@ -17,6 +18,8 @@ PROJECT_ROOT = Path(__file__).parent.parent
 PROMPTS_PATH = PROJECT_ROOT / "config" / "prompts.yaml"
 MODEL = "llama-3.3-70b-versatile"
 MAX_ARTICLES_PER_BATCH = 5
+MAX_RETRIES = 3
+RETRY_DELAY = 5
 
 
 def load_prompts() -> dict:
@@ -61,24 +64,29 @@ def summarize_batch(client: Groq, system_prompt: str, articles: list[dict], offs
         f"{articles_text}"
     )
 
-    try:
-        response = client.chat.completions.create(
-            model=MODEL,
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt},
-            ],
-            temperature=0.5,
-            max_tokens=3000,
-            response_format={"type": "json_object"},
-        )
+    for attempt in range(MAX_RETRIES):
+        try:
+            response = client.chat.completions.create(
+                model=MODEL,
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
+                ],
+                temperature=0.5,
+                max_tokens=3000,
+                response_format={"type": "json_object"},
+            )
 
-        result = json.loads(response.choices[0].message.content)
-        return result.get("summaries", [])
+            result = json.loads(response.choices[0].message.content)
+            return result.get("summaries", [])
 
-    except Exception as e:
-        logger.error(f"Error summarizing batch: {e}")
-        return []
+        except Exception as e:
+            logger.warning(f"Summarize batch attempt {attempt + 1}/{MAX_RETRIES} failed: {e}")
+            if attempt < MAX_RETRIES - 1:
+                time.sleep(RETRY_DELAY * (attempt + 1))
+            else:
+                logger.error(f"All {MAX_RETRIES} attempts failed for batch")
+    return []
 
 
 def summarize_articles(articles: list[dict]) -> list[dict]:
@@ -98,6 +106,17 @@ def summarize_articles(articles: list[dict]) -> list[dict]:
         all_summaries.extend(summaries)
 
     summary_map = {s["id"]: s for s in all_summaries}
+
+    # Retry individuellement les articles manquants dans la réponse
+    missing_ids = [i for i in range(len(articles)) if i not in summary_map]
+    if missing_ids:
+        logger.warning(f"{len(missing_ids)} articles missing summaries, retrying individually")
+        for idx in missing_ids:
+            single_batch = [articles[idx]]
+            retry_summaries = summarize_batch(client, system_prompt, single_batch, offset=idx)
+            for s in retry_summaries:
+                summary_map[s["id"]] = s
+            time.sleep(1)
 
     enriched = []
     for i, article in enumerate(articles):

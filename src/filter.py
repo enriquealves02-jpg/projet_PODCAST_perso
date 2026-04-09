@@ -123,23 +123,45 @@ def filter_articles(articles: list[dict]) -> list[dict]:
         article["score_reason"] = score_info.get("reason", "")
         scored_articles.append(article)
 
-    # Group by category and select top N per category
+    # Group ALL articles by category (including low scores for fallback)
     from collections import defaultdict
-    by_category = defaultdict(list)
+    all_by_category = defaultdict(list)
     for a in scored_articles:
-        if a["score"] >= MIN_SCORE:
-            by_category[a["category"]].append(a)
+        all_by_category[a["category"]].append(a)
 
     selected = []
-    for cat_key, cat_articles in by_category.items():
+    for cat_key in CATEGORY_QUOTAS.keys():
+        cat_articles = all_by_category.get(cat_key, [])
+        if not cat_articles:
+            logger.warning(f"No articles scraped for category '{cat_key}'")
+            continue
+
         quota = CATEGORY_QUOTAS.get(cat_key, DEFAULT_QUOTA)
         priority_sources = PRIORITY_SOURCES.get(cat_key, [])
 
-        # Sort: priority sources first, then by score
-        cat_articles.sort(
+        # First pass: articles above MIN_SCORE
+        passing = [a for a in cat_articles if a["score"] >= MIN_SCORE]
+        passing.sort(
             key=lambda a: (a["source"] not in priority_sources, -a["score"])
         )
-        selected.extend(cat_articles[:quota])
+
+        chosen = passing[:quota]
+
+        # Fallback: if not enough passing, fill with best remaining (even low scores)
+        if len(chosen) < quota:
+            remaining = [a for a in cat_articles if a not in chosen]
+            remaining.sort(key=lambda a: -a["score"])
+            chosen.extend(remaining[: quota - len(chosen)])
+            if len(chosen) < quota:
+                logger.warning(
+                    f"Category '{cat_key}': only {len(chosen)}/{quota} articles available"
+                )
+            else:
+                logger.info(
+                    f"Category '{cat_key}': fallback used to reach quota"
+                )
+
+        selected.extend(chosen)
 
     # Sort final selection by category order then score
     cat_order = list(CATEGORY_QUOTAS.keys())
