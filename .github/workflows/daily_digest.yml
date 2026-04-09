@@ -2,7 +2,8 @@ name: Daily Digest
 
 on:
   schedule:
-    - cron: '0 5 * * *'
+    # 4h30 UTC = 5h30 Paris (hiver) / 6h30 Paris (ete) - mail vers 7h apres pipeline
+    - cron: '30 4 * * *'
   workflow_dispatch:
 
 permissions:
