@@ -91,7 +91,7 @@ def score_batch(client: Groq, system_prompt: str, articles: list[dict], offset: 
                     {"role": "user", "content": user_prompt},
                 ],
                 temperature=0.3,
-                max_tokens=3000,
+                max_tokens=500,
                 response_format={"type": "json_object"},
             )
 
