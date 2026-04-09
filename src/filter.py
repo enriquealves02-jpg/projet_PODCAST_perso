@@ -5,6 +5,7 @@ LLM Filter - Utilise Groq API pour scorer et sélectionner les articles les plus
 import json
 import logging
 import os
+import time
 from pathlib import Path
 
 import yaml
@@ -16,9 +17,11 @@ logger = logging.getLogger(__name__)
 PROJECT_ROOT = Path(__file__).parent.parent
 PROMPTS_PATH = PROJECT_ROOT / "config" / "prompts.yaml"
 MODEL = "llama-3.1-8b-instant"
-MAX_ARTICLES_PER_BATCH = 20
+MAX_ARTICLES_PER_BATCH = 15
 MIN_SCORE = 3
 MAX_SELECTED = 20
+MAX_RETRIES = 3
+RETRY_DELAY = 5
 
 # Quotas par catégorie (clé = category key dans feeds.yaml)
 CATEGORY_QUOTAS = {
@@ -74,28 +77,34 @@ def score_batch(client: Groq, system_prompt: str, articles: list[dict], offset: 
     articles_text = format_articles_for_llm(articles, offset)
     user_prompt = (
         f"Voici {len(articles)} articles à évaluer. "
-        f"Score chaque article de 1 à 10 selon sa pertinence pour le lecteur.\n\n"
+        f"Score chaque article de 1 à 10 selon sa pertinence pour le lecteur. "
+        f"IMPORTANT : tu DOIS renvoyer un score pour CHAQUE article, aucun oubli.\n\n"
         f"{articles_text}"
     )
 
-    try:
-        response = client.chat.completions.create(
-            model=MODEL,
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt},
-            ],
-            temperature=0.3,
-            max_tokens=2000,
-            response_format={"type": "json_object"},
-        )
+    for attempt in range(MAX_RETRIES):
+        try:
+            response = client.chat.completions.create(
+                model=MODEL,
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
+                ],
+                temperature=0.3,
+                max_tokens=3000,
+                response_format={"type": "json_object"},
+            )
 
-        result = json.loads(response.choices[0].message.content)
-        return result.get("articles", [])
+            result = json.loads(response.choices[0].message.content)
+            return result.get("articles", [])
 
-    except Exception as e:
-        logger.error(f"Error scoring batch: {e}")
-        return []
+        except Exception as e:
+            logger.warning(f"Score batch attempt {attempt + 1}/{MAX_RETRIES} failed: {e}")
+            if attempt < MAX_RETRIES - 1:
+                time.sleep(RETRY_DELAY * (attempt + 1))
+            else:
+                logger.error(f"All {MAX_RETRIES} attempts failed for scoring batch")
+    return []
 
 
 def filter_articles(articles: list[dict]) -> list[dict]:
@@ -115,6 +124,17 @@ def filter_articles(articles: list[dict]) -> list[dict]:
         all_scores.extend(scores)
 
     score_map = {s["id"]: s for s in all_scores}
+
+    # Retry individuellement les articles que le LLM a oublié de scorer
+    missing_ids = [i for i in range(len(articles)) if i not in score_map]
+    if missing_ids:
+        logger.warning(f"{len(missing_ids)} articles missing scores, retrying individually")
+        for idx in missing_ids:
+            single_batch = [articles[idx]]
+            retry_scores = score_batch(client, system_prompt, single_batch, offset=idx)
+            for s in retry_scores:
+                score_map[s["id"]] = s
+            time.sleep(1)
 
     scored_articles = []
     for i, article in enumerate(articles):
