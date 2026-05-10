@@ -59,13 +59,12 @@ def build_filter_prompt(prompts: dict) -> str:
     )
 
 
-def format_articles_for_llm(articles: list[dict], offset: int = 0) -> str:
+def format_articles_for_llm(articles: list[dict]) -> str:
     lines = []
     for i, article in enumerate(articles):
-        idx = offset + i
         content_preview = article["content"][:200] if article["content"] else "Pas de contenu disponible"
         lines.append(
-            f"--- Article {idx} ---\n"
+            f"--- Article {i} ---\n"
             f"Titre: {article['title']}\n"
             f"Source: {article['source']} ({article['category_name']})\n"
             f"Contenu: {content_preview}\n"
@@ -73,11 +72,17 @@ def format_articles_for_llm(articles: list[dict], offset: int = 0) -> str:
     return "\n".join(lines)
 
 
-def score_batch(client: Groq, system_prompt: str, articles: list[dict], offset: int = 0) -> list[dict]:
-    articles_text = format_articles_for_llm(articles, offset)
+def score_batch(client: Groq, system_prompt: str, articles: list[dict], offset: int = 0) -> dict[int, dict]:
+    """Returns {global_index: score_info} for this batch.
+
+    Uses local ids (0..n-1) in the prompt and remaps to global indices, so a batch's
+    response cannot overwrite another batch's scores.
+    """
+    articles_text = format_articles_for_llm(articles)
     user_prompt = (
         f"Voici {len(articles)} articles à évaluer. "
         f"Score chaque article de 1 à 10 selon sa pertinence pour le lecteur. "
+        f"Utilise EXACTEMENT les ids fournis (0 à {len(articles) - 1}), un objet par article. "
         f"IMPORTANT : tu DOIS renvoyer un score pour CHAQUE article, aucun oubli.\n\n"
         f"{articles_text}"
     )
@@ -96,7 +101,24 @@ def score_batch(client: Groq, system_prompt: str, articles: list[dict], offset: 
             )
 
             result = json.loads(response.choices[0].message.content)
-            return result.get("articles", [])
+            raw_scores = result.get("articles", [])
+
+            mapped: dict[int, dict] = {}
+            if len(raw_scores) == len(articles):
+                for i, s in enumerate(raw_scores):
+                    mapped[offset + i] = s
+            else:
+                logger.warning(
+                    f"Batch returned {len(raw_scores)} scores for {len(articles)} articles, "
+                    f"falling back to id-based mapping"
+                )
+                for s in raw_scores:
+                    local_id = s.get("id")
+                    if not isinstance(local_id, int) or not (0 <= local_id < len(articles)):
+                        logger.warning(f"Dropping score with invalid id={local_id}")
+                        continue
+                    mapped[offset + local_id] = s
+            return mapped
 
         except Exception as e:
             logger.warning(f"Score batch attempt {attempt + 1}/{MAX_RETRIES} failed: {e}")
@@ -104,7 +126,7 @@ def score_batch(client: Groq, system_prompt: str, articles: list[dict], offset: 
                 time.sleep(RETRY_DELAY * (attempt + 1))
             else:
                 logger.error(f"All {MAX_RETRIES} attempts failed for scoring batch")
-    return []
+    return {}
 
 
 def filter_articles(articles: list[dict]) -> list[dict]:
@@ -116,14 +138,12 @@ def filter_articles(articles: list[dict]) -> list[dict]:
     system_prompt = build_filter_prompt(prompts)
     client = get_client()
 
-    all_scores = []
+    score_map: dict[int, dict] = {}
     for i in range(0, len(articles), MAX_ARTICLES_PER_BATCH):
         batch = articles[i : i + MAX_ARTICLES_PER_BATCH]
         logger.info(f"Scoring batch {i // MAX_ARTICLES_PER_BATCH + 1} ({len(batch)} articles)")
-        scores = score_batch(client, system_prompt, batch, offset=i)
-        all_scores.extend(scores)
-
-    score_map = {s["id"]: s for s in all_scores}
+        batch_map = score_batch(client, system_prompt, batch, offset=i)
+        score_map.update(batch_map)
 
     # Retry individuellement les articles que le LLM a oublié de scorer
     missing_ids = [i for i in range(len(articles)) if i not in score_map]
@@ -131,9 +151,8 @@ def filter_articles(articles: list[dict]) -> list[dict]:
         logger.warning(f"{len(missing_ids)} articles missing scores, retrying individually")
         for idx in missing_ids:
             single_batch = [articles[idx]]
-            retry_scores = score_batch(client, system_prompt, single_batch, offset=idx)
-            for s in retry_scores:
-                score_map[s["id"]] = s
+            retry_map = score_batch(client, system_prompt, single_batch, offset=idx)
+            score_map.update(retry_map)
             time.sleep(1)
 
     scored_articles = []

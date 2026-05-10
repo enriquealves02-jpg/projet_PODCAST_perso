@@ -41,14 +41,13 @@ def build_summary_prompt(prompts: dict) -> str:
     )
 
 
-def format_articles_for_summary(articles: list[dict], offset: int = 0) -> str:
+def format_articles_for_summary(articles: list[dict]) -> str:
     lines = []
     for i, article in enumerate(articles):
-        idx = offset + i
         content = article.get("content", "")[:2000]
         date = article.get("date", "Date inconnue")
         lines.append(
-            f"--- Article {idx} ---\n"
+            f"--- Article {i} ---\n"
             f"Titre: {article['title']}\n"
             f"Date de publication: {date}\n"
             f"Source: {article['source']} ({article['category_name']})\n"
@@ -57,10 +56,19 @@ def format_articles_for_summary(articles: list[dict], offset: int = 0) -> str:
     return "\n".join(lines)
 
 
-def summarize_batch(client: Groq, system_prompt: str, articles: list[dict], offset: int = 0) -> list[dict]:
-    articles_text = format_articles_for_summary(articles, offset)
+def summarize_batch(client: Groq, system_prompt: str, articles: list[dict], offset: int = 0) -> dict[int, dict]:
+    """Returns {global_index: summary} for this batch.
+
+    Uses local ids (0..n-1) in the prompt and remaps to global indices on the way back,
+    so a batch's response cannot collide with another batch's ids. If the LLM returns
+    exactly len(articles) summaries we trust positional order; otherwise we trust the
+    local id field (validated against the batch range).
+    """
+    articles_text = format_articles_for_summary(articles)
     user_prompt = (
-        f"Résume les {len(articles)} articles suivants selon les instructions.\n\n"
+        f"Résume les {len(articles)} articles suivants selon les instructions. "
+        f"Utilise EXACTEMENT les ids fournis (0 à {len(articles) - 1}), un objet par article, "
+        f"dans le même ordre.\n\n"
         f"{articles_text}"
     )
 
@@ -78,7 +86,26 @@ def summarize_batch(client: Groq, system_prompt: str, articles: list[dict], offs
             )
 
             result = json.loads(response.choices[0].message.content)
-            return result.get("summaries", [])
+            raw_summaries = result.get("summaries", [])
+
+            mapped: dict[int, dict] = {}
+            if len(raw_summaries) == len(articles):
+                # Trust positional order — most reliable
+                for i, s in enumerate(raw_summaries):
+                    mapped[offset + i] = s
+            else:
+                # Fall back to LLM-provided local id, validated in range
+                logger.warning(
+                    f"Batch returned {len(raw_summaries)} summaries for {len(articles)} articles, "
+                    f"falling back to id-based mapping"
+                )
+                for s in raw_summaries:
+                    local_id = s.get("id")
+                    if not isinstance(local_id, int) or not (0 <= local_id < len(articles)):
+                        logger.warning(f"Dropping summary with invalid id={local_id}")
+                        continue
+                    mapped[offset + local_id] = s
+            return mapped
 
         except Exception as e:
             logger.warning(f"Summarize batch attempt {attempt + 1}/{MAX_RETRIES} failed: {e}")
@@ -86,7 +113,7 @@ def summarize_batch(client: Groq, system_prompt: str, articles: list[dict], offs
                 time.sleep(RETRY_DELAY * (attempt + 1))
             else:
                 logger.error(f"All {MAX_RETRIES} attempts failed for batch")
-    return []
+    return {}
 
 
 def summarize_articles(articles: list[dict]) -> list[dict]:
@@ -98,14 +125,12 @@ def summarize_articles(articles: list[dict]) -> list[dict]:
     system_prompt = build_summary_prompt(prompts)
     client = get_client()
 
-    all_summaries = []
+    summary_map: dict[int, dict] = {}
     for i in range(0, len(articles), MAX_ARTICLES_PER_BATCH):
         batch = articles[i : i + MAX_ARTICLES_PER_BATCH]
         logger.info(f"Summarizing batch {i // MAX_ARTICLES_PER_BATCH + 1} ({len(batch)} articles)")
-        summaries = summarize_batch(client, system_prompt, batch, offset=i)
-        all_summaries.extend(summaries)
-
-    summary_map = {s["id"]: s for s in all_summaries}
+        batch_map = summarize_batch(client, system_prompt, batch, offset=i)
+        summary_map.update(batch_map)
 
     # Retry individuellement les articles manquants dans la réponse
     missing_ids = [i for i in range(len(articles)) if i not in summary_map]
@@ -113,9 +138,8 @@ def summarize_articles(articles: list[dict]) -> list[dict]:
         logger.warning(f"{len(missing_ids)} articles missing summaries, retrying individually")
         for idx in missing_ids:
             single_batch = [articles[idx]]
-            retry_summaries = summarize_batch(client, system_prompt, single_batch, offset=idx)
-            for s in retry_summaries:
-                summary_map[s["id"]] = s
+            retry_map = summarize_batch(client, system_prompt, single_batch, offset=idx)
+            summary_map.update(retry_map)
             time.sleep(1)
 
     enriched = []
