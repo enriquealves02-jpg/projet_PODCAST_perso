@@ -1,0 +1,330 @@
+{
+  "date": "2026-07-05",
+  "generated_at": "2026-07-05T14:12:13.750726+00:00",
+  "total_articles": 20,
+  "rating_url": "https://script.google.com/macros/s/AKfycbw0FK9nzoDBia_-dQ6xWEHih0aFPV4DPdGD_BqnSEabI9QuXhe05k8riLHnzITVEO4v0Q/exec",
+  "categories": [
+    {
+      "key": "science_math",
+      "name": "Science & Mathématiques",
+      "icon": "🔬",
+      "articles": [
+        {
+          "title": "Scientists may have finally solved the black hole information paradox",
+          "url": "https://www.sciencedaily.com/releases/2026/06/260624025506.htm",
+          "source": "Science Daily",
+          "date": "2026-07-05T03:12:55+00:00",
+          "date_formatted": "05/07 à 03h12",
+          "score": 7,
+          "tag": "Recherche",
+          "summary": "Publié le 5 juillet 2026 — Des chercheurs proposent que les trous noirs cessent d'évaporer à la toute dernière étape, laissant de minuscules résidus qui conservent toute l'information qu'ils contiennent. Cette hypothèse s’appuie sur une géométrie à sept dimensions, la même qui pourrait expliquer l'origine de la masse des particules élémentaires. Si l’idée se confirme, elle offrirait une résolution concrète du paradoxe de l'information.",
+          "artist": "",
+          "film": "",
+          "category": "science_math",
+          "category_name": "Science & Mathématiques"
+        },
+        {
+          "title": "Scientists discover the deep sleep circuit that builds muscle, burns fat, and boosts the brain",
+          "url": "https://www.sciencedaily.com/releases/2026/06/260626030433.htm",
+          "source": "Science Daily",
+          "date": "2026-07-05T07:39:08+00:00",
+          "date_formatted": "05/07 à 07h39",
+          "score": 5,
+          "tag": "Recherche",
+          "summary": "Publié le 5 juillet 2026 — Une équipe a identifié le circuit cérébral qui relie le sommeil profond à la sécrétion de l’hormone de croissance, révélant un bouclage feedback entre les deux. Ce mécanisme explique pourquoi un sommeil insuffisant perturbe la croissance musculaire, le métabolisme des graisses et les fonctions cognitives. Les auteurs suggèrent que cibler ce circuit pourrait ouvrir de nouvelles thérapies contre les troubles du sommeil et les maladies neurodégénératives.",
+          "artist": "",
+          "film": "",
+          "category": "science_math",
+          "category_name": "Science & Mathématiques"
+        },
+        {
+          "title": "A hidden weakness in deadly cancers could lead to powerful new treatments",
+          "url": "https://www.sciencedaily.com/releases/2026/06/260626030430.htm",
+          "source": "Science Daily",
+          "date": "2026-07-04T19:26:54+00:00",
+          "date_formatted": "04/07 à 19h26",
+          "score": 5,
+          "tag": "Recherche",
+          "summary": "Publié le 4 juillet 2026 — Des scientifiques de UCLA ont découvert que les cancers à petites cellules dépourvus du gène RB deviennent dépendants du facteur de transcription E2F3. Inhiber E2F3 arrête la croissance tumorale dans des modèles de laboratoire, et certains médicaments déjà approuvés pourraient exploiter cette faiblesse. Cette découverte ouvre la voie à des traitements plus rapides et ciblés contre ces cancers très agressifs.",
+          "artist": "",
+          "film": "",
+          "category": "science_math",
+          "category_name": "Science & Mathématiques"
+        }
+      ]
+    },
+    {
+      "key": "tech_ia",
+      "name": "Tech & Intelligence Artificielle",
+      "icon": "💻",
+      "articles": [
+        {
+          "title": "Introduction to Compilers and Language Design",
+          "url": "https://dthain.github.io/books/compiler/",
+          "source": "Hacker News",
+          "date": "2026-07-05T11:54:16+00:00",
+          "date_formatted": "05/07 à 11h54",
+          "score": 8,
+          "tag": "Découverte",
+          "summary": "Publié le 5 juillet 2026 — Cet article propose une introduction claire aux compilateurs et à la conception de langages, en couvrant les étapes classiques de l’analyse lexicale à la génération de code. Il explique les principes de la sémantique formelle et les stratégies d’optimisation les plus courantes. Le texte s’adresse aux lecteurs disposant d’une solide formation mathématique et désireux de comprendre les fondements théoriques des outils de programmation.",
+          "artist": "",
+          "film": "",
+          "category": "tech_ia",
+          "category_name": "Tech & Intelligence Artificielle"
+        },
+        {
+          "title": "Intuitive Quantum Electrodynamics",
+          "url": "https://forwardscattering.org/page/Intuitive%20Quantum%20Electrodynamics",
+          "source": "Hacker News",
+          "date": "2026-07-05T09:00:58+00:00",
+          "date_formatted": "05/07 à 09h00",
+          "score": 8,
+          "tag": "Recherche",
+          "summary": "Publié le 5 juillet 2026 — \"Intuitive Quantum Electrodynamics\" revisite les concepts clés de l’électrodynamique quantique avec un ton pédagogique, en privilégiant les analogies géométriques et les diagrammes simplifiés. L’auteur montre comment les interactions photon‑électron peuvent être décrites sans recourir à une surcharge formelle, tout en restant rigoureux. Cette approche est idéale pour un lecteur qui maîtrise les mathématiques avancées et veut saisir l’essence de la QED sans se perdre dans les calculs habituels.",
+          "artist": "",
+          "film": "",
+          "category": "tech_ia",
+          "category_name": "Tech & Intelligence Artificielle"
+        },
+        {
+          "title": "Fast Software, the Best Software (2019)",
+          "url": "https://craigmod.com/essays/fast_software/",
+          "source": "Hacker News",
+          "date": "2026-07-05T07:25:25+00:00",
+          "date_formatted": "05/07 à 07h25",
+          "score": 8,
+          "tag": "Analyse",
+          "summary": "Publié le 5 juillet 2026 — Dans cet essai, l’auteur explore ce qui fait qu’un logiciel est réellement « rapide », en décortiquant les compromis entre complexité algorithmique, utilisation du cache et parallélisme. Il illustre ses propos avec des exemples historiques, du code monolithique aux micro‑services, et propose une grille d’évaluation pour juger la performance d’un projet. Le texte s’adresse aux développeurs et aux chercheurs qui souhaitent aller au‑delà des simples benchmarks.",
+          "artist": "",
+          "film": "",
+          "category": "tech_ia",
+          "category_name": "Tech & Intelligence Artificielle"
+        },
+        {
+          "title": "The Log is the Agent",
+          "url": "https://arxiv.org/abs/2605.21997",
+          "source": "Hacker News",
+          "date": "2026-07-05T02:57:38+00:00",
+          "date_formatted": "05/07 à 02h57",
+          "score": 8,
+          "tag": "Recherche",
+          "summary": "Publié le 5 juillet 2026 — \"The Log is the Agent\" présente une perspective originale où les journaux d’événements (logs) sont traités comme des agents capables d’inférer et d’influencer le comportement d’un système d’IA. Les auteurs formalisent cette idée à l’aide de modèles probabilistes et démontrent comment les logs peuvent guider la prise de décision en temps réel. Cette recherche ouvre la voie à de nouvelles méthodes de supervision et de débogage automatisé dans les architectures distribuées.",
+          "artist": "",
+          "film": "",
+          "category": "tech_ia",
+          "category_name": "Tech & Intelligence Artificielle"
+        },
+        {
+          "title": "Pi square is nearly 10",
+          "url": "https://mihai.page/pi-square-is-10/",
+          "source": "Hacker News",
+          "date": "2026-07-05T10:50:53+00:00",
+          "date_formatted": "05/07 à 10h50",
+          "score": 7,
+          "tag": "Analyse",
+          "summary": "Publié le 5 juillet 2026 — L’article examine la curiosité mathématique selon laquelle π² est très proche de 10, en analysant les séries et les approximations qui conduisent à ce résultat. L’auteur montre comment cette coïncidence émerge naturellement de certaines expansions de fonctions trigonométriques. Au-delà du simple amusement, il discute des implications pédagogiques pour illustrer la convergence des séries et la précision des constantes transcendantales.",
+          "artist": "",
+          "film": "",
+          "category": "tech_ia",
+          "category_name": "Tech & Intelligence Artificielle"
+        }
+      ]
+    },
+    {
+      "key": "cinema",
+      "name": "Cinéma",
+      "icon": "🎬",
+      "articles": [
+        {
+          "title": "DP Natasha Braier Is Building the Cinematography Community She Wanted to See",
+          "url": "https://www.indiewire.com/features/craft/natasha-briaer-interview-deep-light-cinematography-1235203309/",
+          "source": "IndieWire",
+          "date": "2026-07-04T17:00:00+00:00",
+          "date_formatted": "04/07 à 17h00",
+          "score": 9,
+          "tag": "Portrait",
+          "summary": "Publié le 4 juillet 2026 — Natasha Braier explique à IndieWire la genèse de Deep Light, un collectif en ligne et présentiel dédié au partage de connaissances entre directeurs de la photographie. Le projet vise à créer la communauté que la réalisatrice aurait aimé trouver au début de sa carrière, en favorisant l’échange technique et artistique. Cette initiative pourrait remodeler les réseaux d’entraide dans le cinéma d’auteur.",
+          "artist": "",
+          "film": "",
+          "category": "cinema",
+          "category_name": "Cinéma"
+        },
+        {
+          "title": "“La Chaleur”, un thriller psychologique sur fond d’insouciance estivale",
+          "url": "https://www.lesinrocks.com/cinema/la-chaleur-un-thriller-psychologique-sur-fond-dinsouciance-estivale-697563-05-07-2026/",
+          "source": "Les Inrockuptibles - Cinéma",
+          "date": "2026-07-05T06:00:00+00:00",
+          "date_formatted": "05/07 à 06h00",
+          "score": 8,
+          "tag": "Analyse",
+          "summary": "Publié le 5 juillet 2026 — “La Chaleur”, thriller psychologique de Stéphane Demoustier, suit le passage brutal de Marouane, 17 ans, d’une adolescence insouciante à une culpabilité adulte après un meurtre accidentel. Le film juxtapose la légèreté estivale d’un camping des Landes à une descente aux enfers empreinte de références dostoïevskiennes. La mise en scène précise et la performance de Hadrien Hussein offrent une réflexion poignante sur la transition vers l’âge adulte.",
+          "artist": "",
+          "film": "La Chaleur",
+          "category": "cinema",
+          "category_name": "Cinéma"
+        },
+        {
+          "title": "‘The Invite’ Ending Was Still Being Worked Out During the Final Days of Shooting",
+          "url": "https://www.indiewire.com/features/podcast/the-invite-ending-explained-1235203653/",
+          "source": "IndieWire",
+          "date": "2026-07-04T15:00:00+00:00",
+          "date_formatted": "04/07 à 15h00",
+          "score": 3,
+          "tag": "Portrait",
+          "summary": "Publié le 4 juillet 2026 — Le film « The Invite » d’Olivia Wilde part d’une pièce espagnole qui a déjà traversé cinq cultures avant d’arriver aux États‑Unis. Le processus d’adaptation s’est poursuivi en atelier d’improvisation de deux semaines, où les acteurs ont façonné leurs personnages. Le tournage de 23 jours, réalisé chronologiquement, a permis de peaufiner l’intrigue jusqu’au dernier jour, l’ending restant encore en cours de travail.",
+          "artist": "",
+          "film": "The Invite",
+          "category": "cinema",
+          "category_name": "Cinéma"
+        }
+      ]
+    },
+    {
+      "key": "actualite",
+      "name": "Actualité",
+      "icon": "📰",
+      "articles": [
+        {
+          "title": "« André Gorz a pressenti comment le capitalisme allait s’emparer de l’IA » : entretien avec l’économiste Christophe Fourel et le mathématicien Cédric Villani",
+          "url": "https://www.lemonde.fr/idees/article/2026/07/05/andre-gorz-a-pressenti-comment-le-capitalisme-allait-s-emparer-de-l-ia-entretien-avec-l-economiste-christophe-fourel-et-le-mathematicien-cedric-villani_6720828_3232.html",
+          "source": "Le Monde - Idées",
+          "date": "2026-07-05T04:00:19+00:00",
+          "date_formatted": "05/07 à 04h00",
+          "score": 8,
+          "tag": "Analyse",
+          "summary": "Publié le 5 juillet 2026 — La version augmentée du texte d’André Gorz, « L’Immatériel », voit le jour après plus de vingt ans, grâce à une préface signée Christophe Fourel et Cédric Villani. Dans un entretien au Monde Idées, ils expliquent comment le livre anticipe la façon dont le capitalisme s’empare de l’intelligence artificielle. L’échange éclaire les enjeux actuels de la mutation économique et technologique.",
+          "artist": "",
+          "film": "",
+          "category": "actualite",
+          "category_name": "Actualité"
+        },
+        {
+          "title": "Ken Burns, documentariste américain : « Parmi les perdants de la révolution américaine, il faudrait compter les Français »",
+          "url": "https://www.lemonde.fr/idees/article/2026/07/04/ken-burns-documentariste-americain-parmi-les-perdants-de-la-revolution-americaine-il-faudrait-compter-les-francais_6720693_3232.html",
+          "source": "Le Monde - Idées",
+          "date": "2026-07-04T17:00:13+00:00",
+          "date_formatted": "04/07 à 17h00",
+          "score": 4,
+          "tag": "Portrait",
+          "summary": "Publié le 4 juillet 2026 — Ken Burns, le célèbre documentariste américain, a rappelé lors du 50ᵉ anniversaire du National History Day que les Français figurent parmi les perdants de la Révolution américaine. Son propos, prononcé à l’université du Maryland, s’inscrit dans une réflexion plus large sur la place de la France dans l’histoire américaine.",
+          "artist": "",
+          "film": "",
+          "category": "actualite",
+          "category_name": "Actualité"
+        },
+        {
+          "title": "Aide à mourir : cinq arguments des opposants en France discutés à la lumière de la réalité en Suisse",
+          "url": "https://www.courrierinternational.com/article/vu-de-geneve-aide-a-mourir-cinq-arguments-des-opposants-en-france-discutes-a-la-lumiere-de-la-realite-en-suisse_246224",
+          "source": "Courrier International",
+          "date": "2026-07-05T12:30:16+00:00",
+          "date_formatted": "05/07 à 12h30",
+          "score": 4,
+          "tag": "Analyse",
+          "summary": "Publié le 5 juillet 2026 — L’Assemblée nationale a adopté une loi créant un droit à l’aide à mourir, déclenchant un débat intense. Cet article passe en revue les cinq principaux arguments des opposants français, puis les confronte à la réalité suisse où l’euthanasie est déjà pratiquée. L’analyse montre les écarts entre les craintes et les faits observés à l’étranger.",
+          "artist": "",
+          "film": "",
+          "category": "actualite",
+          "category_name": "Actualité"
+        }
+      ]
+    },
+    {
+      "key": "mode_homme",
+      "name": "Mode Homme",
+      "icon": "👔",
+      "articles": [
+        {
+          "title": "Nike’s Melted Chocolate Slip-On Is What a Proper Foam Mule Looks Like",
+          "url": "https://www.highsnobiety.com/p/nike-calm-mule-chocolate-brown/",
+          "source": "Highsnobiety",
+          "date": "2026-07-05T11:48:00+00:00",
+          "date_formatted": "05/07 à 11h48",
+          "score": 8,
+          "tag": "Tendance",
+          "summary": "Publié le 5 juillet 2026 — Nike Calm, slip‑on en mousse monobloc, incarne le « foam mule » idéal : minimaliste, sans fioritures, mais étonnamment bien pensé. Sa silhouette épurée se glisse sans période de rodage et offre un confort durable, le tout à un prix raisonnable. Une option intelligente pour les amateurs de streetwear cherchant une chaussure d’été pratique et discrète.",
+          "artist": "",
+          "film": "",
+          "category": "mode_homme",
+          "category_name": "Mode Homme"
+        },
+        {
+          "title": "Converse’s Chicest All Star Mule Is Walking Taller (& Pointier) Than Ever",
+          "url": "https://www.highsnobiety.com/p/converse-all-star-polarige-mule-red/",
+          "source": "Highsnobiety",
+          "date": "2026-07-05T05:07:00+00:00",
+          "date_formatted": "05/07 à 05h07",
+          "score": 8,
+          "tag": "Tendance",
+          "summary": "Publié le 5 juillet 2026 — Converse réinvente son emblématique All Star avec la Polarige Mule, un hybride entre basket, mule et talon aigu. Conçue par Converse Japan, elle garde la silhouette classique tout en ajoutant une plateforme kitten‑heel, idéale pour les soirées urbaines. Ce modèle montre comment les marques peuvent pousser l’archive au-delà du safe‑wear, en misant sur la personnalité plutôt que la conformité.",
+          "artist": "",
+          "film": "",
+          "category": "mode_homme",
+          "category_name": "Mode Homme"
+        },
+        {
+          "title": "New Arrivals From HBX: NEIGHBORHOOD",
+          "url": "https://hypebeast.com/2026/7/new-arrivals-from-hbx-neighborhood-3",
+          "source": "Hypebeast",
+          "date": "2026-07-04T14:09:51+00:00",
+          "date_formatted": "04/07 à 14h09",
+          "score": 8,
+          "tag": "Découverte",
+          "summary": "Publié le 4 juillet 2026 — HBX propose les dernières pièces de NEIGHBORHOOD, la marque streetwear japonaise fondée en 1994. Fidèle à son credo « Craft with Pride », la collection mise sur des tissus premium et des coupes inspirées de l’esthétique moto. Cette arrivée renforce la présence de NEIGHBORHOOD aux côtés de WTAPS, UNDERCOVER et A Bathing Ape dans le paysage contemporain.",
+          "artist": "",
+          "film": "",
+          "category": "mode_homme",
+          "category_name": "Mode Homme"
+        }
+      ]
+    },
+    {
+      "key": "musique",
+      "name": "Musique Underground",
+      "icon": "🎵",
+      "articles": [
+        {
+          "title": "Fiona Apple Soundtracks Title Sequence For New Anya Taylor-Joy Miniseries Lucky",
+          "url": "https://stereogum.com/2504248/fiona-apple-soundtracks-title-sequence-for-new-anya-taylor-joy-miniseries-lucky/music/",
+          "source": "Stereogum",
+          "date": "2026-07-05T12:48:36+00:00",
+          "date_formatted": "05/07 à 12h48",
+          "score": 5,
+          "tag": "Sortie",
+          "summary": "Publié le 5 juillet 2026 — Fiona Apple signe la bande‑son originale du générique de la mini‑série Lucky, adaptée du roman de Marissa Stapley et diffusée sur Apple TV+. Qu’il s’agisse d’un morceau inédit ou d’un titre existant, sa voix apporte une atmosphère mélancolique qui colle parfaitement à l’univers de la série. Cette collaboration rappelle l’impact durable d’Apple sur les projets audiovisuels.",
+          "artist": "Fiona Apple",
+          "film": "",
+          "category": "musique",
+          "category_name": "Musique Underground"
+        },
+        {
+          "title": "Paul McCartney Played “I Want to Hold Your Hand” For The First Time Since 1964 At Taylor Swift & Travis Kelce’s Wedding",
+          "url": "https://stereogum.com/2504244/paul-mccartney-played-i-want-to-hold-your-hand-for-the-first-time-since-1964-at-taylor-swift-travis-kelces-wedding/news/",
+          "source": "Stereogum",
+          "date": "2026-07-05T12:40:39+00:00",
+          "date_formatted": "05/07 à 12h40",
+          "score": 1,
+          "tag": "Sortie",
+          "summary": "Publié le 5 juillet 2026 — Lors du mariage de Taylor Swift et Travis Kelce, Paul McCartney a repris « I Want to Hold Your Hand » pour la première fois depuis 1964. Le légendaire Beatle a offert un moment historique au Madison Square Garden, surprenant les invités et les fans. Cette performance montre comment les icônes du passé continuent de ponctuer les grands événements contemporains.",
+          "artist": "Paul McCartney",
+          "film": "",
+          "category": "musique",
+          "category_name": "Musique Underground"
+        },
+        {
+          "title": "Noah Kahan Celebrates Furries At Pittsburgh Show",
+          "url": "https://stereogum.com/2504235/noah-kahan-celebrates-furries-at-pittsburgh-show/news/",
+          "source": "Stereogum",
+          "date": "2026-07-04T17:39:38+00:00",
+          "date_formatted": "04/07 à 17h39",
+          "score": 1,
+          "tag": "Sortie",
+          "summary": "Publié le 4 juillet 2026 — Noah Kahan a embrassé la communauté furry lors de son concert à Pittsburgh, même en essayant un costume animalier du public. Le chanteur folk, connu pour ses mélodies accrocheuses, a transformé la soirée en un moment de partage inattendu. Cette anecdote illustre son côté spontané et son ouverture aux cultures alternatives.",
+          "artist": "Noah Kahan",
+          "film": "",
+          "category": "musique",
+          "category_name": "Musique Underground"
+        }
+      ]
+    }
+  ]
+}
