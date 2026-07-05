@@ -16,8 +16,12 @@ logger = logging.getLogger(__name__)
 
 PROJECT_ROOT = Path(__file__).parent.parent
 PROMPTS_PATH = PROJECT_ROOT / "config" / "prompts.yaml"
-MODEL = "llama-3.1-8b-instant"
-MAX_ARTICLES_PER_BATCH = 1
+# Modele surchargeable sans toucher au code (ex: FILTER_MODEL=openai/gpt-oss-120b)
+# gpt-oss-20b remplace llama-3.1-8b-instant, retire par Groq le 16/08/2026.
+MODEL = os.environ.get("FILTER_MODEL", "openai/gpt-oss-20b")
+# 10 articles/appel : ~10x moins d'appels qu'avant (1/appel), le remapping par batch
+# et le retry individuel des manquants garantissent qu'aucun article n'est perdu.
+MAX_ARTICLES_PER_BATCH = 10
 MIN_SCORE = 3
 MAX_SELECTED = 20
 MAX_RETRIES = 3
@@ -50,7 +54,10 @@ def get_client() -> Groq:
     api_key = os.environ.get("GROQ_API_KEY")
     if not api_key:
         raise ValueError("GROQ_API_KEY environment variable is not set")
-    return Groq(api_key=api_key, http_client=httpx.Client(verify=False))
+    # SSL verifie par defaut (prod/CI). Mettre INSECURE_SSL=1 uniquement en local
+    # derriere un proxy d'entreprise qui intercepte le TLS.
+    verify = os.environ.get("INSECURE_SSL") != "1"
+    return Groq(api_key=api_key, http_client=httpx.Client(verify=verify))
 
 
 def build_filter_prompt(prompts: dict) -> str:
@@ -96,12 +103,16 @@ def score_batch(client: Groq, system_prompt: str, articles: list[dict], offset: 
                     {"role": "user", "content": user_prompt},
                 ],
                 temperature=0.3,
-                max_tokens=500,
+                max_tokens=2000,
                 response_format={"type": "json_object"},
             )
 
             result = json.loads(response.choices[0].message.content)
-            raw_scores = result.get("articles", [])
+            # gpt-oss renvoie parfois le tableau directement, sans enveloppe {"articles": ...}
+            raw_scores = result.get("articles", []) if isinstance(result, dict) else result
+            if not isinstance(raw_scores, list):
+                raw_scores = []
+            raw_scores = [s for s in raw_scores if isinstance(s, dict)]
 
             mapped: dict[int, dict] = {}
             if len(raw_scores) == len(articles):

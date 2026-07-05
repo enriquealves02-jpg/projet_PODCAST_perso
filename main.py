@@ -16,10 +16,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Fix SSL pour les réseaux d'entreprise avec proxy interceptant
-os.environ["PYTHONHTTPSVERIFY"] = "0"
-ssl._create_default_https_context = ssl._create_unverified_context
-os.environ["GROQ_SSL_VERIFY"] = "false"
+# SSL desactive UNIQUEMENT si INSECURE_SSL=1 (reseaux d'entreprise avec proxy interceptant le TLS).
+# Par defaut (prod / GitHub Actions), la verification SSL reste ACTIVE.
+if os.environ.get("INSECURE_SSL") == "1":
+    os.environ["PYTHONHTTPSVERIFY"] = "0"
+    ssl._create_default_https_context = ssl._create_unverified_context
 
 logging.basicConfig(
     level=logging.INFO,

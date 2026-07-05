@@ -2,9 +2,17 @@ name: Daily Digest
 
 on:
   schedule:
-    # 4h30 UTC = 5h30 Paris (hiver) / 6h30 Paris (ete) - mail vers 7h apres pipeline
-    - cron: '30 4 * * *'
+    # 3h07 UTC = 4h07 Paris (hiver) / 5h07 Paris (ete).
+    # Minute "impaire" + heure avancee pour limiter la file d'attente GitHub Actions
+    # (les crons sur les heures rondes sont souvent retardes de plusieurs heures).
+    # Pour une livraison a l'heure FIXE, declenche plutot via repository_dispatch
+    # depuis un cron externe (cron-job.org) - voir README.
+    - cron: '7 3 * * *'
+  # Declenchement manuel (bouton "Run workflow")
   workflow_dispatch:
+  # Declenchement externe ponctuel a l'heure (cron-job.org -> API GitHub)
+  repository_dispatch:
+    types: [daily-digest]
 
 permissions:
   contents: write
@@ -47,6 +55,8 @@ jobs:
 
           # Save digest before switching branch
           cp data/digest.html /tmp/digest.html
+          cp data/digest.json /tmp/digest.json
+          cp data/seen_urls.json /tmp/seen_urls_new.json
 
           # Fetch gh-pages if it exists, or create it
           git fetch origin gh-pages:gh-pages 2>/dev/null && git checkout gh-pages || git checkout --orphan gh-pages
@@ -57,8 +67,25 @@ jobs:
           mkdir -p archive
           cp /tmp/digest.html index.html
           cp /tmp/digest.html "archive/${DATE}.html"
+          cp /tmp/digest.json digest.json
+          cp /tmp/digest.json "archive/${DATE}.json"
 
-          git add index.html archive/
+          # Merge des URLs publiees (memoire anti-redites, 1000 max)
+          python3 - <<'EOF'
+          import json, os
+          old = []
+          if os.path.exists("seen_urls.json"):
+              try:
+                  old = json.load(open("seen_urls.json", encoding="utf-8")).get("urls", [])
+              except Exception:
+                  old = []
+          new = json.load(open("/tmp/seen_urls_new.json", encoding="utf-8")).get("urls", [])
+          merged = list(dict.fromkeys(new + old))[:1000]
+          json.dump({"urls": merged}, open("seen_urls.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+          print(f"seen_urls.json: {len(merged)} URLs")
+          EOF
+
+          git add index.html archive/ digest.json seen_urls.json
           git commit -m "Digest ${DATE}" || echo "No changes"
           git push origin gh-pages
 

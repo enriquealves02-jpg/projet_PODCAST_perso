@@ -2,11 +2,12 @@
 Email Builder - Génère le HTML du digest à partir du template Jinja2.
 """
 
+import json
 import locale
 import logging
 import os
 from collections import OrderedDict
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 import yaml
@@ -19,6 +20,8 @@ PROJECT_ROOT = Path(__file__).parent.parent
 TEMPLATES_DIR = PROJECT_ROOT / "templates"
 CONFIG_PATH = PROJECT_ROOT / "config" / "feeds.yaml"
 OUTPUT_HTML = PROJECT_ROOT / "data" / "digest.html"
+OUTPUT_JSON = PROJECT_ROOT / "data" / "digest.json"
+OUTPUT_SEEN = PROJECT_ROOT / "data" / "seen_urls.json"
 
 
 def load_feeds_config() -> dict:
@@ -87,8 +90,61 @@ def build_html(articles: list[dict]) -> str:
     return html
 
 
+def build_json(articles: list[dict]) -> Path:
+    """Version JSON du digest, consommee par l'application (rendu natif)."""
+    categories = group_by_category(articles)
+    now = datetime.now(timezone.utc)
+
+    payload = {
+        "date": now.strftime("%Y-%m-%d"),
+        "generated_at": now.isoformat(),
+        "total_articles": len(articles),
+        "rating_url": os.environ.get("RATING_WEBHOOK_URL", ""),
+        "categories": [
+            {
+                "key": cat_key,
+                "name": cat_data["name"],
+                "icon": cat_data["icon"],
+                "articles": [
+                    {
+                        "title": a.get("title", ""),
+                        "url": a.get("url", ""),
+                        "source": a.get("source", ""),
+                        "date": a.get("date", ""),
+                        "date_formatted": a.get("date_formatted", ""),
+                        "score": a.get("score", 0),
+                        "tag": a.get("tag", ""),
+                        "summary": a.get("summary", ""),
+                        "artist": a.get("artist", ""),
+                        "film": a.get("film", ""),
+                        "category": a.get("category", ""),
+                        "category_name": a.get("category_name", ""),
+                    }
+                    for a in cat_data["articles"]
+                ],
+            }
+            for cat_key, cat_data in categories.items()
+            if cat_data["articles"]
+        ],
+    }
+
+    OUTPUT_JSON.parent.mkdir(parents=True, exist_ok=True)
+    with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, indent=2)
+
+    # URLs publiees aujourd'hui : fusionnees dans seen_urls.json au deploiement
+    seen = {"urls": [a.get("url", "") for a in articles if a.get("url")]}
+    with open(OUTPUT_SEEN, "w", encoding="utf-8") as f:
+        json.dump(seen, f, ensure_ascii=False, indent=2)
+
+    logger.info(f"Built digest JSON: {OUTPUT_JSON} ({len(articles)} articles)")
+    return OUTPUT_JSON
+
+
 def run(articles: list[dict]) -> str:
-    return build_html(articles)
+    html = build_html(articles)
+    build_json(articles)
+    return html
 
 
 if __name__ == "__main__":

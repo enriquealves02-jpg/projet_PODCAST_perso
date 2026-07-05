@@ -8,10 +8,10 @@ Pipeline automatise qui genere chaque matin un journal personnalise a partir de 
 RSS Feeds → Scraping → Filtrage LLM → Resume LLM → Page HTML → GitHub Pages + Email
 ```
 
-1. **Scraping** : recupere les articles des dernieres 24h depuis les flux RSS configures dans `config/feeds.yaml`
-2. **Filtrage** : un LLM (Llama via Groq) score chaque article selon un profil lecteur, avec des quotas par categorie
-3. **Resume** : un second appel LLM genere un resume en francais de chaque article selectionne
-4. **HTML** : genere une page dark theme avec les articles groupes par categorie
+1. **Scraping** : recupere les articles des dernieres 24h depuis les flux RSS configures dans `config/feeds.yaml` (en parallele, extraction trafilatura, dedup + exclusion des articles deja publies)
+2. **Filtrage** : un LLM (gpt-oss-20b via Groq) score chaque article selon un profil lecteur, avec des quotas par categorie
+3. **Resume** : un second appel LLM (gpt-oss-120b via Groq) genere un resume en francais de chaque article selectionne
+4. **HTML + JSON** : genere une page dark theme (`digest.html`) et un `digest.json` consomme par l'application mobile
 5. **Deploiement** : push sur GitHub Pages + envoi d'un email avec le lien
 
 ## Fonctionnalites

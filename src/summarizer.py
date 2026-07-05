@@ -16,7 +16,9 @@ logger = logging.getLogger(__name__)
 
 PROJECT_ROOT = Path(__file__).parent.parent
 PROMPTS_PATH = PROJECT_ROOT / "config" / "prompts.yaml"
-MODEL = "llama-3.3-70b-versatile"
+# Modele surchargeable sans toucher au code
+# gpt-oss-120b remplace llama-3.3-70b-versatile, retire par Groq le 16/08/2026.
+MODEL = os.environ.get("SUMMARIZER_MODEL", "openai/gpt-oss-120b")
 MAX_ARTICLES_PER_BATCH = 5
 MAX_RETRIES = 3
 RETRY_DELAY = 5
@@ -32,7 +34,10 @@ def get_client() -> Groq:
     api_key = os.environ.get("GROQ_API_KEY")
     if not api_key:
         raise ValueError("GROQ_API_KEY environment variable is not set")
-    return Groq(api_key=api_key, http_client=httpx.Client(verify=False))
+    # SSL verifie par defaut (prod/CI). Mettre INSECURE_SSL=1 uniquement en local
+    # derriere un proxy d'entreprise qui intercepte le TLS.
+    verify = os.environ.get("INSECURE_SSL") != "1"
+    return Groq(api_key=api_key, http_client=httpx.Client(verify=verify))
 
 
 def build_summary_prompt(prompts: dict) -> str:
@@ -86,7 +91,11 @@ def summarize_batch(client: Groq, system_prompt: str, articles: list[dict], offs
             )
 
             result = json.loads(response.choices[0].message.content)
-            raw_summaries = result.get("summaries", [])
+            # gpt-oss renvoie parfois le tableau directement, sans enveloppe {"summaries": ...}
+            raw_summaries = result.get("summaries", []) if isinstance(result, dict) else result
+            if not isinstance(raw_summaries, list):
+                raw_summaries = []
+            raw_summaries = [s for s in raw_summaries if isinstance(s, dict)]
 
             mapped: dict[int, dict] = {}
             if len(raw_summaries) == len(articles):

@@ -4,6 +4,7 @@ Custom Scrapers - Scraping HTML direct pour les sites sans flux RSS.
 
 import json
 import logging
+import os
 import re
 from datetime import datetime, timedelta, timezone
 
@@ -17,6 +18,10 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
 }
 
+# Scraping de sites publics (aucun secret ne transite) : SSL desactive pour ne JAMAIS
+# bloquer la recolte d'articles a cause d'un certificat capricieux ou du proxy local.
+VERIFY_SSL = False
+
 
 def scrape_cahiers_du_cinema(hours_back: int = 24) -> list[dict]:
     """Scrape les derniers articles des Cahiers du Cinéma."""
@@ -26,7 +31,7 @@ def scrape_cahiers_du_cinema(hours_back: int = 24) -> list[dict]:
     articles = []
 
     try:
-        resp = requests.get(listing_url, headers=HEADERS, timeout=15, verify=False)
+        resp = requests.get(listing_url, headers=HEADERS, timeout=15, verify=VERIFY_SSL)
         resp.raise_for_status()
         soup = BeautifulSoup(resp.text, "html.parser")
 
@@ -54,7 +59,7 @@ def scrape_cahiers_du_cinema(hours_back: int = 24) -> list[dict]:
 def _scrape_cahiers_article(url: str, cutoff: datetime) -> dict | None:
     """Scrape un article individuel des Cahiers du Cinéma."""
     try:
-        resp = requests.get(url, headers=HEADERS, timeout=15, verify=False)
+        resp = requests.get(url, headers=HEADERS, timeout=15, verify=VERIFY_SSL)
         resp.raise_for_status()
         soup = BeautifulSoup(resp.text, "html.parser")
 
@@ -139,7 +144,7 @@ def scrape_tldr_ai(hours_back: int = 24) -> list[dict]:
     for date_str in dict.fromkeys(dates_to_try):  # deduplicate
         url = f"https://tldr.tech/ai/{date_str}"
         try:
-            resp = requests.get(url, headers=HEADERS, timeout=15, verify=False)
+            resp = requests.get(url, headers=HEADERS, timeout=15, verify=VERIFY_SSL)
             if resp.status_code == 404:
                 continue
             resp.raise_for_status()
