@@ -1,7 +1,7 @@
 categories:
   science_math:
     name: "Science & Mathématiques"
-    icon: "🔬"
+    icon: ""
     feeds:
       - url: "https://api.quantamagazine.org/feed/"
         name: "Quanta Magazine"
@@ -13,11 +13,10 @@ categories:
         name: "Nautilus"
       - url: "https://aeon.co/feed.rss"
         name: "Aeon"
-      # Plus Magazine retire (flux mort, 0 entree)
 
   tech_ia:
     name: "Tech & Intelligence Artificielle"
-    icon: "💻"
+    icon: ""
     feeds:
       - url: "https://hnrss.org/frontpage"
         name: "Hacker News"
@@ -31,7 +30,7 @@ categories:
 
   cinema:
     name: "Cinéma"
-    icon: "🎬"
+    icon: ""
     feeds:
       - url: "https://www.indiewire.com/feed/"
         name: "IndieWire"
@@ -45,11 +44,13 @@ categories:
         name: "Critikat"
       - url: "https://www.filmcomment.com/feed/"
         name: "Film Comment"
+      - url: "https://www.troiscouleurs.fr/feed/"
+        name: "Trois Couleurs"
       # Cahiers du Cinema est gere via scraper custom
 
   actualite:
     name: "Actualité"
-    icon: "📰"
+    icon: ""
     feeds:
       - url: "https://www.lemonde.fr/idees/rss_full.xml"
         name: "Le Monde - Idées"
@@ -59,11 +60,10 @@ categories:
         name: "Le Grand Continent"
       - url: "https://www.france24.com/fr/rss"
         name: "France 24"
-      # Reuters retire (feeds.reuters.com coupe depuis des annees)
 
   mode_homme:
     name: "Mode Homme"
-    icon: "👔"
+    icon: ""
     feeds:
       - url: "https://www.highsnobiety.com/feed/"
         name: "Highsnobiety"
@@ -71,12 +71,14 @@ categories:
         name: "Hypebeast"
       - url: "https://www.gqmagazine.fr/feed/rss"
         name: "GQ France"
-      - url: "https://www.fashionbeans.com/feed/"
-        name: "FashionBeans"
+      - url: "https://fuckingyoung.es/feed/"
+        name: "Fucking Young"
+      # FashionBeans retire (listicles "best of" hors profil)
+      # Dazed Fashion est gere via scraper declaratif (config/custom_scrapers.yaml)
 
   musique:
     name: "Musique Underground"
-    icon: "🎵"
+    icon: ""
     feeds:
       - url: "https://pitchfork.com/feed/feed-album-reviews/rss"
         name: "Pitchfork Reviews"
@@ -92,4 +94,7 @@ categories:
         name: "The Wire"
       - url: "https://firstfloor.substack.com/feed"
         name: "First Floor"
-      # Fact Magazine et XLR8R retires (inactifs depuis >1 mois)
+      - url: "https://www.tsugi.fr/feed/"
+        name: "Tsugi"
+      - url: "https://aquariumdrunkard.com/feed/"
+        name: "Aquarium Drunkard"

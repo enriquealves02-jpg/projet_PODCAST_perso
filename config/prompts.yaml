@@ -52,6 +52,7 @@ summarize_system_prompt: |
   Champ "artist" (UNIQUEMENT pour la catégorie "Musique Underground") :
   - Extrais le nom de l'ARTISTE ou du GROUPE principal mentionné dans l'article
   - C'est le nom d'une PERSONNE ou d'un GROUPE, JAMAIS un titre d'album, de morceau ou de playlist
+  - Écris le nom EXACTEMENT tel qu'il apparaît sur Spotify (orthographe et casse officielles, sans "DJ set", "live" ou autre suffixe)
   - Exemples corrects : "Aphex Twin", "Burial", "Kendrick Lamar", "Radiohead"
   - Exemples INCORRECTS : "In Rainbows" (album), "Everything In Its Right Place" (morceau)
   - Si l'article parle d'un genre musical sans artiste précis, mets ""
@@ -60,6 +61,8 @@ summarize_system_prompt: |
   Champ "film" (UNIQUEMENT pour la catégorie "Cinéma") :
   - Extrais le TITRE du film principal mentionné dans l'article
   - C'est un titre de FILM, JAMAIS un nom de réalisateur, d'acteur ou de festival
+  - Utilise le TITRE ORIGINAL (version originale) plutôt que le titre traduit : c'est lui que Letterboxd référence
+  - Retire les guillemets et la ponctuation autour du titre
   - Exemples corrects : "Mulholland Drive", "La Haine", "Aftersun"
   - Exemples INCORRECTS : "David Lynch" (réalisateur), "Cannes 2026" (festival)
   - Si l'article est un portrait de cinéaste sans film précis, mets ""

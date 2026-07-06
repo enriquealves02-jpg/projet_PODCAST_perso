@@ -1,0 +1,53 @@
+# Brief du jour par section : un edito genere par IA au-dessus de la section,
+# qui synthetise ce qu'il se passe en ce moment dans le domaine.
+#
+# Par categorie :
+#   enabled: true/false  -> genere (ou non) le brief de cette section
+#   preprompt: >         -> instructions specifiques injectees dans le prompt
+#                           (angle, structure, points d'attention)
+#
+# Les categories absentes de ce fichier = pas de brief.
+
+briefs:
+  science_math:
+    enabled: true
+    preprompt: >
+      Lecteur titulaire d'un M2 de mathematiques : ne vulgarise pas a l'exces.
+      Mets en avant les resultats et preprints marquants (qui a prouve quoi,
+      dans quel domaine - algebre, geometrie, topologie, analyse, probas),
+      les conjectures qui bougent, et les debats de fond de la communaute.
+      Si une avancee touche aux fondements ou a un grand probleme ouvert,
+      commence par elle. Distingue clairement resultat etabli, preprint non
+      relu, et simple annonce.
+
+  tech_ia:
+    enabled: true
+    preprompt: >
+      Lecteur qui travaille dans l'IA et suit la recherche de pres. Synthese
+      attendue : les annonces de modeles et papers qui comptent vraiment (et
+      pourquoi), les tendances de fond derriere le bruit (architecture,
+      inference, agents, open source vs proprietaire), et les mouvements
+      de l'industrie (labos, financements, regulations). Signale ce qui est
+      du marketing deguise. Termine par ce qui merite d'etre creuse.
+
+  cinema:
+    enabled: true
+    preprompt: >
+      Cinephile oriente cinema d'auteur et independant. Synthese attendue :
+      les sorties et festivals qui comptent, les debats critiques du moment,
+      les mouvements dans le cinema independant. Ignore le box-office et les
+      blockbusters sauf s'ils disent quelque chose du paysage general.
+
+  musique:
+    enabled: true
+    preprompt: >
+      Auditeur de musique underground : electronique, rock, rap, indie,
+      experimental. Synthese attendue : les sorties marquantes du moment et
+      pourquoi elles comptent, les mouvements de scenes (labels, collectifs,
+      genres emergents), et ce que la critique en dit. Zero pop mainstream.
+
+  actualite:
+    enabled: false
+
+  mode_homme:
+    enabled: false

@@ -74,6 +74,34 @@
             margin: 48px 0;
         }
 
+        .section-brief {
+            margin-bottom: 20px;
+            padding: 18px 20px;
+            background: #10151c;
+            border-left: 2px solid #388bfd;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .section-brief-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #58a6ff;
+            margin-bottom: 10px;
+        }
+
+        .section-brief p {
+            font-size: 14px;
+            color: #b8c2cc;
+            line-height: 1.75;
+            margin-bottom: 10px;
+        }
+
+        .section-brief p:last-child {
+            margin-bottom: 0;
+        }
+
         .article {
             margin-bottom: 20px;
             padding: 20px;
@@ -273,6 +301,15 @@
         <div class="category-section">
             <div class="category-header">{{ cat_data.name }}</div>
 
+            {% if editorials.get(cat_key) %}
+            <div class="section-brief">
+                <div class="section-brief-label">Le point du jour</div>
+                {% for paragraph in editorials[cat_key].text.split('\n\n') %}
+                <p>{{ paragraph }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
             {% for article in cat_data.articles %}
             <div class="article">
                 <div class="article-top">
@@ -287,7 +324,7 @@
                 <div style="display:flex;align-items:center;gap:12px;">
                     <a class="read-more" href="{{ article.url }}" target="_blank">Lire l'article &rarr;</a>
                     {% if article.artist and cat_key == 'musique' %}
-                    <a class="spotify-btn" href="https://open.spotify.com/search/artist%3A{{ article.artist | urlencode }}" target="_blank">{{ article.artist }} sur Spotify</a>
+                    <a class="spotify-btn" href="https://open.spotify.com/search/{{ article.artist | urlencode }}/artists" target="_blank">{{ article.artist }} sur Spotify</a>
                     {% endif %}
                     {% if article.film and cat_key == 'cinema' %}
                     <a class="letterboxd-btn" href="https://letterboxd.com/search/films/{{ article.film | urlencode }}/" target="_blank">{{ article.film }} sur Letterboxd</a>

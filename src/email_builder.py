@@ -59,11 +59,12 @@ def group_by_category(articles: list[dict]) -> OrderedDict:
     return categories
 
 
-def build_html(articles: list[dict]) -> str:
+def build_html(articles: list[dict], editorials: list[dict] | None = None) -> str:
     env = Environment(loader=FileSystemLoader(str(TEMPLATES_DIR)))
     template = env.get_template("digest.html")
 
     categories = group_by_category(articles)
+    editorials_by_key = {e["key"]: e for e in (editorials or [])}
     try:
         locale.setlocale(locale.LC_TIME, "fr_FR.UTF-8")
     except locale.Error:
@@ -79,6 +80,7 @@ def build_html(articles: list[dict]) -> str:
         date=today,
         total_articles=len(articles),
         categories=categories,
+        editorials=editorials_by_key,
         rating_url=rating_url,
     )
 
@@ -90,7 +92,7 @@ def build_html(articles: list[dict]) -> str:
     return html
 
 
-def build_json(articles: list[dict]) -> Path:
+def build_json(articles: list[dict], editorials: list[dict] | None = None) -> Path:
     """Version JSON du digest, consommee par l'application (rendu natif)."""
     categories = group_by_category(articles)
     now = datetime.now(timezone.utc)
@@ -100,6 +102,7 @@ def build_json(articles: list[dict]) -> Path:
         "generated_at": now.isoformat(),
         "total_articles": len(articles),
         "rating_url": os.environ.get("RATING_WEBHOOK_URL", ""),
+        "editorials": editorials or [],
         "categories": [
             {
                 "key": cat_key,
@@ -141,9 +144,9 @@ def build_json(articles: list[dict]) -> Path:
     return OUTPUT_JSON
 
 
-def run(articles: list[dict]) -> str:
-    html = build_html(articles)
-    build_json(articles)
+def run(articles: list[dict], editorials: list[dict] | None = None) -> str:
+    html = build_html(articles, editorials)
+    build_json(articles, editorials)
     return html
 
 

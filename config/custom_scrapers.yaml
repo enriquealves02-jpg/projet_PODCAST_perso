@@ -1,0 +1,11 @@
+# Scrapers declaratifs pour les sites sans flux RSS.
+# Generes par IA via : python tools/generate_scraper.py <url> <nom> <categorie>
+# puis valides (apercu des articles) et conserves ici pour tous les digests.
+# Executes chaque jour par src/scrapers_custom.py (moteur : src/scraper_engine.py).
+
+scrapers:
+  - name: "Dazed Fashion"
+    category: mode_homme
+    list_url: "https://www.dazeddigital.com/fashion"
+    article_link_selector: "a[href*='/fashion/article/'], a[href*='/fashion/gallery/']"
+    # Genere par openai/gpt-oss-120b le 06/07/2026, valide (5 articles extraits)

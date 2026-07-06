@@ -197,6 +197,55 @@ CUSTOM_SCRAPERS = {
 }
 
 
+def run_declarative_scrapers(hours_back: int = 24) -> list[dict]:
+    """Execute les scrapers declaratifs de config/custom_scrapers.yaml
+    (generes par IA via tools/generate_scraper.py puis valides)."""
+    from pathlib import Path
+
+    import yaml
+
+    from src.scraper_engine import run_config
+
+    config_path = Path(__file__).parent.parent / "config" / "custom_scrapers.yaml"
+    if not config_path.exists():
+        return []
+
+    with open(config_path, "r", encoding="utf-8") as f:
+        data = yaml.safe_load(f) or {}
+
+    # Noms de categories depuis feeds.yaml (cle -> nom affiche)
+    feeds_path = Path(__file__).parent.parent / "config" / "feeds.yaml"
+    with open(feeds_path, "r", encoding="utf-8") as f:
+        feeds_config = yaml.safe_load(f) or {}
+    category_names = {
+        key: cat.get("name", key) for key, cat in (feeds_config.get("categories") or {}).items()
+    }
+
+    cutoff = datetime.now(timezone.utc) - timedelta(hours=hours_back)
+    all_articles = []
+
+    for config in data.get("scrapers", []):
+        name = config.get("name", config.get("list_url", "?"))
+        category = config.get("category", "")
+        logger.info(f"Running declarative scraper: {name}")
+        try:
+            for item in run_config(config):
+                if item["date"]:
+                    pub = datetime.fromisoformat(item["date"])
+                    if pub < cutoff:
+                        continue
+                all_articles.append({
+                    **item,
+                    "category": category,
+                    "category_name": category_names.get(category, category),
+                    "source": name,
+                })
+        except Exception as e:
+            logger.error(f"Declarative scraper {name} failed: {e}")
+
+    return all_articles
+
+
 def run_all_custom_scrapers(hours_back: int = 24) -> list[dict]:
     """Lance tous les scrapers custom et retourne les articles combinés."""
     all_articles = []
@@ -207,6 +256,7 @@ def run_all_custom_scrapers(hours_back: int = 24) -> list[dict]:
             all_articles.extend(articles)
         except Exception as e:
             logger.error(f"Custom scraper {name} failed: {e}")
+    all_articles.extend(run_declarative_scrapers(hours_back=hours_back))
     return all_articles
 
 

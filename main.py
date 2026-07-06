@@ -31,6 +31,7 @@ logger = logging.getLogger("daily-digest")
 from src.scraper import run as scrape
 from src.filter import run as filter_articles
 from src.summarizer import run as summarize
+from src.editorial import run as build_briefs
 from src.email_builder import run as build_html
 from src.sender import run as send_email
 
@@ -61,9 +62,17 @@ def main(dry_run: bool = False) -> None:
     enriched = summarize(selected)
     logger.info(f"[3/5] Done - {len(enriched)} articles summarized")
 
+    # Step 3bis: Briefs de section (edito IA par categorie activee)
+    logger.info("[3bis/5] Building section briefs...")
+    try:
+        editorials = build_briefs(enriched)
+    except Exception as e:
+        logger.warning(f"[3bis/5] Briefs skipped: {e}")
+        editorials = []
+
     # Step 4: Build HTML
     logger.info("[4/5] Building HTML digest...")
-    html = build_html(enriched)
+    html = build_html(enriched, editorials)
     logger.info("[4/5] Done - HTML digest generated")
 
     # Step 5: Send email
