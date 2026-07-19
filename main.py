@@ -31,6 +31,7 @@ logger = logging.getLogger("daily-digest")
 from src.scraper import run as scrape
 from src.filter import run as filter_articles
 from src.summarizer import run as summarize
+from src.links import run as resolve_links
 from src.editorial import run as build_briefs
 from src.email_builder import run as build_html
 from src.sender import run as send_email
@@ -61,6 +62,13 @@ def main(dry_run: bool = False) -> None:
     logger.info("[3/5] Summarizing articles with LLM...")
     enriched = summarize(selected)
     logger.info(f"[3/5] Done - {len(enriched)} articles summarized")
+
+    # Step 3ter: Verification et resolution des liens artiste/film
+    logger.info("[3ter/5] Resolving artist/film links...")
+    try:
+        enriched = resolve_links(enriched)
+    except Exception as e:
+        logger.warning(f"[3ter/5] Link resolution skipped: {e}")
 
     # Step 3bis: Briefs de section (edito IA par categorie activee)
     logger.info("[3bis/5] Building section briefs...")

@@ -119,7 +119,9 @@ def build_json(articles: list[dict], editorials: list[dict] | None = None) -> Pa
                         "tag": a.get("tag", ""),
                         "summary": a.get("summary", ""),
                         "artist": a.get("artist", ""),
+                        "artist_url": a.get("artist_url", ""),
                         "film": a.get("film", ""),
+                        "film_url": a.get("film_url", ""),
                         "category": a.get("category", ""),
                         "category_name": a.get("category_name", ""),
                     }
